@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 
-namespace QLPHONGKHAM
+namespace DB_Management
 {
     public partial class DangKy : Form
     {

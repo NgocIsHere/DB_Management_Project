@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLPHONGKHAM", "Code\QLPHONGKHAM.csproj", "{A0C163B6-2114-4CDC-9252-7BBCA653597A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB_Management", "Code\DB_Management.csproj", "{A0C163B6-2114-4CDC-9252-7BBCA653597A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

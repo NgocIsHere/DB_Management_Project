@@ -41,64 +41,38 @@ namespace DB_Management
         private void InitializeNavigationButtons()
         {
             List<Button> buttons = new List<Button>()
-            { thuocButton, NSButton, NVButton, LLVButton,button3};
+            { button1, button2, button3};
 
             // create a NavigationButtons instance
             navigationButtons = new NavigationButtons(buttons, btnDefaultColor, btnSelectedtColor);
 
             // Make a default selected button
-            navigationButtons.Highlight(LLVButton);
+            navigationButtons.Highlight(button1);
         }
 
-        private void thuocButton_Click(object sender, EventArgs e)
-        {
-            navigationControl.Display(0);
-            navigationButtons.Highlight(thuocButton);
-        }
-
-        private void NSButton_Click(object sender, EventArgs e)
-        {
-            navigationControl.Display(1);
-            navigationButtons.Highlight(NSButton);
-        }
-
-        private void NVButton_Click(object sender, EventArgs e)
-        {
-            navigationControl.Display(2);
-            navigationButtons.Highlight(NVButton);
-        }
-        private void LLVButton_Click(object sender, EventArgs e)
-        {
-            navigationControl.Display(3);
-            navigationButtons.Highlight(LLVButton);
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            /*this.Hide();
-            UserList ds = new UserList(role);
-            ds.Show();*/
-        }
-
-        private void exitButton_Click(object sender, EventArgs e)
-        {
-            /*DangNhap dn = new DangNhap();
-            this.Hide();
-            dn.Show();*/
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            /*Appointment appointment = new Appointment(role);
-            this.Hide();
-            appointment.Show();*/
-        }
+      
 
         private void button3_Click(object sender, EventArgs e)
         {
-            /*navigationControl.Display(4);
-            navigationButtons.Highlight(button3);*/
+            navigationControl.Display(1);
+            navigationButtons.Highlight(button3);
         }
+
+        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(3);
+            navigationButtons.Highlight(button1);
+        }
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(3);
+            navigationButtons.Highlight(button2);
+        }
+
+       
     } 
 }
