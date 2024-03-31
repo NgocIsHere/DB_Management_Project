@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QLPHONGKHAM.Properties {
+namespace DB_Management.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

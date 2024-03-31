@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QLPHONGKHAM
+namespace DB_Management
 {
     partial class DangKy
     {

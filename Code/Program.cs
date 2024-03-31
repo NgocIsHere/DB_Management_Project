@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QLPHONGKHAM
+namespace DB_Management
 {
     internal static class Program
     {

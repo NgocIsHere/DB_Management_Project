@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using QLPHONGKHAM;
+using DB_Management;
 
-namespace QLPHONGKHAM
+namespace DB_Management
 {
     public partial class DangNhap : Form
     {
