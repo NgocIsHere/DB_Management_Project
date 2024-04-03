@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLPHONGKHAM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace DB_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Home("qtv"));
+            Application.Run(new addUser());
         }
     }
 }

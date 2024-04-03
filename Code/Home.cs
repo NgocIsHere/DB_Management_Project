@@ -73,6 +73,9 @@ namespace DB_Management
             navigationButtons.Highlight(button2);
         }
 
-       
+        private void content_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     } 
 }
