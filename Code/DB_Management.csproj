@@ -81,6 +81,13 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
+=======
+    <Reference Include="Oracle.DataAccess, Version=4.122.21.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+>>>>>>> userlist
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.21.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.21.13.0\lib\net462\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
@@ -165,6 +172,12 @@
     <Compile Include="UserList.Designer.cs">
       <DependentUpon>UserList.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserList1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserList1.Designer.cs">
+      <DependentUpon>UserList1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="addUser.resx">
       <DependentUpon>addUser.cs</DependentUpon>
@@ -191,6 +204,9 @@
     <EmbeddedResource Include="UserList.resx">
       <DependentUpon>UserList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserList1.resx">
+      <DependentUpon>UserList1.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>
@@ -212,7 +228,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Oracle.DataAccess.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"

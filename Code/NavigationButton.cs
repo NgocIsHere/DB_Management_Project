@@ -17,8 +17,8 @@ namespace DB_Management
         public NavigationButtons(List<Button> buttons, Color defaultColor, Color selectedColor)
         {
             this.buttons = buttons;
-            this.defaultColor = defaultColor;
-            this.selectedColor = selectedColor;
+            this.defaultColor = Color.Aqua;
+            this.selectedColor = Color.Yellow;
             SetButtonColor();
         }
 

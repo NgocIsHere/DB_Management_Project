@@ -41,7 +41,7 @@ namespace DB_Management
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button1);
@@ -49,35 +49,47 @@ namespace DB_Management
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
+<<<<<<< HEAD
             this.panel1.Size = new System.Drawing.Size(243, 611);
+=======
+            this.panel1.Size = new System.Drawing.Size(280, 664);
+>>>>>>> userlist
             this.panel1.TabIndex = 0;
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.button2.BackColor = System.Drawing.Color.Aqua;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.button2.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.button2.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+<<<<<<< HEAD
             this.button2.Location = new System.Drawing.Point(0, 72);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+=======
+            this.button2.Location = new System.Drawing.Point(-3, 90);
+>>>>>>> userlist
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(243, 71);
             this.button2.TabIndex = 3;
-            this.button2.Text = "Button 02";
+            this.button2.Text = "Chỉnh sửa quyền User";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.button3.BackColor = System.Drawing.Color.Aqua;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.button3.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.button3.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button3.ForeColor = System.Drawing.Color.Black;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+<<<<<<< HEAD
             this.button3.Location = new System.Drawing.Point(-1, 148);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+=======
+            this.button3.Location = new System.Drawing.Point(0, 185);
+>>>>>>> userlist
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(241, 71);
             this.button3.TabIndex = 2;
@@ -88,30 +100,42 @@ namespace DB_Management
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(40)))), ((int)(((byte)(45)))));
+            this.button1.BackColor = System.Drawing.Color.Aqua;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+<<<<<<< HEAD
             this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.button1.Location = new System.Drawing.Point(3, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+=======
+            this.button1.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(0, 2);
+>>>>>>> userlist
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(240, 66);
             this.button1.TabIndex = 3;
-            this.button1.Text = "Danh sách User";
+            this.button1.Text = "Xem danh sách User";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // content
             // 
+            this.content.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.content.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.content.Enabled = false;
             this.content.ForeColor = System.Drawing.Color.White;
+<<<<<<< HEAD
             this.content.Location = new System.Drawing.Point(243, 0);
             this.content.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.content.Name = "content";
             this.content.Size = new System.Drawing.Size(1018, 611);
+=======
+            this.content.Location = new System.Drawing.Point(280, 0);
+            this.content.Name = "content";
+            this.content.Size = new System.Drawing.Size(978, 664);
+>>>>>>> userlist
             this.content.TabIndex = 1;
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             // 
@@ -120,7 +144,11 @@ namespace DB_Management
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(1261, 611);
+=======
+            this.ClientSize = new System.Drawing.Size(1258, 664);
+>>>>>>> userlist
             this.Controls.Add(this.content);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
