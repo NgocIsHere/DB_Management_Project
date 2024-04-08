@@ -29,16 +29,19 @@ namespace DB_Management
             try
             {
                 connection.Open();       
-
-                MessageBox.Show("Kết nối thành công");
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Kết nối thất bại: " + ex.Message);
             }
         }
+
+        public void disconnect()
+        {
+            connection.Close();
+        }
+
+        
        
     }
 }
