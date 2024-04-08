@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DB_Management
 {
@@ -19,6 +20,7 @@ namespace DB_Management
         Color btnDefaultColor = Color.Transparent;
         Color btnSelectedtColor = Color.Teal;
         public string role;
+
         public Home(string role)
         {
             InitializeComponent();
@@ -31,8 +33,9 @@ namespace DB_Management
         {
             
             UserList ds = new UserList(role);
+            UserList1 ds0 = new UserList1();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {ds,ds,ds,ds,ds};
+            {ds,ds0,ds};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -73,6 +76,9 @@ namespace DB_Management
             navigationButtons.Highlight(button2);
         }
 
-       
+        private void content_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     } 
 }
