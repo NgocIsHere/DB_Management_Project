@@ -242,7 +242,7 @@ namespace project
                 btn_add.Text = "Add";
                 isadd = false;
                 lb_total.Text = "Total: " + roles.Count.ToString();
-                getViewForRole("C##P_" + current_role.Name);
+                getViewForRole(current_role.Name);
             }
             lb_addrole.Text = "";
             btn_add.Visible = true;
