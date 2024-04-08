@@ -47,6 +47,7 @@ namespace DB_Management
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(280, 664);
             this.panel1.TabIndex = 0;
@@ -60,7 +61,7 @@ namespace DB_Management
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.Location = new System.Drawing.Point(-3, 90);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(273, 89);
+            this.button2.Size = new System.Drawing.Size(243, 71);
             this.button2.TabIndex = 3;
             this.button2.Text = "Chỉnh sửa quyền User";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -76,7 +77,7 @@ namespace DB_Management
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button3.Location = new System.Drawing.Point(0, 185);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(271, 89);
+            this.button3.Size = new System.Drawing.Size(241, 71);
             this.button3.TabIndex = 2;
             this.button3.Text = "Button 03";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -91,7 +92,7 @@ namespace DB_Management
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(0, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(270, 82);
+            this.button1.Size = new System.Drawing.Size(240, 66);
             this.button1.TabIndex = 3;
             this.button1.Text = "Xem danh sách User";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -109,15 +110,17 @@ namespace DB_Management
             this.content.Size = new System.Drawing.Size(978, 664);
             this.content.TabIndex = 1;
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
+            this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             // 
             // Home
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1258, 664);
             this.Controls.Add(this.content);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Home";
             this.Text = "QTV";
             this.panel1.ResumeLayout(false);
