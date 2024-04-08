@@ -81,13 +81,6 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
-<<<<<<< HEAD
-=======
-    <Reference Include="Oracle.DataAccess, Version=4.122.21.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Oracle.DataAccess.dll</HintPath>
-    </Reference>
->>>>>>> userlist
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.21.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <HintPath>..\packages\Oracle.ManagedDataAccess.21.13.0\lib\net462\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
@@ -138,58 +131,50 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="addUser.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="addUser.Designer.cs">
       <DependentUpon>addUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Connection.cs" />
+    <Compile Include="DataSource.cs" />
+    <Compile Include="addRole.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="addRole.designer.cs">
+      <DependentUpon>addRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="addTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="addTable.designer.cs">
+      <DependentUpon>addTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Home.designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="DangKy.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DangKy.Designer.cs">
-      <DependentUpon>DangKy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DangNhap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DangNhap.Designer.cs">
-      <DependentUpon>DangNhap.cs</DependentUpon>
-    </Compile>
     <Compile Include="NavigationButton.cs" />
     <Compile Include="NavigationControl.cs" />
+    <Compile Include="Privilege.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserList.Designer.cs">
-      <DependentUpon>UserList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserList1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserList1.Designer.cs">
-      <DependentUpon>UserList1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Role.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="addUser.resx">
       <DependentUpon>addUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="addRole.resx">
+      <DependentUpon>addRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="addTable.resx">
+      <DependentUpon>addTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DangKy.resx">
-      <DependentUpon>DangKy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DangNhap.resx">
-      <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -201,12 +186,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserList.resx">
-      <DependentUpon>UserList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserList1.resx">
-      <DependentUpon>UserList1.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
       <SubType>Designer</SubType>
@@ -228,9 +207,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Oracle.DataAccess.dll" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"

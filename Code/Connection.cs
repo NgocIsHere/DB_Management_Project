@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Windows.Forms;
-=======
-﻿
-using Oracle.ManagedDataAccess.Client;
-using System;
+using System.Windows.Forms;﻿
 using System.Collections.Generic;
->>>>>>> userlist
 using System.Configuration;
 
 namespace DB_Management
@@ -21,11 +15,7 @@ namespace DB_Management
         string port = "1521";
         string sid = "xe";
         string userId = "SYS";
-<<<<<<< HEAD
-        string password = "Kurumilove<3";
-=======
         string password = "ngoc123";
->>>>>>> userlist
 
         string connectionString;
 
@@ -39,33 +29,24 @@ namespace DB_Management
             connection = new OracleConnection(connectionString);
             try
             {
-<<<<<<< HEAD
-                connection.Open();       
-=======
                 connection.Open();
                 Console.WriteLine("Kết nối thành công");
                 ExecuteQueryAndPrintResults("SELECT * FROM NHANVIEN");
 
                 MessageBox.Show("Kết nối thành công");
 
-
->>>>>>> userlist
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Kết nối thất bại: " + ex.Message);
             }
         }
-<<<<<<< HEAD
 
         public void disconnect()
         {
             connection.Close();
         }
 
-        
-       
-=======
         public void print()
         {
             MessageBox.Show(connectionString);
@@ -93,6 +74,5 @@ namespace DB_Management
                 }
             }
         }
->>>>>>> userlist
     }
 }

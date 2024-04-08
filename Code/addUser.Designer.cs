@@ -1,4 +1,4 @@
-﻿namespace QLPHONGKHAM
+﻿namespace DB_Management
 {
     partial class addUser
     {
@@ -48,7 +48,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.Aqua;
             this.textBox1.Location = new System.Drawing.Point(38, 164);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(249, 23);
+            this.textBox1.Size = new System.Drawing.Size(249, 26);
             this.textBox1.TabIndex = 0;
             // 
             // label1
@@ -57,7 +57,7 @@
             this.label1.ForeColor = System.Drawing.Color.Aqua;
             this.label1.Location = new System.Drawing.Point(45, 136);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 15);
+            this.label1.Size = new System.Drawing.Size(81, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "Username";
             // 
@@ -67,7 +67,7 @@
             this.label2.ForeColor = System.Drawing.Color.Aqua;
             this.label2.Location = new System.Drawing.Point(45, 212);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 15);
+            this.label2.Size = new System.Drawing.Size(81, 19);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
             // 
@@ -78,7 +78,7 @@
             this.textBox2.Location = new System.Drawing.Point(38, 240);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(249, 23);
+            this.textBox2.Size = new System.Drawing.Size(249, 26);
             this.textBox2.TabIndex = 2;
             // 
             // button1
@@ -101,7 +101,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(38, 318);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(249, 28);
+            this.comboBox1.Size = new System.Drawing.Size(249, 31);
             this.comboBox1.TabIndex = 5;
             // 
             // label3
@@ -110,7 +110,7 @@
             this.label3.ForeColor = System.Drawing.Color.Aqua;
             this.label3.Location = new System.Drawing.Point(45, 300);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 15);
+            this.label3.Size = new System.Drawing.Size(45, 19);
             this.label3.TabIndex = 6;
             this.label3.Text = "Role";
             // 
@@ -120,7 +120,7 @@
             this.checkBox1.ForeColor = System.Drawing.Color.Aqua;
             this.checkBox1.Location = new System.Drawing.Point(620, 407);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(134, 19);
+            this.checkBox1.Size = new System.Drawing.Size(170, 23);
             this.checkBox1.TabIndex = 7;
             this.checkBox1.Text = "WithGrantOption";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -149,7 +149,7 @@
             "DELETE"});
             this.checkedListBox1.Location = new System.Drawing.Point(611, 142);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(131, 148);
+            this.checkedListBox1.Size = new System.Drawing.Size(131, 142);
             this.checkedListBox1.TabIndex = 9;
             this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
@@ -179,10 +179,9 @@
             // 
             // addUser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1262, 673);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.checkedListBox1);
@@ -197,7 +196,7 @@
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "addUser";
-            this.Text = "addUser";
+            this.Size = new System.Drawing.Size(1000, 720);
             this.Load += new System.EventHandler(this.addUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

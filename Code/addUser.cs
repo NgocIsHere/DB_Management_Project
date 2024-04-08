@@ -13,9 +13,9 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-namespace QLPHONGKHAM
+namespace DB_Management
 {
-    public partial class addUser : Form
+    public partial class addUser : UserControl
     {
         Connection connection = new Connection();
         List<string> privileges = new List<string>();
@@ -219,7 +219,7 @@ namespace QLPHONGKHAM
 
 
             connection.disconnect();
-            this.Close();
+            /*this.Close();*/
         }
 
 

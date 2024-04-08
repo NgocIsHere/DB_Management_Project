@@ -1,4 +1,4 @@
-﻿using QLPHONGKHAM;
+﻿using DB_Management;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace DB_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new addUser());
+            Application.Run(new Home());
         }
     }
 }

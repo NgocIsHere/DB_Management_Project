@@ -1,4 +1,5 @@
-﻿/*using DB_Management.Controls;*/
+﻿/*using DB_Management.Controls;
+*/
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,21 +22,23 @@ namespace DB_Management
         Color btnSelectedtColor = Color.Teal;
         public string role;
 
-        public Home(string role)
+        public Home()
         {
             InitializeComponent();
             InitializeNavigationControl();
             InitializeNavigationButtons();
-            this.role = role;
+            //this.role = role;
         }
 
         private void InitializeNavigationControl()
         {
             
-            UserList ds = new UserList(role);
-            UserList1 ds0 = new UserList1();
+            /*UserList ds = new UserList(role);
+            UserList1 ds0 = new UserList1();*/
+            addUser addUser = new addUser();
+            addRole rl = new addRole();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {ds,ds0,ds};
+            {addUser,rl,rl};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -77,6 +80,11 @@ namespace DB_Management
         }
 
         private void content_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
