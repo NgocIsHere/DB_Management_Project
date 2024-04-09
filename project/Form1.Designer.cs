@@ -30,6 +30,7 @@
         {
             this.container_role = new System.Windows.Forms.GroupBox();
             this.container_edit = new System.Windows.Forms.GroupBox();
+            this.btn_addtable = new System.Windows.Forms.Button();
             this.container_privilege = new System.Windows.Forms.GroupBox();
             this.lv_deny = new System.Windows.Forms.ListView();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.lv_table = new System.Windows.Forms.ListView();
             this.btn_col = new System.Windows.Forms.Button();
             this.lb_privilege = new System.Windows.Forms.Label();
-            this.cb_insert = new System.Windows.Forms.CheckBox();
             this.btn_add = new System.Windows.Forms.Button();
             this.btn_choose = new System.Windows.Forms.Button();
             this.btn_back = new System.Windows.Forms.Button();
@@ -50,7 +50,6 @@
             this.lv_roles = new System.Windows.Forms.ListView();
             this.lb_addrole = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_addtable = new System.Windows.Forms.Button();
             this.container_role.SuspendLayout();
             this.container_edit.SuspendLayout();
             this.container_privilege.SuspendLayout();
@@ -63,7 +62,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.container_role.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.container_role.Controls.Add(this.container_edit);
-            this.container_role.Controls.Add(this.cb_insert);
             this.container_role.Controls.Add(this.btn_add);
             this.container_role.Controls.Add(this.btn_choose);
             this.container_role.Controls.Add(this.btn_back);
@@ -96,6 +94,17 @@
             this.container_edit.TabIndex = 13;
             this.container_edit.TabStop = false;
             this.container_edit.Visible = false;
+            // 
+            // btn_addtable
+            // 
+            this.btn_addtable.BackColor = System.Drawing.Color.Aqua;
+            this.btn_addtable.Location = new System.Drawing.Point(446, 80);
+            this.btn_addtable.Name = "btn_addtable";
+            this.btn_addtable.Size = new System.Drawing.Size(94, 35);
+            this.btn_addtable.TabIndex = 31;
+            this.btn_addtable.Text = "Add";
+            this.btn_addtable.UseVisualStyleBackColor = false;
+            this.btn_addtable.Click += new System.EventHandler(this.btn_addtable_Click);
             // 
             // container_privilege
             // 
@@ -172,6 +181,7 @@
             this.lv_privilege.Size = new System.Drawing.Size(120, 145);
             this.lv_privilege.TabIndex = 32;
             this.lv_privilege.UseCompatibleStateImageBehavior = false;
+            this.lv_privilege.SelectedIndexChanged += new System.EventHandler(this.lv_privilege_SelectedIndexChanged);
             // 
             // btn_submit
             // 
@@ -228,6 +238,7 @@
             this.btn_col.Text = "Column";
             this.btn_col.UseVisualStyleBackColor = false;
             this.btn_col.Visible = false;
+            this.btn_col.Click += new System.EventHandler(this.btn_col_Click);
             // 
             // lb_privilege
             // 
@@ -238,19 +249,6 @@
             this.lb_privilege.Size = new System.Drawing.Size(102, 38);
             this.lb_privilege.TabIndex = 14;
             this.lb_privilege.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cb_insert
-            // 
-            this.cb_insert.AutoSize = true;
-            this.cb_insert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.cb_insert.ForeColor = System.Drawing.Color.Cyan;
-            this.cb_insert.Location = new System.Drawing.Point(692, 12);
-            this.cb_insert.Name = "cb_insert";
-            this.cb_insert.Size = new System.Drawing.Size(155, 22);
-            this.cb_insert.TabIndex = 31;
-            this.cb_insert.Text = "with grant option";
-            this.cb_insert.UseVisualStyleBackColor = true;
-            this.cb_insert.Visible = false;
             // 
             // btn_add
             // 
@@ -309,6 +307,7 @@
             this.lv_roles.TabIndex = 8;
             this.lv_roles.UseCompatibleStateImageBehavior = false;
             this.lv_roles.View = System.Windows.Forms.View.Details;
+            this.lv_roles.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lv_roles_ItemChecked);
             this.lv_roles.SelectedIndexChanged += new System.EventHandler(this.lv_roles_SelectedIndexChanged);
             // 
             // lb_addrole
@@ -332,17 +331,6 @@
             this.label1.Text = "Role";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn_addtable
-            // 
-            this.btn_addtable.BackColor = System.Drawing.Color.Aqua;
-            this.btn_addtable.Location = new System.Drawing.Point(446, 80);
-            this.btn_addtable.Name = "btn_addtable";
-            this.btn_addtable.Size = new System.Drawing.Size(94, 35);
-            this.btn_addtable.TabIndex = 31;
-            this.btn_addtable.Text = "Add";
-            this.btn_addtable.UseVisualStyleBackColor = false;
-            this.btn_addtable.Click += new System.EventHandler(this.btn_addtable_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -352,7 +340,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.container_role.ResumeLayout(false);
-            this.container_role.PerformLayout();
             this.container_edit.ResumeLayout(false);
             this.container_edit.PerformLayout();
             this.container_privilege.ResumeLayout(false);
@@ -383,7 +370,6 @@
         private System.Windows.Forms.ListView lv_roles;
         private System.Windows.Forms.Label lb_addrole;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox cb_insert;
         private System.Windows.Forms.Button btn_addtable;
     }
 }

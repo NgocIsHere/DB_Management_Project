@@ -9,6 +9,7 @@ namespace project
 {
     internal class Role
     {
+        public static Table table_in_select { get; set; }
         public string Name { get; set; }
         public List<Table> tables;
         public Role(string name)

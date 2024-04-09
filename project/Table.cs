@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace project
 {
     internal class Table
     {
+        
         public static string all = "all column";
         public static string any = "any column";
         public string Name { get; set; }
@@ -143,6 +145,18 @@ namespace project
                 }
             }
             return false;
+        }
+        public List<string > getAllColumnSelect()
+        {
+            List<string> mycolumns = new List<string>();
+            for(int i = 0; i < columns.Count; i++)
+            {
+                if (hash[i][Privilege.S] == Privilege.GRANT)
+                {
+                    mycolumns.Add(columns[i]);
+                }
+            }
+            return mycolumns;
         }
     }
 }
