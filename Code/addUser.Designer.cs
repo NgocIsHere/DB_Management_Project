@@ -37,9 +37,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.button2 = new System.Windows.Forms.Button();
+            this.listView3 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // textBox1
@@ -48,7 +48,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.Aqua;
             this.textBox1.Location = new System.Drawing.Point(38, 164);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(249, 26);
+            this.textBox1.Size = new System.Drawing.Size(249, 23);
             this.textBox1.TabIndex = 0;
             // 
             // label1
@@ -57,7 +57,7 @@
             this.label1.ForeColor = System.Drawing.Color.Aqua;
             this.label1.Location = new System.Drawing.Point(45, 136);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 19);
+            this.label1.Size = new System.Drawing.Size(63, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Username";
             // 
@@ -67,7 +67,7 @@
             this.label2.ForeColor = System.Drawing.Color.Aqua;
             this.label2.Location = new System.Drawing.Point(45, 212);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 19);
+            this.label2.Size = new System.Drawing.Size(63, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
             // 
@@ -78,7 +78,7 @@
             this.textBox2.Location = new System.Drawing.Point(38, 240);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(249, 26);
+            this.textBox2.Size = new System.Drawing.Size(249, 23);
             this.textBox2.TabIndex = 2;
             // 
             // button1
@@ -101,7 +101,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(38, 318);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(249, 31);
+            this.comboBox1.Size = new System.Drawing.Size(249, 28);
             this.comboBox1.TabIndex = 5;
             // 
             // label3
@@ -110,7 +110,7 @@
             this.label3.ForeColor = System.Drawing.Color.Aqua;
             this.label3.Location = new System.Drawing.Point(45, 300);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 19);
+            this.label3.Size = new System.Drawing.Size(35, 15);
             this.label3.TabIndex = 6;
             this.label3.Text = "Role";
             // 
@@ -120,7 +120,7 @@
             this.checkBox1.ForeColor = System.Drawing.Color.Aqua;
             this.checkBox1.Location = new System.Drawing.Point(620, 407);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(170, 23);
+            this.checkBox1.Size = new System.Drawing.Size(134, 19);
             this.checkBox1.TabIndex = 7;
             this.checkBox1.Text = "WithGrantOption";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -130,35 +130,19 @@
             this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.listView1.ForeColor = System.Drawing.Color.Aqua;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(392, 142);
+            this.listView1.Location = new System.Drawing.Point(337, 147);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(204, 199);
             this.listView1.TabIndex = 8;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.checkedListBox1.ForeColor = System.Drawing.Color.Aqua;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "SELECT",
-            "UPDATE",
-            "INSERT",
-            "DELETE"});
-            this.checkedListBox1.Location = new System.Drawing.Point(611, 142);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(131, 142);
-            this.checkedListBox1.TabIndex = 9;
-            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
-            // 
             // listView2
             // 
             this.listView2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.listView2.ForeColor = System.Drawing.Color.Aqua;
             this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(816, 142);
+            this.listView2.Location = new System.Drawing.Point(762, 122);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(204, 256);
             this.listView2.TabIndex = 10;
@@ -177,14 +161,28 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // listView3
+            // 
+            this.listView3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.listView3.CheckBoxes = true;
+            this.listView3.ForeColor = System.Drawing.Color.Aqua;
+            this.listView3.HideSelection = false;
+            this.listView3.Location = new System.Drawing.Point(567, 122);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(178, 243);
+            this.listView3.TabIndex = 12;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.View = System.Windows.Forms.View.Details;
+            this.listView3.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
+            // 
             // addUser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.Controls.Add(this.listView3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label3);
@@ -214,8 +212,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView listView3;
     }
 }

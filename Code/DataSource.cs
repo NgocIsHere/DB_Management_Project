@@ -21,9 +21,11 @@ namespace DB_Management
         public static string role_query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%'";
         public static string table_query = "select table_name from all_tables where table_name like 'PROJECT_%'";
         public static string role_table_query = "SELECT * FROM ROLE_TAB_PRIVS";
+        string user = Config.username;
+        string password = Config.password;
         public DataSource()
         {
-            stringsql = "Data Source=localhost:1521/XE;User Id=SYS;Password=ngoc123;DBA Privilege=SYSDBA;";
+            stringsql = $"Data Source=localhost:1521/XE;User Id={user};Password={password};";
             conn = new OracleConnection(stringsql);
         }
         public List<string> getAllObject(string query, string column)

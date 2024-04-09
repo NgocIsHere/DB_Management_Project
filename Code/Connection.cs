@@ -14,14 +14,14 @@ namespace DB_Management
         string host = "localhost";
         string port = "1521";
         string sid = "xe";
-        string userId = "SYS";
-        string password = "ngoc123";
+        string userId = Config.username;
+        string password = Config.password;
 
         string connectionString;
 
         public Connection()
         {
-            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={sid})));User Id={userId};Password={password};DBA Privilege=SYSDBA;";
+            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={sid})));User Id={userId};Password={password};";
         }
 
         public void connect()
@@ -30,10 +30,7 @@ namespace DB_Management
             try
             {
                 connection.Open();
-                Console.WriteLine("Kết nối thành công");
-                ExecuteQueryAndPrintResults("SELECT * FROM NHANVIEN");
 
-                MessageBox.Show("Kết nối thành công");
 
             }
             catch (Exception ex)

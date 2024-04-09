@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace DB_Management
 {
+
     public class Util
     {
         public void ClearControl(Control form)//hàm clear tất cả
