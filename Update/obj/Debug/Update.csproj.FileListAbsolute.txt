@@ -1,0 +1,10 @@
+D:\PhanHe1-Update\Update\bin\Debug\Update.exe.config
+D:\PhanHe1-Update\Update\bin\Debug\Update.exe
+D:\PhanHe1-Update\Update\bin\Debug\Update.pdb
+D:\PhanHe1-Update\Update\obj\Debug\Update.csproj.AssemblyReference.cache
+D:\PhanHe1-Update\Update\obj\Debug\Update.Properties.Resources.resources
+D:\PhanHe1-Update\Update\obj\Debug\Update.Update.resources
+D:\PhanHe1-Update\Update\obj\Debug\Update.csproj.GenerateResource.cache
+D:\PhanHe1-Update\Update\obj\Debug\Update.csproj.CoreCompileInputs.cache
+D:\PhanHe1-Update\Update\obj\Debug\Update.exe
+D:\PhanHe1-Update\Update\obj\Debug\Update.pdb
