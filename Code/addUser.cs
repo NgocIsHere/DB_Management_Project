@@ -13,20 +13,22 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-namespace QLPHONGKHAM
+namespace DB_Management
 {
-    public partial class addUser : Form
+    public partial class addUser : UserControl
     {
         Connection connection = new Connection();
         List<string> privileges = new List<string>();
         List<string> queries = new List<string>();
+        DataSource DS = new DataSource();
+        
         public addUser()
         {
             InitializeComponent();
             loadListView();
-            loadCheckListBox();
             connection.connect();
             loadRole();
+            loadPrivileges();
 
 
         }
@@ -47,25 +49,35 @@ namespace QLPHONGKHAM
             }
         }
 
-        private void loadListView2(string name)
+        private void loadPrivileges()
         {
-            string query = $"SELECT '{name}.'||column_name FROM USER_TAB_COLUMNS WHERE table_name = '{name}'";
-            Debug.WriteLine(query);
-
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+            listView3.Font = new Font("Consolas", 14);
+            listView3.Columns.Add("Privileges", 180);
+            listView3.View = View.Details;
+            listView3.CheckBoxes = true;
+            List<string> privileges = new List<string>() { Privilege.Select, Privilege.Update, Privilege.Insert, Privilege.Delete };
+            foreach (string privilege in privileges)
             {
-                using (OracleDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string columnName = reader.GetString(0);
-                        Debug.WriteLine(columnName);
-                        ListViewItem item = new ListViewItem(columnName);
-                        listView2.Items.Add(item);
-                    }
-                }   
+                ListViewItem item = new ListViewItem(privilege);
+                listView3.Items.Add(item);
             }
         }
+
+        private void loadListView2(string name)
+        {
+            
+            connection.connect();
+            List<string> columns = DS.getAllObject(DS.getQueryTableColumn(name), "COLUMN_NAME");
+            foreach (string column in columns)
+            {
+                ListViewItem item = new ListViewItem(column);
+                listView2.Items.Add(item);
+                Debug.WriteLine(1);
+            }
+            connection.disconnect();
+        }
+
+
         private void loadListView()
         {
             listView1.Font = new Font("Consolas", 14);
@@ -77,27 +89,18 @@ namespace QLPHONGKHAM
             listView2.Font = new Font("Consolas", 14);
 
 
-
-            ListViewItem item1 = new ListViewItem("NHANSU");
-            ListViewItem item2 = new ListViewItem("SINHVIEN");
-            ListViewItem item3 = new ListViewItem("DONVI");
-            ListViewItem item4 = new ListViewItem("KHMO");
-            ListViewItem item5 = new ListViewItem("PHANCONG");
-            ListViewItem item6 = new ListViewItem("DANGKY");
-
-            listView1.Items.Add(item1);
-            listView1.Items.Add(item2);
-            listView1.Items.Add(item3);
-            listView1.Items.Add(item4);
-            listView1.Items.Add(item5);
-            listView1.Items.Add(item6);
+            connection.connect();
+            List<string> Tables = DS.getAllObject(DataSource.table_query, "TABLE_NAME");
+            foreach (string table in Tables)
+            {
+                ListViewItem item = new ListViewItem(table);
+                listView1.Items.Add(item);
+            }
+            connection.disconnect();
 
         }
 
-        private void loadCheckListBox()
-        {
-            checkedListBox1.Font = new Font("Consolas", 14);  
-        }
+
         
         private void createUser()
         {
@@ -124,21 +127,18 @@ namespace QLPHONGKHAM
         {
             createUser();
 
-            if (checkedListBox1.GetItemCheckState(0) == CheckState.Checked)
+
+
+            for (int i = 0; i < listView3.Items.Count; i++)
             {
-                privileges.Add("SELECT");
-            }
-            if (checkedListBox1.GetItemCheckState(1) == CheckState.Checked)
-            {
-                privileges.Add("UPDATE");
-            }
-            if (checkedListBox1.GetItemCheckState(2) == CheckState.Checked)
-            {
-                privileges.Add("INSERT");
-            }
-            if (checkedListBox1.GetItemCheckState(3) == CheckState.Checked)
-            {
-                privileges.Add("DELETE");
+                if (listView3.Items[i].Checked)
+                {
+                    privileges.Add(listView3.Items[i].Text);
+                }
+                else if (listView3.Items[i].Checked == false)
+                {
+                    privileges.Remove(listView3.Items[i].Text);
+                }
             }
 
             privileges = privileges.Distinct().ToList();
@@ -219,7 +219,7 @@ namespace QLPHONGKHAM
 
 
             connection.disconnect();
-            this.Close();
+            /*this.Close();*/
         }
 
 
@@ -242,27 +242,8 @@ namespace QLPHONGKHAM
             }*/
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (checkedListBox1.GetItemCheckState(0) == CheckState.Checked
-                || checkedListBox1.GetItemCheckState(1) == CheckState.Checked)
-            {
-               listView2.Items.Clear();
-               for (int i = 0; i < listView1.Items.Count; i++)
-                {
-                    if (listView1.Items[i].Selected)
-                    {
-                        loadListView2(listView1.Items[i].Text);
-                    }
-                }
-            }
-            else if (checkedListBox1.GetItemCheckState(0) == CheckState.Unchecked
-                               && checkedListBox1.GetItemCheckState(1) == CheckState.Unchecked)
-            {
-                listView2.Items.Clear();
-            }
-        }
+         
+       
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -273,7 +254,13 @@ namespace QLPHONGKHAM
 
             listView1.SelectedItems.Clear();
             listView2.Items.Clear();
-            checkedListBox1.ClearSelected();
+            //checkedListBox1.ClearSelected();
+        }
+
+        private void listView3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListViewItem item = listView3.SelectedItems[0];
+
         }
     }
 }

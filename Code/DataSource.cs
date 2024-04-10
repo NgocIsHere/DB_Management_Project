@@ -12,7 +12,7 @@ using System.Xml.Linq;
 using Oracle.ManagedDataAccess.Client;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
-namespace project
+namespace DB_Management
 {
     internal class DataSource
     {
@@ -21,9 +21,11 @@ namespace project
         public static string role_query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%'";
         public static string table_query = "select table_name from all_tables where table_name like 'PROJECT_%'";
         public static string role_table_query = "SELECT * FROM ROLE_TAB_PRIVS";
+        string user = Config.username;
+        string password = Config.password;
         public DataSource()
         {
-            stringsql = "Data Source=localhost:1521/XE;User Id=C##ADProject;Password=123;";
+            stringsql = $"Data Source=localhost:1521/XE;User Id={user};Password={password};";
             conn = new OracleConnection(stringsql);
         }
         public List<string> getAllObject(string query, string column)

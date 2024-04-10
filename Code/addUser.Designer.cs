@@ -1,4 +1,4 @@
-﻿namespace QLPHONGKHAM
+﻿namespace DB_Management
 {
     partial class addUser
     {
@@ -37,9 +37,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.button2 = new System.Windows.Forms.Button();
+            this.listView3 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // textBox1
@@ -130,35 +130,19 @@
             this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.listView1.ForeColor = System.Drawing.Color.Aqua;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(392, 142);
+            this.listView1.Location = new System.Drawing.Point(337, 147);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(204, 199);
             this.listView1.TabIndex = 8;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.checkedListBox1.ForeColor = System.Drawing.Color.Aqua;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "SELECT",
-            "UPDATE",
-            "INSERT",
-            "DELETE"});
-            this.checkedListBox1.Location = new System.Drawing.Point(611, 142);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(131, 148);
-            this.checkedListBox1.TabIndex = 9;
-            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
-            // 
             // listView2
             // 
             this.listView2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.listView2.ForeColor = System.Drawing.Color.Aqua;
             this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(816, 142);
+            this.listView2.Location = new System.Drawing.Point(762, 122);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(204, 256);
             this.listView2.TabIndex = 10;
@@ -177,15 +161,28 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // listView3
+            // 
+            this.listView3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.listView3.CheckBoxes = true;
+            this.listView3.ForeColor = System.Drawing.Color.Aqua;
+            this.listView3.HideSelection = false;
+            this.listView3.Location = new System.Drawing.Point(567, 122);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(178, 243);
+            this.listView3.TabIndex = 12;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.View = System.Windows.Forms.View.Details;
+            this.listView3.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
+            // 
             // addUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.listView3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.listView2);
-            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label3);
@@ -197,7 +194,7 @@
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "addUser";
-            this.Text = "addUser";
+            this.Size = new System.Drawing.Size(1000, 720);
             this.Load += new System.EventHandler(this.addUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -215,8 +212,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView listView3;
     }
 }

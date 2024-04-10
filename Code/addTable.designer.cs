@@ -1,6 +1,6 @@
-﻿namespace project
+﻿namespace DB_Management
 {
-    partial class Form2
+    partial class addTable
     {
         /// <summary>
         /// Required designer variable.

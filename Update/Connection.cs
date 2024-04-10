@@ -1,27 +1,25 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
-using System.Windows.Forms;﻿
-using System.Collections.Generic;
-using System.Configuration;
+using System.Windows.Forms;
 
-namespace DB_Management
+namespace Update
 {
     internal class Connection
     {
         public OracleConnection connection;
         public OracleCommand command;
         public OracleDataReader reader;
-        string host = "localhost";
+        string host = "DESKTOP-TSRDGQV";
         string port = "1521";
         string sid = "xe";
-        string userId = Config.username;
-        string password = Config.password;
+        string userId = "sys";
+        string password = "123";
 
         string connectionString;
 
         public Connection()
         {
-            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={sid})));User Id={userId};Password={password};";
+            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={sid})));User Id={userId};Password={password};DBA Privilege=SYSDBA;";
         }
 
         public void connect()
@@ -30,18 +28,13 @@ namespace DB_Management
             try
             {
                 connection.Open();
-
-
+                Console.WriteLine("Kết nối thành công");
+                //MessageBox.Show("Kết nối thành công");               
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Kết nối thất bại: " + ex.Message);
             }
-        }
-
-        public void disconnect()
-        {
-            connection.Close();
         }
 
         public void print()

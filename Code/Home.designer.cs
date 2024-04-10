@@ -49,8 +49,9 @@ namespace DB_Management
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 664);
+            this.panel1.Size = new System.Drawing.Size(249, 673);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // button2
             // 
@@ -59,7 +60,8 @@ namespace DB_Management
             this.button2.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold);
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(-3, 90);
+            this.button2.Location = new System.Drawing.Point(0, 72);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(243, 71);
             this.button2.TabIndex = 3;
@@ -75,7 +77,8 @@ namespace DB_Management
             this.button3.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold);
             this.button3.ForeColor = System.Drawing.Color.Black;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(0, 185);
+            this.button3.Location = new System.Drawing.Point(-1, 148);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(241, 71);
             this.button3.TabIndex = 2;
@@ -88,9 +91,10 @@ namespace DB_Management
             // 
             this.button1.BackColor = System.Drawing.Color.Aqua;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Consolas", 10.2F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(0, 2);
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.button1.Location = new System.Drawing.Point(3, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(240, 66);
             this.button1.TabIndex = 3;
@@ -105,11 +109,11 @@ namespace DB_Management
             this.content.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.content.Dock = System.Windows.Forms.DockStyle.Fill;
             this.content.ForeColor = System.Drawing.Color.White;
-            this.content.Location = new System.Drawing.Point(280, 0);
+            this.content.Location = new System.Drawing.Point(249, 0);
+            this.content.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.content.Name = "content";
-            this.content.Size = new System.Drawing.Size(978, 664);
+            this.content.Size = new System.Drawing.Size(1013, 673);
             this.content.TabIndex = 1;
-            this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             // 
             // Home
@@ -117,7 +121,7 @@ namespace DB_Management
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1258, 664);
+            this.ClientSize = new System.Drawing.Size(1262, 673);
             this.Controls.Add(this.content);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -131,7 +135,6 @@ namespace DB_Management
         #endregion
 
         private Panel panel1;
-        private Button nhasiButton;
         private Panel content;
         private Button button3;
         private Button button1;

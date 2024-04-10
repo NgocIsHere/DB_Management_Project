@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace project
+namespace DB_Management
 {
     internal class Privilege
     {

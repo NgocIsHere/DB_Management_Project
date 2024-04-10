@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace project
+namespace DB_Management
 {
-    public partial class Form2 : Form
+    public partial class addTable : UserControl
     {
         public static List<string> mes_from_form2 = new List<string>();
         private List<string> tables;
         private DataSource ds;
-        Form1 form1;
-        public Form2(Form1 form1)
+        addRole form1;
+        public addTable(addRole form1)
         {
             InitializeComponent();
             this.form1 = form1;

@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace project
+namespace DB_Management
 {
-    public partial class Form1 : Form
+    public partial class addRole : UserControl
     {
         int count = 0;
         private bool isadd = false;
@@ -21,7 +21,7 @@ namespace project
         private Role current_role;
         List<string> roles;
         List<string> privileges = new List<string>() {"Select","Insert","Delete","Update" };
-        public Form1()
+        public addRole()
         {
             InitializeComponent();
             InitializeMyComponent();
@@ -137,7 +137,7 @@ namespace project
         }
         public void Form2TPCLoseForm()
         {
-            foreach(string item in Form2.mes_from_form2)
+            foreach(string item in addTable.mes_from_form2)
             {
                 if (!ExistTableAdded(item))
                 {
@@ -252,8 +252,8 @@ namespace project
 
         private void btn_addtable_Click(object sender, EventArgs e)
         {
-            Form form2 = new Form2(this);
-            form2.ShowDialog();
+            addTable form2 = new addTable(this);
+            form2.Show();
         }
 
         private void lv_table_SelectedIndexChanged(object sender, EventArgs e)
