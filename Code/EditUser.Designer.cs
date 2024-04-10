@@ -170,6 +170,7 @@
             this.lv_wgoption.Size = new System.Drawing.Size(34, 112);
             this.lv_wgoption.TabIndex = 47;
             this.lv_wgoption.UseCompatibleStateImageBehavior = false;
+            this.lv_wgoption.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lv_wgoption_ItemChecked);
             // 
             // lv_revoke
             // 
@@ -183,6 +184,7 @@
             this.lv_revoke.Size = new System.Drawing.Size(34, 112);
             this.lv_revoke.TabIndex = 46;
             this.lv_revoke.UseCompatibleStateImageBehavior = false;
+            this.lv_revoke.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lv_revoke_ItemChecked);
             // 
             // lv_grant
             // 
@@ -196,6 +198,7 @@
             this.lv_grant.Size = new System.Drawing.Size(34, 112);
             this.lv_grant.TabIndex = 45;
             this.lv_grant.UseCompatibleStateImageBehavior = false;
+            this.lv_grant.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lv_grant_ItemChecked);
             // 
             // label4
             // 
