@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace DB_Management
 {
-    public partial class addTable : UserControl
+    public partial class addTable : Form
     {
         public static List<string> mes_from_form2 = new List<string>();
         private List<string> tables;

@@ -39,8 +39,9 @@ namespace DB_Management
             UserList1 ds0 = new UserList1();*/
             addUser addUser = new addUser();
             addRole rl = new addRole();
+            EditUser edituser = new EditUser();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {addUser,rl,rl};
+            {edituser,addUser,rl};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -62,7 +63,7 @@ namespace DB_Management
 
         private void button3_Click(object sender, EventArgs e)
         {
-            navigationControl.Display(1);
+            navigationControl.Display(2);
             navigationButtons.Highlight(button3);
         }
 
@@ -70,14 +71,14 @@ namespace DB_Management
 
         private void button1_Click(object sender, EventArgs e)
         {
-            navigationControl.Display(3);
+            navigationControl.Display(0);
             navigationButtons.Highlight(button1);
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            navigationControl.Display(3);
+            navigationControl.Display(1);
             navigationButtons.Highlight(button2);
         }
 

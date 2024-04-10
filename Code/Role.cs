@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DB_Management;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace DB_Management
 {
     internal class Role
     {
+        public static Table table_in_select { get; set; }
         public string Name { get; set; }
         public List<Table> tables;
         public Role(string name)
@@ -23,7 +25,7 @@ namespace DB_Management
         }
         public bool existTable(string name)
         {
-            foreach(Table table in tables)
+            foreach (Table table in tables)
             {
                 if (table.Name == name)
                 {
@@ -36,7 +38,7 @@ namespace DB_Management
         {
             foreach (Table table in tables)
             {
-                if(table.Name.Equals(name))
+                if (table.Name.Equals(name))
                 {
                     return table;
                 }

@@ -82,7 +82,7 @@ namespace DB_Management
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(241, 71);
             this.button3.TabIndex = 2;
-            this.button3.Text = "Button 03";
+            this.button3.Text = "Chỉnh sửa Role";
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -92,7 +92,7 @@ namespace DB_Management
             this.button1.BackColor = System.Drawing.Color.Aqua;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(3, 2);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";

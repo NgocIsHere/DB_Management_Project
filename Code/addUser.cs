@@ -231,15 +231,24 @@ namespace DB_Management
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (listView1.SelectedItems.Count > 0)
+            {
+                List<string> columns = DS.getAllObject(DS.getQueryTableColumn(listView1.SelectedItems[0].Text), "COLUMN_NAME");
+                listView2.Items.Clear();
+                foreach (string col in columns)
+                {
+                    listView2.Items.Add(col);
+                }
+            }
         }
 
         private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-/*            if (checkedListBox1.GetItemChecked(0) == true || checkedListBox1.GetItemChecked(1) == true)
-            {
-                loadListView2(listView1.SelectedItems[0].Text);
-            }*/
+            /*            if (checkedListBox1.GetItemChecked(0) == true || checkedListBox1.GetItemChecked(1) == true)
+                        {
+                            loadListView2(listView1.SelectedItems[0].Text);
+                        }*/
+            
         }
 
          
@@ -259,8 +268,13 @@ namespace DB_Management
 
         private void listView3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListViewItem item = listView3.SelectedItems[0];
-
+            if (listView3.SelectedItems.Count > 0)
+            {
+                ListViewItem item = listView3.SelectedItems[0];
+                item.Checked = !item.Checked;
+                //todo get allcolumn table
+                
+            }
         }
     }
 }
