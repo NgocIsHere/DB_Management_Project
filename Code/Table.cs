@@ -115,7 +115,7 @@ namespace DB_Management
                         }
                         else if (hash[i][privilege] != option)
                         {
-                           
+
                             return false;
                         }
                     }
@@ -155,6 +155,42 @@ namespace DB_Management
             for (int i = 0; i < columns.Count; i++)
             {
                 if (hash[i][Privilege.S] == Privilege.GRANT)
+                {
+                    mycolumns.Add(columns[i]);
+                }
+            }
+            return mycolumns;
+        }
+        public List<string> getAllColumnSelect2()
+        {
+            List<string> mycolumns = new List<string>();
+            for (int i = 0; i < columns.Count; i++)
+            {
+                if (hash[i][Privilege.S] == Privilege.GRANT || hash[i][Privilege.S] == Privilege.WITH_GRANT_OPTION)
+                {
+                    mycolumns.Add(columns[i]);
+                }
+            }
+            return mycolumns;
+        }
+        public List<string> getAllColumnUpdate2()
+        {
+            List<string> mycolumns = new List<string>();
+            for (int i = 0; i < columns.Count; i++)
+            {
+                if (hash[i][Privilege.U] == Privilege.GRANT || hash[i][Privilege.U] == Privilege.WITH_GRANT_OPTION)
+                {
+                    mycolumns.Add(columns[i]);
+                }
+            }
+            return mycolumns;
+        }
+        public List<string> getAllColumnCheck(int pri, int op)
+        {
+            List<string> mycolumns = new List<string>();
+            for (int i = 0; i < columns.Count; i++)
+            {
+                if (hash[i][pri] == op)
                 {
                     mycolumns.Add(columns[i]);
                 }

@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using DB_Management;
 using Oracle.ManagedDataAccess.Client;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DB_Management
 {
@@ -22,10 +23,10 @@ namespace DB_Management
         public static string role_query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%'";
         public static string table_query = "select table_name from all_tables where table_name like 'PROJECT_%'";
         public static string role_table_query = "SELECT * FROM ROLE_TAB_PRIVS";
-        
+
         public DataSource()
         {
-            stringsql = $"Data Source=localhost:1521/XE;User Id={Config.username};Password={Config.password};";
+            stringsql = "Data Source=localhost:1521/XE;User Id=C##ADProject;Password=123;";
             conn = new OracleConnection(stringsql);
         }
         public List<string> getAllObject(string query, string column)
@@ -119,6 +120,18 @@ namespace DB_Management
             conn.Close();
             return role;
         }
+        public string[] getColumnView(string viewname)
+        {
+            conn.Open();
+            OracleDataReader reader1 = new OracleCommand("SELECT * FROM ALL_VIEWS" +
+                        " WHERE VIEW_NAME ='" + viewname + "'", conn).ExecuteReader();
+            reader1.Read();
+            string text = reader1["TEXT_VC"].ToString().ToUpper();
+            string tablename = text.Substring(text.IndexOf("FROM ") + 5);
+            string[] columnselect = text.Substring(7, text.IndexOf(" FROM " + tablename) - 7).Split(',');
+            conn.Close();
+            return columnselect;
+        }
         public string getQueryTableColumn(string tablename)
         {
             string result = "SELECT column_name " +
@@ -141,20 +154,24 @@ namespace DB_Management
             return "SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE = '" + rolename + "' AND " +
                 "PRIVILEGE = '" + type + "' AND TABLE_NAME = '" + tablename + "'";
         }
-        public string getQueryUserTabPri(string username,string type)
+        public string getQueryUserTabPri(string username, string type)
         {
             return "SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE = '" +
-                username + "' AND TYPE = '"+type+"'";
+                username + "' AND TYPE = '" + type + "'";
         }
         public string getQueryUserTabPriV2(string username, string type)
         {
             return "SELECT DISTINCT TABLE_NAME FROM USER_TAB_PRIVS WHERE GRANTEE = '" +
                 username + "' AND TYPE = '" + type + "'";
         }
-        public string getPriUsrFromTab(string username,string tablename)
+        public string getPriUsrFromTab(string username, string tablename)
         {
             return "SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE = '" +
                 username + "' AND TABLE_NAME = '" + tablename + "'";
+        }
+        public string getQueryPriOfUsr(string usr)
+        {
+            return "SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE = '" + usr + "'";
         }
         public bool createRole(Role role)
         {
@@ -254,6 +271,79 @@ namespace DB_Management
                     }
                 }
 
+            }
+            conn.Close();
+            return true;
+        }
+        public bool updateUser(Role user)
+        {
+            List<string> oldpris = getAllObject(getQueryPriOfUsr(user.Name), "PRIVILEGE");
+            List<string> oldtabs = getAllObject(getQueryPriOfUsr(user.Name), "TABLE_NAME");
+            conn.Open();
+            OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+            command.ExecuteNonQuery();
+            List<string> Pris = new List<string>() { "SELECT", "INSERT", "DELETE", "UPDATE" };
+            for (int i = 0; i < oldpris.Count; i++)
+            {
+                command.CommandText = "REVOKE " + oldpris[i] + " ON " + oldtabs[i] + " FROM " + user.Name;
+                command.ExecuteNonQuery();
+            }
+            foreach (Table table in user.tables)
+            {
+                for (int i = 0; i < Pris.Count; i++)
+                {
+                    if (i == Privilege.S || i == Privilege.U)
+                    {
+                        if (table.checkPrivilege(Table.any, i, Privilege.GRANT))
+                        {
+                            string ch = i == Privilege.S ? "S_" : "U_";
+                            string username = user.Name.Substring(10).ToUpper();
+                            string tablename = table.Name.Substring(8).ToUpper();
+                            string viewname;
+                            List<string> columngrant = table.getAllColumnCheck(i, Privilege.GRANT);
+                            List<string> columnwgo = table.getAllColumnCheck(i, Privilege.WITH_GRANT_OPTION);
+                            if (columngrant.Count > 0)
+                            {
+                                viewname = "PROJECT_" + ch + username + "_" + tablename;
+                                command.CommandText = "CREATE OR REPLACE VIEW " + viewname +
+                                    " AS SELECT " + string.Join(",", columngrant)
+                                    + " FROM " + table.Name;
+                                command.ExecuteNonQuery();
+                                //MessageBox.Show(command.CommandText);
+                                command.CommandText = "GRANT " + Pris[i] + " ON " + viewname + " TO " + user.Name;
+                                //MessageBox.Show(command.CommandText);
+                                command.ExecuteNonQuery();
+                            }
+                            if (columnwgo.Count > 0)
+                            {
+                                viewname = "PROJECT_" + ch + username + "_WGO_" + tablename;
+                                command.CommandText = "CREATE OR REPLACE VIEW " + viewname +
+                                    " AS SELECT " + string.Join(",", columnwgo)
+                                    + " FROM " + table.Name;
+                                command.ExecuteNonQuery();
+                                //MessageBox.Show(command.CommandText);
+                                command.CommandText = "GRANT " + Pris[i] + " ON " + viewname + " TO " + user.Name
+                                    + " WITH GRANT OPTION";
+                                //MessageBox.Show(command.CommandText);
+                                command.ExecuteNonQuery();
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        if (table.checkPrivilege(Table.all, i, Privilege.GRANT))
+                        {
+                            command.CommandText = "GRANT " + Pris[i] + " ON " + table.Name + " TO " + user.Name;
+                            if (table.checkPrivilege(Table.all, i, Privilege.WITH_GRANT_OPTION))
+                            {
+                                command.CommandText += " WITH GRANT OPTION";
+                            }
+                            //MessageBox.Show(command.CommandText);
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
             }
             conn.Close();
             return true;
