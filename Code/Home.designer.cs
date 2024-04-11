@@ -45,11 +45,10 @@ namespace DB_Management
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(249, 673);
+            this.panel1.Size = new System.Drawing.Size(249, 720);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -107,12 +106,11 @@ namespace DB_Management
             // 
             this.content.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.content.Cursor = System.Windows.Forms.Cursors.SizeAll;
-            this.content.Dock = System.Windows.Forms.DockStyle.Fill;
             this.content.ForeColor = System.Drawing.Color.White;
             this.content.Location = new System.Drawing.Point(249, 0);
             this.content.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.content.Name = "content";
-            this.content.Size = new System.Drawing.Size(1013, 673);
+            this.content.Size = new System.Drawing.Size(1013, 720);
             this.content.TabIndex = 1;
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             // 
@@ -121,7 +119,7 @@ namespace DB_Management
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.ClientSize = new System.Drawing.Size(1262, 720);
             this.Controls.Add(this.content);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);

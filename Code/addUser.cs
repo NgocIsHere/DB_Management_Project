@@ -62,6 +62,7 @@ namespace DB_Management
 
         private void createUser()
         {
+
             using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
                 cmd.ExecuteNonQuery();

@@ -53,8 +53,8 @@
             this.lv_wgo = new System.Windows.Forms.ListView();
             this.lv_r = new System.Windows.Forms.ListView();
             this.container_pri.SuspendLayout();
-            this.gb1.SuspendLayout();
-            this.SuspendLayout();
+            //this.gb1.SuspendLayout();
+            //this.SuspendLayout();
             // 
             // label5
             // 

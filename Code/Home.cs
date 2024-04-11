@@ -27,7 +27,7 @@ namespace DB_Management
             InitializeComponent();
             InitializeNavigationControl();
             InitializeNavigationButtons();
-            this.Size = new Size(1280, 720);
+            //this.Size = new Size(1280, 720);
 
             //this.role = role;
         }
