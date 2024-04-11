@@ -115,6 +115,7 @@ namespace DB_Management
                         }
                         else if (hash[i][privilege] != option)
                         {
+                           
                             return false;
                         }
                     }
@@ -134,6 +135,7 @@ namespace DB_Management
                         }
                         else if (hash[i][privilege] == option)
                         {
+                            //MessageBox.Show("oke");
                             return true;
                         }
                     }

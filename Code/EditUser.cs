@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace DB_Management
@@ -21,10 +22,18 @@ namespace DB_Management
         public string username;
         DataSource ds = new DataSource();
         Role current_user;
+<<<<<<< HEAD
         bool block_init = false;
         public EditUser(string usrname)
+=======
+        bool block1 = false;
+        bool block2 = false;
+        public EditUser()
+>>>>>>> b4e047ac31ec0a3f8765289ea3bb99eb8e09d15b
         {
             InitializeComponent();
+            tablenames = ds.getAllObject(DataSource.table_query, "TABLE_NAME");
+            current_user = getUser();
             InitializeMyComponet();
             username = usrname;
             MessageBox.Show(username);
@@ -47,7 +56,7 @@ namespace DB_Management
                 9F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             lv_tab.View = View.Details;
-            tablenames = ds.getAllObject(DataSource.table_query, "TABLE_NAME");
+            
             foreach (string tablename in tablenames)
             {
                 ListViewItem item = new ListViewItem();
@@ -109,9 +118,10 @@ namespace DB_Management
         private void getViewUsrPriTab()
         {
             lv_pri_tab.Items.Clear();
-            List<String> tables = ds.getAllObject(ds.getQueryUserTabPri(username,"TABLE"),"TABLE_NAME");
+            List<string> tables = ds.getAllObject(ds.getQueryUserTabPri(username,"TABLE"),"TABLE_NAME");
             List<string> pris = ds.getAllObject(ds.getQueryUserTabPri(username, "TABLE"), "PRIVILEGE");
             List<string> cols = new List<string>();
+            // can xu ly cho view
             for (int i=0;i<tables.Count;i++)
             {
                 ListViewItem item = new ListViewItem();
@@ -144,6 +154,31 @@ namespace DB_Management
         {
 
         }
+        private Role getUser()
+        {
+            //List<string> tablename = ds.getAllObject(ds.getQueryUserTabPriV2(username, "TABLE"), "TABLE_NAME");
+            //foreach(string table in tablename)
+            //{
+            //    List<string> columns = ds.getAllObject(ds.getQueryTableColumn(table), "COLUMNNAME");
+            //    current_user.add
+            //}
+            Role user = new Role(username);
+            foreach(string table in tablenames)
+            {
+                List<string> columns = ds.getAllObject(ds.getQueryTableColumn(table), "COLUMN_NAME");
+                Table mytable = new Table(table, columns);
+                user.tables.Add(mytable);
+                List<string> Pris = ds.getAllObject(ds.getPriUsrFromTab(username, table),"PRIVILEGE");
+                List<string>option = ds.getAllObject(ds.getPriUsrFromTab(username, table), "GRANTABLE");
+                for(int i =0;i<Pris.Count;i++)
+                {
+                    int privi = Pris[i].Equals("INSERT") ? Privilege.I : Pris[i].Equals("UPDATE") ? Privilege.U : Privilege.D;
+                    int op = option[i].Equals("YES") ? Privilege.WITH_GRANT_OPTION : Privilege.GRANT;
+                    mytable.editPrivilege(Table.all, privi, op);
+                }
+            }
+            return user;
+        }
         private void lv_column_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lv_column.SelectedItems.Count > 0)
@@ -157,12 +192,15 @@ namespace DB_Management
             if (lv_tab.SelectedItems.Count > 0)
             {
                 Table table = current_user.GetTable(lv_tab.SelectedItems[0].Text);
+                block1 = true;
                 container_pri.Visible = true;
-                block_init = true;
                 for(int i = 0; i < lv_privilege.Items.Count; i++)
                 {
-                    //lv_grant.Items[i].Checked = table.checkPrivilege()
+                    lv_revoke.Items[i].Checked = true;
+                    lv_grant.Items[i].Checked = table.checkPrivilege(Table.any, i, Privilege.GRANT);
+                    lv_wgoption.Items[i].Checked = table.checkPrivilege(Table.any, i, Privilege.WITH_GRANT_OPTION);
                 }
+                block1 = false;
             }
             
         }
@@ -186,6 +224,7 @@ namespace DB_Management
         {
             current_user.tables.Clear();
             saveEdit();
+            //update screen
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -195,5 +234,60 @@ namespace DB_Management
             edt.Show();
         }
 
+<<<<<<< HEAD
+=======
+        private void lv_grant_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            Table table = current_user.GetTable(lv_tab.SelectedItems[0].Text);
+            ListViewItem item = e.Item as ListViewItem;
+            if (item.Checked)
+            {
+                if (!block1)
+                {
+                    table.editPrivilege(Table.all, item.Index, Privilege.GRANT);
+                }
+                block2 = true;
+                lv_revoke.Items[item.Index].Checked = false;
+                lv_wgoption.Items[item.Index].Checked = false;
+                block2 = false;
+            }
+            else if (!block2 && !block1)
+            {
+                table.editPrivilege(Table.all, item.Index, Privilege.NONE);
+            }
+        }
+
+        private void lv_revoke_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            ListViewItem item = e.Item as ListViewItem;
+            if (item.Checked)
+            {
+                lv_grant.Items[item.Index].Checked = false;
+                lv_wgoption.Items[item.Index].Checked = false;
+
+            }
+        }
+
+        private void lv_wgoption_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            ListViewItem item = e.Item as ListViewItem;
+            Table table = current_user.GetTable(lv_tab.SelectedItems[0].Text);
+            if (item.Checked)
+            {
+                if (!block1)
+                {
+                    table.editPrivilege(Table.all, item.Index, Privilege.WITH_GRANT_OPTION);
+                }
+                block2 = true;
+                lv_grant.Items[item.Index].Checked = false;
+                lv_revoke.Items[item.Index].Checked = false;
+                block2 = false;
+            }
+            else if (!block2 && !block1)
+            {
+                table.editPrivilege(Table.all, item.Index, Privilege.NONE);
+            }
+        }
+>>>>>>> b4e047ac31ec0a3f8765289ea3bb99eb8e09d15b
     }
 }

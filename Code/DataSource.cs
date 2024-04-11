@@ -146,6 +146,16 @@ namespace DB_Management
             return "SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE = '" +
                 username + "' AND TYPE = '"+type+"'";
         }
+        public string getQueryUserTabPriV2(string username, string type)
+        {
+            return "SELECT DISTINCT TABLE_NAME FROM USER_TAB_PRIVS WHERE GRANTEE = '" +
+                username + "' AND TYPE = '" + type + "'";
+        }
+        public string getPriUsrFromTab(string username,string tablename)
+        {
+            return "SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE = '" +
+                username + "' AND TABLE_NAME = '" + tablename + "'";
+        }
         public bool createRole(Role role)
         {
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
