@@ -25,7 +25,6 @@ namespace DB_Management
         public addUser()
         {
             InitializeComponent();
-            connection.connect();
             loadListview();
             loadTextBox();
 
@@ -62,7 +61,7 @@ namespace DB_Management
 
         private void createUser()
         {
-
+            connection.connect();
             using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
                 cmd.ExecuteNonQuery();
@@ -80,6 +79,7 @@ namespace DB_Management
             {
                 cmd.ExecuteNonQuery();
             }
+            connection.disconnect();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -91,7 +91,8 @@ namespace DB_Management
             else
             {
                 createUser();
-                addRole();
+                if(listView1.CheckedItems.Count > 0)
+                    addRole();
                 MessageBox.Show("User created successfully");
                 clearOption();
             }
