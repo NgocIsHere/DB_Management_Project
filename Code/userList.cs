@@ -71,7 +71,6 @@ namespace DB_Management
             {
                 comboBox2.Items.Add(reader1["USERNAME"].ToString()); // Thay column_name bằng tên cột bạn muốn điền vào ComboBox
             }
-
         }
 
         private void DisplayUserData()
@@ -119,7 +118,6 @@ namespace DB_Management
             {
                 using (OracleDataReader reader = cmd.ExecuteReader())
                 {
-         
                     while (reader.Read())
                     {
                         quantity += 1;
