@@ -25,7 +25,7 @@ namespace DB_Management
         
         public DataSource()
         {
-            stringsql = "Data Source=localhost:1521/XE;User Id=C##ADProject;Password=123;";
+            stringsql = "Data Source=localhost:1521/XE;User Id=C##ADMIN;Password=123;";
             conn = new OracleConnection(stringsql);
         }
         public List<string> getAllObject(string query, string column)

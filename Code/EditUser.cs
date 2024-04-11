@@ -18,14 +18,16 @@ namespace DB_Management
         List<string> privileges = new List<string>() { "Select", "Insert", "Delete", "Update" };
         List<string> queries = new List<string>();
         List<string> tablenames = new List<string>();
-        public static string username = "PROJECT_U_TEST";
+        public string username;
         DataSource ds = new DataSource();
         Role current_user;
         bool block_init = false;
-        public EditUser()
+        public EditUser(string usrname)
         {
             InitializeComponent();
             InitializeMyComponet();
+            username = usrname;
+            MessageBox.Show(username);
         }
 
         private void InitializeMyComponet()
@@ -189,6 +191,9 @@ namespace DB_Management
         private void button3_Click(object sender, EventArgs e)
         {
             this.Dispose();
+            userList edt = new userList();
+            edt.Show();
         }
+
     }
 }

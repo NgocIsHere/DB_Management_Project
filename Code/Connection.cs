@@ -30,8 +30,6 @@ namespace DB_Management
             try
             {
                 connection.Open();
-
-
             }
             catch (Exception ex)
             {
