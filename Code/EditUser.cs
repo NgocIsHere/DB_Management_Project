@@ -1,4 +1,5 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
 
 namespace DB_Management
 {
@@ -22,21 +24,16 @@ namespace DB_Management
         public string username;
         DataSource ds = new DataSource();
         Role current_user;
-<<<<<<< HEAD
-        bool block_init = false;
-        public EditUser(string usrname)
-=======
+
         bool block1 = false;
         bool block2 = false;
         public EditUser()
->>>>>>> b4e047ac31ec0a3f8765289ea3bb99eb8e09d15b
         {
             InitializeComponent();
             tablenames = ds.getAllObject(DataSource.table_query, "TABLE_NAME");
             current_user = getUser();
             InitializeMyComponet();
-            username = usrname;
-            MessageBox.Show(username);
+            
         }
 
         private void InitializeMyComponet()
@@ -56,7 +53,7 @@ namespace DB_Management
                 9F, System.Drawing.FontStyle.Regular,
                 System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             lv_tab.View = View.Details;
-            
+
             foreach (string tablename in tablenames)
             {
                 ListViewItem item = new ListViewItem();
@@ -118,11 +115,11 @@ namespace DB_Management
         private void getViewUsrPriTab()
         {
             lv_pri_tab.Items.Clear();
-            List<string> tables = ds.getAllObject(ds.getQueryUserTabPri(username,"TABLE"),"TABLE_NAME");
+            List<string> tables = ds.getAllObject(ds.getQueryUserTabPri(username, "TABLE"), "TABLE_NAME");
             List<string> pris = ds.getAllObject(ds.getQueryUserTabPri(username, "TABLE"), "PRIVILEGE");
             List<string> cols = new List<string>();
             // can xu ly cho view
-            for (int i=0;i<tables.Count;i++)
+            for (int i = 0; i < tables.Count; i++)
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = tables[i];
@@ -139,7 +136,7 @@ namespace DB_Management
         private void getViewColumn(string tablename)
         {
             List<string> columns = ds.getAllObject(ds.getQueryTableColumn(tablename), "COLUMN_NAME");
-            foreach(string column in columns)
+            foreach (string column in columns)
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = column;
@@ -163,14 +160,14 @@ namespace DB_Management
             //    current_user.add
             //}
             Role user = new Role(username);
-            foreach(string table in tablenames)
+            foreach (string table in tablenames)
             {
                 List<string> columns = ds.getAllObject(ds.getQueryTableColumn(table), "COLUMN_NAME");
                 Table mytable = new Table(table, columns);
                 user.tables.Add(mytable);
-                List<string> Pris = ds.getAllObject(ds.getPriUsrFromTab(username, table),"PRIVILEGE");
-                List<string>option = ds.getAllObject(ds.getPriUsrFromTab(username, table), "GRANTABLE");
-                for(int i =0;i<Pris.Count;i++)
+                List<string> Pris = ds.getAllObject(ds.getPriUsrFromTab(username, table), "PRIVILEGE");
+                List<string> option = ds.getAllObject(ds.getPriUsrFromTab(username, table), "GRANTABLE");
+                for (int i = 0; i < Pris.Count; i++)
                 {
                     int privi = Pris[i].Equals("INSERT") ? Privilege.I : Pris[i].Equals("UPDATE") ? Privilege.U : Privilege.D;
                     int op = option[i].Equals("YES") ? Privilege.WITH_GRANT_OPTION : Privilege.GRANT;
@@ -183,7 +180,7 @@ namespace DB_Management
         {
             if (lv_column.SelectedItems.Count > 0)
             {
-                lv_column.SelectedItems[0].Checked = ! lv_column.SelectedItems[0].Checked;
+                lv_column.SelectedItems[0].Checked = !lv_column.SelectedItems[0].Checked;
             }
         }
 
@@ -194,7 +191,7 @@ namespace DB_Management
                 Table table = current_user.GetTable(lv_tab.SelectedItems[0].Text);
                 block1 = true;
                 container_pri.Visible = true;
-                for(int i = 0; i < lv_privilege.Items.Count; i++)
+                for (int i = 0; i < lv_privilege.Items.Count; i++)
                 {
                     lv_revoke.Items[i].Checked = true;
                     lv_grant.Items[i].Checked = table.checkPrivilege(Table.any, i, Privilege.GRANT);
@@ -202,7 +199,7 @@ namespace DB_Management
                 }
                 block1 = false;
             }
-            
+
         }
 
         private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -210,13 +207,13 @@ namespace DB_Management
             if (lv_privilege.SelectedItems.Count > 0)
             {
                 ListViewItem item = lv_privilege.SelectedItems[0];
-                if(item.Index == Privilege.S || item.Index == Privilege.U)
+                if (item.Index == Privilege.S || item.Index == Privilege.U)
                 {
                     lv_column.Items.Clear();
                     string tablename = lv_tab.SelectedItems[0].Text;
                     lv_column.Visible = true;
                     getViewColumn(tablename);
-                } 
+                }
             }
         }
 
@@ -234,8 +231,6 @@ namespace DB_Management
             edt.Show();
         }
 
-<<<<<<< HEAD
-=======
         private void lv_grant_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             Table table = current_user.GetTable(lv_tab.SelectedItems[0].Text);
@@ -288,6 +283,5 @@ namespace DB_Management
                 table.editPrivilege(Table.all, item.Index, Privilege.NONE);
             }
         }
->>>>>>> b4e047ac31ec0a3f8765289ea3bb99eb8e09d15b
     }
 }

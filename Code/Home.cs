@@ -39,7 +39,7 @@ namespace DB_Management
             UserList1 ds0 = new UserList1();*/
             addUser addUser = new addUser();
             addRole rl = new addRole();
-            EditUser edituser = new EditUser("");
+            // EditUser edituser = new EditUser("");
             userList usr = new userList();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
             {usr,addUser,rl};
