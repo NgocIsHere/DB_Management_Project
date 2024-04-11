@@ -147,6 +147,7 @@ namespace DB_Management
         {
             comboBox1.Text = null;
             textBox1.Text = null;
+            fillcolumn();
             DisplayUserData();
         }
 
