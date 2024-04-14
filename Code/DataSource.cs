@@ -173,6 +173,14 @@ namespace DB_Management
         {
             return "SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE = '" + usr + "'";
         }
+        public string getQueryRoleMember(string role)
+        {
+            return "SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTED_ROLE = '" + role + "'";
+        }
+        public string getQueryRoleUser(string user)
+        {
+            return "SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTEE = '" + user + "'";
+        }
         public bool createRole(Role role)
         {
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
@@ -275,7 +283,7 @@ namespace DB_Management
             conn.Close();
             return true;
         }
-        public bool updateUser(Role user)
+        public bool updateUser(Role user,ListView lv_role)
         {
             List<string> oldpris = getAllObject(getQueryPriOfUsr(user.Name), "PRIVILEGE");
             List<string> oldtabs = getAllObject(getQueryPriOfUsr(user.Name), "TABLE_NAME");
@@ -346,6 +354,40 @@ namespace DB_Management
                 }
             }
             conn.Close();
+            return grantRoleUsr(lv_role, user.Name);
+        }
+        private bool grantRoleUsr(ListView lv_role,string username)
+        {
+            List<string> role_usr = getAllObject(getQueryRoleUser(username), "GRANTED_ROLE");
+            conn.Open();
+            try
+            {
+                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                command.ExecuteNonQuery();
+                
+                foreach(ListViewItem item in lv_role.Items)
+                {
+                    if(!item.Checked && role_usr.Contains(item.Text))
+                    {
+                        command.CommandText = "REVOKE " + item.Text + " FROM " + username;
+                        command.ExecuteNonQuery();
+                    }
+                    else if(item.Checked && !role_usr.Contains(username))
+                    {
+                        command.CommandText = "GRANT " + item.Text + " TO " + username;
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
             return true;
         }
         public void deleteRoleByName(string rolename)

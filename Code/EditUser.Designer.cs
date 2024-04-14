@@ -52,9 +52,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lv_wgo = new System.Windows.Forms.ListView();
             this.lv_r = new System.Windows.Forms.ListView();
+            this.lv_role = new System.Windows.Forms.ListView();
             this.container_pri.SuspendLayout();
-            //this.gb1.SuspendLayout();
-            //this.SuspendLayout();
+            this.gb1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // label5
             // 
@@ -71,7 +72,7 @@
             this.btn_exit.BackColor = System.Drawing.Color.Aqua;
             this.btn_exit.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_exit.ForeColor = System.Drawing.Color.Black;
-            this.btn_exit.Location = new System.Drawing.Point(498, 610);
+            this.btn_exit.Location = new System.Drawing.Point(493, 630);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(99, 31);
             this.btn_exit.TabIndex = 25;
@@ -84,7 +85,7 @@
             this.btn_save.BackColor = System.Drawing.Color.Aqua;
             this.btn_save.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save.ForeColor = System.Drawing.Color.Black;
-            this.btn_save.Location = new System.Drawing.Point(366, 610);
+            this.btn_save.Location = new System.Drawing.Point(366, 630);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(99, 31);
             this.btn_save.TabIndex = 24;
@@ -120,7 +121,7 @@
             this.lv_pri_tab.HideSelection = false;
             this.lv_pri_tab.Location = new System.Drawing.Point(17, 101);
             this.lv_pri_tab.Name = "lv_pri_tab";
-            this.lv_pri_tab.Size = new System.Drawing.Size(460, 269);
+            this.lv_pri_tab.Size = new System.Drawing.Size(508, 269);
             this.lv_pri_tab.TabIndex = 31;
             this.lv_pri_tab.UseCompatibleStateImageBehavior = false;
             // 
@@ -131,7 +132,7 @@
             this.lv_tab.HideSelection = false;
             this.lv_tab.Location = new System.Drawing.Point(17, 415);
             this.lv_tab.Name = "lv_tab";
-            this.lv_tab.Size = new System.Drawing.Size(275, 226);
+            this.lv_tab.Size = new System.Drawing.Size(260, 226);
             this.lv_tab.TabIndex = 33;
             this.lv_tab.UseCompatibleStateImageBehavior = false;
             this.lv_tab.SelectedIndexChanged += new System.EventHandler(this.lv_tab_SelectedIndexChanged);
@@ -145,9 +146,9 @@
             this.container_pri.Controls.Add(this.label1);
             this.container_pri.Controls.Add(this.label3);
             this.container_pri.Controls.Add(this.lv_privilege);
-            this.container_pri.Location = new System.Drawing.Point(498, 294);
+            this.container_pri.Location = new System.Drawing.Point(545, 294);
             this.container_pri.Name = "container_pri";
-            this.container_pri.Size = new System.Drawing.Size(418, 254);
+            this.container_pri.Size = new System.Drawing.Size(410, 254);
             this.container_pri.TabIndex = 34;
             this.container_pri.TabStop = false;
             this.container_pri.Visible = false;
@@ -244,7 +245,7 @@
             // 
             this.label6.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label6.ForeColor = System.Drawing.Color.Aqua;
-            this.label6.Location = new System.Drawing.Point(103, 388);
+            this.label6.Location = new System.Drawing.Point(87, 386);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 38);
             this.label6.TabIndex = 41;
@@ -256,9 +257,9 @@
             this.lv_column.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.lv_column.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lv_column.HideSelection = false;
-            this.lv_column.Location = new System.Drawing.Point(498, 59);
+            this.lv_column.Location = new System.Drawing.Point(545, 59);
             this.lv_column.Name = "lv_column";
-            this.lv_column.Size = new System.Drawing.Size(173, 229);
+            this.lv_column.Size = new System.Drawing.Size(177, 229);
             this.lv_column.TabIndex = 33;
             this.lv_column.UseCompatibleStateImageBehavior = false;
             this.lv_column.Visible = false;
@@ -289,9 +290,9 @@
             this.gb1.Controls.Add(this.lv_wgo);
             this.gb1.Controls.Add(this.lv_r);
             this.gb1.Controls.Add(this.lv_g);
-            this.gb1.Location = new System.Drawing.Point(672, 0);
+            this.gb1.Location = new System.Drawing.Point(719, 0);
             this.gb1.Name = "gb1";
-            this.gb1.Size = new System.Drawing.Size(244, 301);
+            this.gb1.Size = new System.Drawing.Size(236, 301);
             this.gb1.TabIndex = 47;
             this.gb1.TabStop = false;
             this.gb1.Visible = false;
@@ -359,12 +360,26 @@
             this.lv_r.View = System.Windows.Forms.View.Details;
             this.lv_r.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lv_r_ItemChecked);
             // 
+            // lv_role
+            // 
+            this.lv_role.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lv_role.CheckBoxes = true;
+            this.lv_role.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lv_role.HideSelection = false;
+            this.lv_role.Location = new System.Drawing.Point(283, 415);
+            this.lv_role.Name = "lv_role";
+            this.lv_role.Size = new System.Drawing.Size(242, 185);
+            this.lv_role.TabIndex = 48;
+            this.lv_role.UseCompatibleStateImageBehavior = false;
+            this.lv_role.View = System.Windows.Forms.View.Details;
+            // 
             // EditUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(982, 673);
+            this.Controls.Add(this.lv_role);
             this.Controls.Add(this.gb1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.container_pri);
@@ -410,5 +425,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ListView lv_role;
     }
 }

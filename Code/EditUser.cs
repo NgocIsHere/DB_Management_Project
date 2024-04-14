@@ -20,6 +20,7 @@ namespace DB_Management
         List<string> privileges = new List<string>() { "Select", "Insert", "Delete", "Update" };
         List<string> queries = new List<string>();
         List<string> tablenames = new List<string>();
+        List<string> roles;
         private string username = "PROJECT_U_TEST";
         DataSource ds = new DataSource();
         Role current_user;
@@ -89,6 +90,28 @@ namespace DB_Management
                     9F, System.Drawing.FontStyle.Regular, System.Drawing.
                     GraphicsUnit.Point, ((byte)(163)));
                 lv_privilege.Items.Add(item);
+
+            }
+            //lv_role
+            roles = ds.getAllObject(DataSource.role_query, "ROLE");
+            lv_role.Columns.Add("Role").Width = 150;
+            lv_role.Font = new System.Drawing.Font("Microsoft Sans Serif",
+                9F, System.Drawing.FontStyle.Regular,
+                System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            List<string> role_usr = ds.getAllObject(ds.getQueryRoleUser(username), "GRANTED_ROLE");
+            foreach (string role in roles)
+            {
+                ListViewItem item = new ListViewItem();
+                item.Text = role;
+                item.ForeColor = System.Drawing.Color.Aqua;
+                item.Font = new System.Drawing.Font("Microsoft Sans Serif",
+                    9F, System.Drawing.FontStyle.Regular, System.Drawing.
+                    GraphicsUnit.Point, ((byte)(163)));
+                lv_role.Items.Add(item);
+                if (role_usr.Contains(item.Text))
+                {
+                    item.Checked = true;
+                }
 
             }
             //listview grant - deny - withgrantoption
@@ -233,7 +256,7 @@ namespace DB_Management
         }
         private void saveEdit()
         {
-            ds.updateUser(current_user);
+            ds.updateUser(current_user,lv_role);
         }
         private Role getUser()
         {
