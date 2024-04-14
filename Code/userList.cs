@@ -164,5 +164,30 @@ namespace DB_Management
                 edu.ShowDialog();
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (comboBox2.Text.Length > 0)
+            {
+                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", connection.connection);
+                command.ExecuteNonQuery();
+                command.CommandText = "DROP USER " + comboBox2.Text + " CASCADE";
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Xóa user thành công");
+                    comboBox2.Text = null;
+                    fillcolumn();
+                    DisplayUserData();
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể xóa user này");
+                }
+
+            }
+        }
     }
 }

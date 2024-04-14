@@ -357,5 +357,14 @@ namespace DB_Management
             command.ExecuteNonQuery();
             conn.Close();
         }
+        public void deleteUserByName(string usrname)
+        {
+            conn.Open();
+            OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP USER " + usrname + " CASCADE" ;
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }
