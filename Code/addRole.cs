@@ -280,7 +280,6 @@ namespace DB_Management
             else if (isadd)
             {
                 //todo
-                MessageBox.Show("C##P_" + tb_rolename.Text.ToUpper());
                 if (!existRole(t))
                 {
                     if (datasource.createRole(current_role))
@@ -415,7 +414,6 @@ namespace DB_Management
                 if (item.Index == Privilege.S || item.Index == Privilege.U)
                 {
                     btn_col.Visible = true;
-                    MessageBox.Show("oke");
                 }
                 else
                 {

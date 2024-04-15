@@ -313,6 +313,7 @@
             this.lv_roles.TabIndex = 8;
             this.lv_roles.UseCompatibleStateImageBehavior = false;
             this.lv_roles.View = System.Windows.Forms.View.Details;
+            this.lv_roles.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lv_roles_ItemChecked);
             this.lv_roles.SelectedIndexChanged += new System.EventHandler(this.lv_roles_SelectedIndexChanged);
             // 
             // lb_addrole
