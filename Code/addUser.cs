@@ -122,6 +122,10 @@ namespace DB_Management
             {
                 roles += role + ",";
             }
+            using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
+            {
+                cmd.ExecuteNonQuery();
+            }
             roles = roles.Remove(roles.Length - 1);
             using (OracleCommand cmd = new OracleCommand($"GRANT {roles} TO {textBox3.Text}{textBox1.Text}", connection.connection))
             {

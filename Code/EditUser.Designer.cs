@@ -53,6 +53,7 @@
             this.lv_wgo = new System.Windows.Forms.ListView();
             this.lv_r = new System.Windows.Forms.ListView();
             this.lv_role = new System.Windows.Forms.ListView();
+            this.label10 = new System.Windows.Forms.Label();
             this.container_pri.SuspendLayout();
             this.gb1.SuspendLayout();
             this.SuspendLayout();
@@ -373,12 +374,24 @@
             this.lv_role.UseCompatibleStateImageBehavior = false;
             this.lv_role.View = System.Windows.Forms.View.Details;
             // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label10.ForeColor = System.Drawing.Color.Aqua;
+            this.label10.Location = new System.Drawing.Point(363, 386);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 38);
+            this.label10.TabIndex = 49;
+            this.label10.Text = "Role";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // EditUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(982, 673);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.lv_role);
             this.Controls.Add(this.gb1);
             this.Controls.Add(this.label6);
@@ -426,5 +439,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListView lv_role;
+        private System.Windows.Forms.Label label10;
     }
 }
