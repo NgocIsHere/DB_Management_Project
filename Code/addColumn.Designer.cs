@@ -64,7 +64,7 @@
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.lv_column);
             this.Name = "addColumn";
-            this.Text = "Form1";
+            this.Text = "Column";
             this.ResumeLayout(false);
 
         }

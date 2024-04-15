@@ -66,7 +66,7 @@
             this.btn_back.UseVisualStyleBackColor = false;
             this.btn_back.Click += new System.EventHandler(this.btn_aply_Click);
             // 
-            // Form2
+            // addTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -75,8 +75,8 @@
             this.Controls.Add(this.btn_back);
             this.Controls.Add(this.lv_table);
             this.Controls.Add(this.lb_title);
-            this.Name = "Form2";
-            this.Text = "Form2";
+            this.Name = "addTable";
+            this.Text = "Table";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
 
