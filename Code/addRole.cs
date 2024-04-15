@@ -209,7 +209,7 @@ namespace DB_Management
                 ischoose = true;
                 btn_back.Visible = true;
                 btn_add.Visible = false;
-                btn_choose.Text = "all";
+                btn_choose.Text = "All";
                 lv_roles.CheckBoxes = true;
             }
             else if (roles.Count > 0)
@@ -227,7 +227,7 @@ namespace DB_Management
                 else
                 {
                     ischooseall = false;
-                    btn_choose.Text = "all";
+                    btn_choose.Text = "All";
                     foreach (ListViewItem item in lv_roles.Items)
                     {
                         item.Checked = false;
@@ -245,6 +245,7 @@ namespace DB_Management
                 {
                     deleteRoleByName(item.SubItems[0].Text);
                     lv_roles.Items.Remove(item);
+                    roles.Remove(item.Text);
                 }
             }
             lv_roles.CheckBoxes = false;
