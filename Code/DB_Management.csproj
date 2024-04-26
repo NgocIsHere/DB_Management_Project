@@ -157,17 +157,35 @@
     <Compile Include="addColumn.Designer.cs">
       <DependentUpon>addColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="donvi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="donvi.Designer.cs">
+      <DependentUpon>donvi.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditUser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="hocphan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="hocphan.Designer.cs">
+      <DependentUpon>hocphan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Home.designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="khmo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="khmo.Designer.cs">
+      <DependentUpon>khmo.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationButton.cs" />
     <Compile Include="NavigationControl.cs" />
@@ -195,11 +213,20 @@
     <EmbeddedResource Include="addTable.resx">
       <DependentUpon>addTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="donvi.resx">
+      <DependentUpon>donvi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="hocphan.resx">
+      <DependentUpon>hocphan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="khmo.resx">
+      <DependentUpon>khmo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
