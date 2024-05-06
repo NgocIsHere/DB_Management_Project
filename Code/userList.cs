@@ -164,5 +164,10 @@ namespace DB_Management
                 edu.ShowDialog();
             }
         }
+
+        private void userList_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

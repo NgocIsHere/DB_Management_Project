@@ -1,50 +1,30 @@
--- tạo user từ connection của root------------------------------------------------------
-
---alter session set "_oracle_script" = true;
---CREATE USER C##ADMIN IDENTIFIED BY 123; 
---GRANT DBA TO C##ADMIN;
---GRANT EXECUTE ANY PROCEDURE TO C##ADMIN;
-----CẤP QUYỀN TRÊN TOÀN BỘ CONTAINER
---GRANT CREATE SESSION TO C##ADMIN CONTAINER = ALL; 
-
 --kết nối sang user vừa tạo với chế default-----------------------------------------------
 alter session set "_oracle_script" = true;
-DROP TABLE PROJECT_DANGKY;
-DROP TABLE PROJECT_PHANCONG;
-drop TABLE PROJECT_KHMO;
-DROP TABLE PROJECT_HOCPHAN;
-DROP TABLE PROJECT_SINHVIEN;
-ALTER TABLE PROJECT_NHANSU
-DROP CONSTRAINT FK_NS_DV;
-DROP TABLE PROJECT_DONVI;
-DROP TABLE PROJECT_NHANSU;
-
 
 CREATE TABLE PROJECT_NHANSU
 (
-    MANV VARCHAR(10),
-    HOTEN NVARCHAR2(100),
+    MANV VARCHAR(3),
+    HOTEN NVARCHAR2(50),
     PHAI NVARCHAR2(10),
     NGSINH DATE,
     PHUCAP INT,
     DT VARCHAR(10),
-    VAITRO VARCHAR2(100),
-    MADV VARCHAR(10),
-    USERNAME VARCHAR(100),
+    VAITRO VARCHAR2(50),
+    MADV VARCHAR(5),
     
     PRIMARY KEY(MANV)
 );
 
 CREATE TABLE PROJECT_SINHVIEN
 (
-    MASV VARCHAR(10),
-    HOTEN NVARCHAR2(100),
+    MASV VARCHAR(3),
+    HOTEN NVARCHAR2(50),
     PHAI NVARCHAR2(10),
     NGSINH DATE,
     DCHI VARCHAR2(100),
     DT VARCHAR(10),
-    MACT VARCHAR(10),
-    MANGANH VARCHAR(10),
+    MACT VARCHAR(5),
+    MANGANH VARCHAR(5),
     SOTCTL INT,
     DTBTL FLOAT,
     
@@ -52,21 +32,21 @@ CREATE TABLE PROJECT_SINHVIEN
 );
 CREATE TABLE PROJECT_DONVI
 (
-    MADV VARCHAR(10),
-    TENDV VARCHAR2(100),
-    TRGDV VARCHAR(10),
+    MADV VARCHAR(5),
+    TENDV VARCHAR2(50),
+    TRGDV VARCHAR(3),
     PRIMARY KEY(MADV)
 );
 
 CREATE TABLE PROJECT_HOCPHAN
 (
     MAHP VARCHAR(10),
-    TENHP VARCHAR2(100),
+    TENHP VARCHAR2(50),
     SOTC INT,
     SSLT INT,
     STTH INT, 
     SOSVTD INT,
-    MADV VARCHAR(10),
+    MADV VARCHAR(5),
     
     PRIMARY KEY(MAHP)
 );
@@ -76,28 +56,28 @@ CREATE TABLE PROJECT_KHMO
     MAHP VARCHAR(10),
     HK INT,
     NAM INT,
-    MACT VARCHAR(10),
+    MACT VARCHAR(5),
     PRIMARY KEY(MAHP, HK,NAM,MACT)
 );
 
 CREATE TABLE PROJECT_PHANCONG
 (
-    MAGV VARCHAR(10),
+    MAGV VARCHAR(3),
     MAHP VARCHAR(10),
     HK INT,
     NAM INT,
-    MACT VARCHAR(10),
+    MACT VARCHAR(5),
     
     PRIMARY KEY(MAGV,MAHP,HK,NAM,MACT)
 );
 CREATE TABLE PROJECT_DANGKY
 (
-    MASV VARCHAR(10),
-    MAGV VARCHAR(10),
+    MASV VARCHAR(3),
+    MAGV VARCHAR(3),
     MAHP VARCHAR(10),
     HK INT, 
     NAM INT,
-    MACT VARCHAR(10),
+    MACT VARCHAR(5),
     DIEMTHI FLOAT,
     DIEMQT FLOAT,
     DIEMCK FLOAT,
@@ -105,7 +85,6 @@ CREATE TABLE PROJECT_DANGKY
     
     PRIMARY KEY(MASV,MAGV,MAHP,HK,NAM,MACT)
 );
-
 
 ALTER TABLE PROJECT_NHANSU
 ADD
@@ -153,9 +132,7 @@ ALTER TABLE PROJECT_DANGKY
 ADD
     CONSTRAINT FK_DK_PC
     FOREIGN KEY (MAGV,MAHP,HK,NAM,MACT)
-    REFERENCES PROJECT_PHANCONG;    
-
- 
+    REFERENCES PROJECT_PHANCONG;
 
 CREATE ROLE C##P_NVCOBAN;
 CREATE ROLE C##P_GIANGVIEN;
@@ -163,7 +140,6 @@ CREATE ROLE C##P_GIAOVU;
 CREATE ROLE C##P_TRUONGDONVI;
 CREATE ROLE C##P_TRUONGKHOA;
 CREATE ROLE C##P_SINHVIEN;
---DROP ROLE C##P_NVCOBAN
 
 --XEM ROLE ĐÃ TẠO
 SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%';
@@ -171,3 +147,35 @@ SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%';
 SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE LIKE 'C##P_%';
 --XEM DANH SÁCH MEMBER CỦA ROLE
 SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTED_ROLE LIKE 'C##P_%'; 
+
+-- Trên quan hệ SINHVIEN, sinh viên chỉ được xem thông tin của chính mình
+
+-- Chỉnh sửa thông tin địa chỉ (ĐCHI) và số điện thoại liên lạc (ĐT) của chính sinh viên.
+--- Xem danh sách tất cả học phần (HOCPHAN), kế hoạch mở môn (KHMO) của chương trình đào tạo mà sinh viên đang theo học.
+--- Thêm, Xóa các dòng dữ liệu đăng ký học phần (ĐANGKY) liên quan đến chính sinh viên đó trong học kỳ của năm học hiện tại (nếu thời điểm hiệu chỉnh đăng ký còn hợp lệ).
+--- Sinh viên không được chỉnh sửa trên các trường liên quan đến điểm.
+--- Sinh viên được Xem tất cả thông tin trên quan hệ ĐANGKY tại các dòng dữ liệu liên quan đến chính sinh viên
+SELECT * FROM project_sinhvien
+/
+
+CREATE OR REPLACE FUNCTION PC1_FUNCTION (
+    P_SCHEMA VARCHAR2,
+    P_OBJ VARCHAR2
+)
+RETURN VARCHAR2
+AS
+    USER VARCHAR2(100); -- Corrected the data type declaration
+BEGIN
+    USER := SYS_CONTEXT('USERENV','SESSION_USER'); -- Corrected the typo in USERENV
+    RETURN 'MASV = ''' || USER || '''';
+END;
+/
+BEGIN
+ DBMS_RLS.ADD_POLICY(
+ OBJECT_SCHEMA =>'C##ADMIN',
+ OBJECT_NAME=>'project_sinhvien',
+ POLICY_NAME =>'PC1',
+ POLICY_FUNCTION=>'PC1_FUNCTION',
+ STATEMENT_TYPES=>'SELECT');
+END; 
+/

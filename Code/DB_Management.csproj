@@ -163,11 +163,23 @@
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="HomeSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomeSV.designer.cs">
+      <DependentUpon>HomeSV.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Home.designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="NavigationButton.cs" />
     <Compile Include="NavigationControl.cs" />
@@ -175,7 +187,19 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="sv_hocphan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="sv_hocphan.Designer.cs">
+      <DependentUpon>sv_hocphan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Table.cs" />
+    <Compile Include="sv_ttcn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="sv_ttcn.Designer.cs">
+      <DependentUpon>sv_ttcn.cs</DependentUpon>
+    </Compile>
     <Compile Include="userList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,8 +222,14 @@
     <EmbeddedResource Include="EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HomeSV.resx">
+      <DependentUpon>HomeSV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -211,6 +241,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="sv_hocphan.resx">
+      <DependentUpon>sv_hocphan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sv_ttcn.resx">
+      <DependentUpon>sv_ttcn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="userList.resx">
       <DependentUpon>userList.cs</DependentUpon>
     </EmbeddedResource>
