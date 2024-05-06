@@ -25,7 +25,7 @@ namespace DB_Management
 
         private void load_data()
         {
-            string sql = "select * from PROJECT_KHMO";
+            string sql = "select * from C##ADMIN.PROJECT_KHMO";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
             {
@@ -65,7 +65,7 @@ namespace DB_Management
             string nam = textBox3.Text;
             string mact = textBox4.Text;
 
-            string sql = $"insert into PROJECT_KHMO values('{mahp}', {hk}, {nam}, '{mact}')";
+            string sql = $"insert into C##ADMIN.PROJECT_KHMO values('{mahp}', {hk}, {nam}, '{mact}')";
             Debug.WriteLine(sql);
 
             connection.connect();
@@ -107,7 +107,7 @@ namespace DB_Management
             string mact = textBox4.Text;
 
 
-            string sql = $"UPDATE PROJECT_KHMO SET HK = {hk}, NAM = {nam}, MACT = '{mact}' WHERE MAHP = '{mahp}' ";
+            string sql = $"UPDATE C##ADMIN.PROJECT_KHMO SET HK = {hk}, NAM = {nam}, MACT = '{mact}' WHERE MAHP = '{mahp}' ";
             Debug.WriteLine(sql);
 
             connection.connect();

@@ -25,7 +25,7 @@ namespace DB_Management
 
         private void load_data()
         {
-            string sql = "select * from PROJECT_HOCPHAN";
+            string sql = "select * C##ADMIN.from PROJECT_HOCPHAN";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
             {
@@ -69,7 +69,7 @@ namespace DB_Management
             string madv = textBox7.Text;
 
 
-            string sql = $"insert into PROJECT_HOCPHAN values('{mahp}', '{tenhp}', {sotc}, {sotietlt}, {sotietth}, {sosvtd}, '{madv}')";
+            string sql = $"insert into C##ADMIN.PROJECT_HOCPHAN values('{mahp}', '{tenhp}', {sotc}, {sotietlt}, {sotietth}, {sosvtd}, '{madv}')";
             Debug.WriteLine(sql);
 
             connection.connect();
@@ -118,7 +118,7 @@ namespace DB_Management
             string madv = textBox7.Text;
 
 
-            string sql = $"UPDATE PROJECT_HOCPHAN SET TENHP = '{tenhp}', SOTC = {sotc}, SSLT = {sotietlt}, STTH = {sotietth}, SOSVTD = {sosvtd}, MADV = '{madv}' WHERE MAHP = '{mahp}' ";
+            string sql = $"UPDATE C##ADMIN.PROJECT_HOCPHAN SET TENHP = '{tenhp}', SOTC = {sotc}, SSLT = {sotietlt}, STTH = {sotietth}, SOSVTD = {sosvtd}, MADV = '{madv}' WHERE MAHP = '{mahp}' ";
             Debug.WriteLine(sql);
 
             connection.connect();
