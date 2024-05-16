@@ -37,8 +37,9 @@ namespace DB_Management
             sv_ttcn usr = new sv_ttcn();
             sv_hocphan hp = new sv_hocphan(); 
             sv_dangky dk = new sv_dangky();
+            sv_dangkyhp dkhp = new sv_dangkyhp();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {usr,hp, dk};
+            {usr,hp, dk,dkhp};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -87,6 +88,12 @@ namespace DB_Management
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(3);
+            navigationButtons.Highlight(button4);
         }
     } 
 }

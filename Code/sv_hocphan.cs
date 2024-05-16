@@ -54,33 +54,15 @@ namespace DB_Management
             {
                 comboBox1.Items.Add(reader1["HK"].ToString()); // Thay column_name bằng tên cột bạn muốn điền vào ComboBox
             }
-            string query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp";
-            if (comboBox1.Text.ToString() == "1")
-            {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 1";
-
-            }
-            else if (comboBox1.Text.ToString() == "2")
-            {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 2";
-
-            }
-            else
-            {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 3";
-            }
+            comboBox1.Items.Add("Tất cả");
+            string query1 = "SELECT * FROM c##admin.project_khmo kh inner join c##admin.project_hocphan hp on kh.mahp = hp.mahp";
+            
             int quantity1 = 0;
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
             System.Data.DataTable table1 = new System.Data.DataTable();
             adapter1.Fill(table1);
             dataGridView1.DataSource = table1;
-            string query2 = "SELECT * FROM c##admin.project_khmo";
-           
-            OracleDataAdapter adapter2 = new OracleDataAdapter(query2, connection.connection);
-/*          System.Data.DataTable table2 = new System.Data.DataTable();
-            adapter2.Fill(table2);
-
-*/        }
+        }
 
        
         
@@ -102,6 +84,34 @@ namespace DB_Management
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string query1;
+            if (comboBox1.Text.ToString() == "1")
+            {
+                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 1";
+
+            }
+            else if (comboBox1.Text.ToString() == "2")
+            {
+                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 2";
+
+            }
+            else if (comboBox1.Text.ToString() == "3")
+            {
+                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 3";
+            }
+            else
+            {
+                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp";
+            }
+            int quantity1 = 0;
+            OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
+            System.Data.DataTable table1 = new System.Data.DataTable();
+            adapter1.Fill(table1);
+            dataGridView1.DataSource = table1;
         }
     }
 }
