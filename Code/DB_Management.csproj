@@ -158,7 +158,7 @@
       <DependentUpon>addColumn.cs</DependentUpon>
     </Compile>
     <Compile Include="donvi.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="donvi.Designer.cs">
       <DependentUpon>donvi.cs</DependentUpon>
@@ -169,8 +169,14 @@
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="hocphan.cs">
+    <Compile Include="PH2.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PH2.Designer.cs">
+      <DependentUpon>PH2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="hocphan.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="hocphan.Designer.cs">
       <DependentUpon>hocphan.cs</DependentUpon>
@@ -182,7 +188,7 @@
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="khmo.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="khmo.Designer.cs">
       <DependentUpon>khmo.cs</DependentUpon>
@@ -194,6 +200,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Table.cs" />
+    <Compile Include="DangKy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DangKy.Designer.cs">
+      <DependentUpon>DangKy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PhanCong.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PhanCong.Designer.cs">
+      <DependentUpon>PhanCong.cs</DependentUpon>
+    </Compile>
     <Compile Include="userList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -227,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="khmo.resx">
       <DependentUpon>khmo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PH2.resx">
+      <DependentUpon>PH2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

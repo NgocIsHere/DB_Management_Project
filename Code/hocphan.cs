@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DB_Management
 {
-    public partial class hocphan : Form
+    public partial class hocphan : UserControl
     {
         Connection connection = new Connection();
 
@@ -25,7 +25,7 @@ namespace DB_Management
 
         private void load_data()
         {
-            string sql = "select * C##ADMIN.from PROJECT_HOCPHAN";
+            string sql = "select * from C##ADMIN.PROJECT_HOCPHAN";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
             {

@@ -17,7 +17,7 @@ namespace DB_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Home());
+            Application.Run(new PH2());
         }
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DB_Management
 {
-    public partial class khmo : Form
+    public partial class khmo : UserControl
     {
         Connection connection = new Connection();
 

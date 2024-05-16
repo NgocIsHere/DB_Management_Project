@@ -13,7 +13,7 @@ using System.Windows.Media.Media3D.Converters;
 
 namespace DB_Management
 {
-    public partial class donvi : Form
+    public partial class donvi : UserControl
     {
 
         Connection connection = new Connection();
