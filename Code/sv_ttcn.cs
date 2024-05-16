@@ -24,6 +24,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 namespace DB_Management
 {
     public partial class sv_ttcn : UserControl
@@ -66,7 +67,28 @@ namespace DB_Management
 
         private void button2_Click(object sender, EventArgs e)
         {
-         
+            string sqlquery;
+            if (textBox1.Text != "")
+            {
+                sqlquery = "UPDATE C##ADMIN.PROJECT_SINHVIEN SET DCHI = :DIACHI";
+                using (OracleCommand cmd = new OracleCommand(sqlquery, connection.connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter("DIACHI", textBox1.Text.ToString()));
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} row(s) updated in DIACHI");
+                }
+            }
+            if (textBox2.Text != "")
+            {
+                sqlquery = "UPDATE C##ADMIN.PROJECT_SINHVIEN SET DT = :SDT";
+                using (OracleCommand cmd = new OracleCommand(sqlquery, connection.connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter("SDT", textBox2.Text.ToString()));
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} row(s) updated in SDT.");
+                }
+            }
+            
             DisplayUserData();
         }
 
@@ -78,6 +100,16 @@ namespace DB_Management
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

@@ -43,7 +43,7 @@ namespace DB_Management
             userList usr = new userList();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
             {usr,addUser,rl};
-
+        
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
         }

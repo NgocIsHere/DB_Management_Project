@@ -36,8 +36,9 @@ namespace DB_Management
         {
             sv_ttcn usr = new sv_ttcn();
             sv_hocphan hp = new sv_hocphan(); 
+            sv_dangky dk = new sv_dangky();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {usr,hp};
+            {usr,hp, dk};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
