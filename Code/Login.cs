@@ -34,7 +34,7 @@ namespace DB_Management
             }
             else
             {
-                MessageBox.Show("Đăng nhập thành công!");
+                // Do nothing
             }
             string sql = "SELECT granted_role FROM user_role_privs";
             string roleSV = "C##P_SINHVIEN";
