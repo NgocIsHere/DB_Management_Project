@@ -42,7 +42,7 @@ namespace DB_Management
         private void DisplayUserData()
         {
             DateTime now = DateTime.Now;
-            DateTime deadline = new DateTime(2024,5,17);
+            DateTime deadline = new DateTime(2024,5,25);
             DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
             checkBoxColumn.Name = "Check";
             checkBoxColumn.HeaderText ="Đăng ký";

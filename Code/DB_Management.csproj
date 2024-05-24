@@ -157,12 +157,6 @@
     <Compile Include="addColumn.Designer.cs">
       <DependentUpon>addColumn.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditUser.Designer.cs">
-      <DependentUpon>EditUser.cs</DependentUpon>
-    </Compile>
     <Compile Include="HomeSV.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,9 +224,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="addTable.resx">
       <DependentUpon>addTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditUser.resx">
-      <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomeSV.resx">
       <DependentUpon>HomeSV.cs</DependentUpon>
