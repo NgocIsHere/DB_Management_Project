@@ -452,5 +452,10 @@ namespace DB_Management
             }
             return false;
         }
+
+        private void PhanCong_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

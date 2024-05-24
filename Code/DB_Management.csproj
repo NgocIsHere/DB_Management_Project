@@ -199,6 +199,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="SinhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SinhVien.Designer.cs">
+      <DependentUpon>SinhVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Table.cs" />
     <Compile Include="DangKy.cs">
       <SubType>UserControl</SubType>
@@ -211,6 +217,12 @@
     </Compile>
     <Compile Include="PhanCong.Designer.cs">
       <DependentUpon>PhanCong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanSu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanSu.Designer.cs">
+      <DependentUpon>NhanSu.cs</DependentUpon>
     </Compile>
     <Compile Include="userList.cs">
       <SubType>UserControl</SubType>
@@ -246,8 +258,14 @@
     <EmbeddedResource Include="khmo.resx">
       <DependentUpon>khmo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NhanSu.resx">
+      <DependentUpon>NhanSu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PH2.resx">
       <DependentUpon>PH2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PhanCong.resx">
+      <DependentUpon>PhanCong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -259,6 +277,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SinhVien.resx">
+      <DependentUpon>SinhVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="userList.resx">
       <DependentUpon>userList.cs</DependentUpon>
     </EmbeddedResource>

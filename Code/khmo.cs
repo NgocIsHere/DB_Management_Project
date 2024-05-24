@@ -141,8 +141,9 @@ namespace DB_Management
             }
         }
 
+        private void khmo_Load(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 }

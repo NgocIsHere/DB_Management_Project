@@ -238,6 +238,7 @@
             this.Controls.Add(this.gb_edit);
             this.Name = "PhanCong";
             this.Size = new System.Drawing.Size(1000, 720);
+            this.Load += new System.EventHandler(this.PhanCong_Load);
             this.gb_edit.ResumeLayout(false);
             this.gb_edit.PerformLayout();
             this.ResumeLayout(false);

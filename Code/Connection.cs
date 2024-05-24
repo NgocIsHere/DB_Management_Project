@@ -30,6 +30,7 @@ namespace DB_Management
             try
             {
                 connection.Open();
+                //MessageBox.Show("Kết nối thành công");
             }
             catch (Exception ex)
             {

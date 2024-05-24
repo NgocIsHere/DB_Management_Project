@@ -160,7 +160,7 @@
             // 
             // khmo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.Controls.Add(this.textBox4);
@@ -177,6 +177,7 @@
             this.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "khmo";
             this.Size = new System.Drawing.Size(1000, 720);
+            this.Load += new System.EventHandler(this.khmo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.khmo_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

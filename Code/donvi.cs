@@ -25,10 +25,6 @@ namespace DB_Management
             load_data(); 
             config();
             loadmadonvi();
-
-
-
-
         }
 
         private void config()
@@ -39,15 +35,11 @@ namespace DB_Management
             donvi_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             donvi_dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             donvi_dataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-           
-
             donvi_dataGridView.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
             donvi_dataGridView.DefaultCellStyle.ForeColor = Color.Aqua;
-
             donvi_dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
             donvi_dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
             donvi_dataGridView.BackgroundColor = Color.FromArgb(0, 0, 64);
-
         }
 
 
@@ -85,9 +77,6 @@ namespace DB_Management
                 }
             }
         }
-
-        
-
 
         private void label3_Click(object sender, EventArgs e)
         {
@@ -129,7 +118,6 @@ namespace DB_Management
                 connection.disconnect();
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             string madv = textBox1.Text;
