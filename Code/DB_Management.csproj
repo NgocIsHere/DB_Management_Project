@@ -219,7 +219,7 @@
       <DependentUpon>PhanCong.cs</DependentUpon>
     </Compile>
     <Compile Include="NhanSu.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="NhanSu.Designer.cs">
       <DependentUpon>NhanSu.cs</DependentUpon>

@@ -8,7 +8,7 @@ namespace DB_Management
 {
     internal class Config
     {
-        public static string username = "C##ADMIN";
+        public static string username = "PROJECT_U_2";
         public static string password = "123";
     }
 }
