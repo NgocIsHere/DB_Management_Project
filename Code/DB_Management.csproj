@@ -212,7 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="SinhVien.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SinhVien.Designer.cs">
       <DependentUpon>SinhVien.cs</DependentUpon>
@@ -255,7 +255,7 @@
       <DependentUpon>PhanCong.cs</DependentUpon>
     </Compile>
     <Compile Include="NhanSu.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="NhanSu.Designer.cs">
       <DependentUpon>NhanSu.cs</DependentUpon>

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DB_Management
 {
-    public partial class NhanSu : Form
+    public partial class NhanSu : UserControl
     {
         Connection connection = new Connection();
 

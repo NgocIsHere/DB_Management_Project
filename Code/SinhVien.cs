@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DB_Management
 {
-    public partial class SinhVien : Form
+    public partial class SinhVien : UserControl
     {
         Connection connection = new Connection();
 
