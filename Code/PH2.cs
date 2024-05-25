@@ -47,8 +47,9 @@ namespace DB_Management
             hocphan hp = new hocphan();
             khmo k = new khmo();
             NhanSu nhansu = new NhanSu();
+            SinhVien sv = new SinhVien();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {dangKy,phanCong,dv,hp,nhansu,phanCong,k };
+            {dangKy,phanCong,dv,hp,nhansu,sv,k };
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
