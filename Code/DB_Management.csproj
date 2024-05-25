@@ -169,6 +169,18 @@
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="HomeSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomeSV.designer.cs">
+      <DependentUpon>HomeSV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="PH2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +216,30 @@
     </Compile>
     <Compile Include="SinhVien.Designer.cs">
       <DependentUpon>SinhVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sv_dangky.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="sv_dangky.designer.cs">
+      <DependentUpon>sv_dangky.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sv_dangkyhp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="sv_dangkyhp.designer.cs">
+      <DependentUpon>sv_dangkyhp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sv_hocphan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="sv_hocphan.designer.cs">
+      <DependentUpon>sv_hocphan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sv_ttcn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="sv_ttcn.designer.cs">
+      <DependentUpon>sv_ttcn.cs</DependentUpon>
     </Compile>
     <Compile Include="Table.cs" />
     <Compile Include="DangKy.cs">
@@ -255,8 +291,14 @@
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HomeSV.resx">
+      <DependentUpon>HomeSV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="khmo.resx">
       <DependentUpon>khmo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NhanSu.resx">
       <DependentUpon>NhanSu.cs</DependentUpon>
@@ -279,6 +321,18 @@
     </Compile>
     <EmbeddedResource Include="SinhVien.resx">
       <DependentUpon>SinhVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sv_dangky.resx">
+      <DependentUpon>sv_dangky.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sv_dangkyhp.resx">
+      <DependentUpon>sv_dangkyhp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sv_hocphan.resx">
+      <DependentUpon>sv_hocphan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sv_ttcn.resx">
+      <DependentUpon>sv_ttcn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="userList.resx">
       <DependentUpon>userList.cs</DependentUpon>

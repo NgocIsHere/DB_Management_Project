@@ -24,18 +24,21 @@ namespace DB_Management
             connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={sid})));User Id={userId};Password={password};";
         }
 
-        public void connect()
+        public string connect()
         {
             connection = new OracleConnection(connectionString);
+            string msg;
             try
             {
                 connection.Open();
-                //MessageBox.Show("Kết nối thành công");
+                msg = "complete";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Kết nối thất bại: " + ex.Message);
+                /*MessageBox.Show("Kết nối thất bại: " + ex.Message);*/
+                msg = "error";
             }
+            return msg;
         }
 
         public void disconnect()
