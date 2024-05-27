@@ -32,7 +32,7 @@ TENHOCPHAN =  [
 MAHOCPHAN = [ 
     'NMLT', 'KTLP', 'CTDLGT', 'LTHDT', 'CSDL', 'MMT',
     'CSDLNC', 'PTTKHTTT', 'ATBMDLHTTT', 'HTTTDN', 'HQTCSDL', 'QTCSDLHD',
-    'KTPM', 'PTG', 'PTUDW', 'TKPM', 'KTPM', 'TKGD', 
+    'KTPM', 'PTG', 'PTUDW', 'TKPM', 'TKGD', 'LTWD', 
     'NMHM', 'ND', 'NMTKPTGT', 'CHCSTT', 'AUTOMATA', 'KTDLUD',
     'KLTN', 'TTTN', 'TTDATN', 'CDTCDL', 'CDTKPMNC', 'DAPM',
     'DHMT', 'TGMT', 'XLASVS', 'PTTKDLNB', 'DHUD', 'TGR',
@@ -47,7 +47,7 @@ DIACHI = ['Hà Nội', 'Hồ Chí Minh','Khánh Hòa', 'Tiền Giang', 'Gia lai'
 
 
 
-sinhvien_size = 4000
+sinhvien_size = 100
 nhansu_size = 100
 
 
@@ -137,7 +137,7 @@ WHERE MADV = 'TGMT';
 UPDATE PROJECT_DONVI
 SET TRGDV = 7
 WHERE MADV = 'MMTVT';
-                                '''
+                                ''' + '\n\n'
 
 
 
@@ -159,11 +159,16 @@ for i in range (7, nhansu_size):
     phucap = random.randint(100000, 1000000)
 
     phonenumber = random_phone_num_generator()
-    vaitro = random.choice(VAITRO)
-    madonvi = random.choice(MADONVI)
-
-    if madonvi == 'VPK':
-        vaitro = random.choice([VAITRO[2], VAITRO[0]])
+    if i < 10 + 7:
+        vaitro = VAITRO[0]
+        madonvi = MADONVI[0]
+    elif i < 20 + 7:
+        vaitro = VAITRO[2]
+        madonvi = MADONVI[0]
+    else:
+        vaitro = VAITRO[1]
+        madonvi = random.choice(MADONVI[1:6])
+    
 
 
     account = 'PROJECT_U_' + str(i+1)
@@ -269,16 +274,11 @@ for i in range(sinhvien_size):
         sql_dk1 = '''INSERT INTO PROJECT_DANGKY\n'''
         sql_dk2 = 'VALUES ('
 
-
-
         while True:
             sv_phancong = random.choice(phancong)
             if sv_phancong not in list_phancong:
                 list_phancong.append(sv_phancong)
                 break
-   
-
-
         
         diemthi = random.randint(0, 10)
         diemqt = random.randint(0, 10)
@@ -301,19 +301,8 @@ for i in range(sinhvien_size):
 
 
 
-writefile('TRUONG_NHANSU_INSERT.sql', SQL_TRUONG_NHANSU_INSERT)
-writefile('DONVI_INSERT.sql', SQL_DONVI_INSERT)
-writefile('NHANSU_INSERT.sql', SQL_NHANSU_INSERT)
-writefile('HOCPHAN_INSERT.sql', SQL_HOCPHAN_INSERT)
-writefile('KHMO_INSERT.sql', SQL_KHMO_INSERT)
-writefile('PHANCONG_INSERT.sql', SQL_PHANCONG_INSERT)
-writefile('SINHVIEN_INSERT.sql', SQL_SINHVIEN_INSERT)
-writefile('DANGKY_INSERT.sql', SQL_DANGKY_INSERT)
+writefile('INSERT_DATA.sql',SQL_DONVI_INSERT + '\n\n'
+            +  SQL_TRUONG_NHANSU_INSERT + '\n\n' + SQL_NHANSU_INSERT + '\n\n' 
+            + SQL_HOCPHAN_INSERT + '\n\n' + SQL_KHMO_INSERT + '\n\n'
+            + SQL_PHANCONG_INSERT + '\n\n' + SQL_SINHVIEN_INSERT + '\n\n' + SQL_DANGKY_INSERT)
 
-# SQL_sv1 = '''INSERT INTO PROJECT_SINHVIEN\n'''
-# for i in range(size):
-#     fullname = FullNameGenerator()
-#     hoten = fullname.generate()
-#     ngaysinh = datetime(1990, 1, 1) + timedelta(days=random.randint(0, 365*30))
-#     gioitinh = random.choice
-# SQL_sv2 = 'VALUES (' + 
