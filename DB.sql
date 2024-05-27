@@ -8,7 +8,7 @@
 --GRANT CREATE SESSION TO C##ADMIN CONTAINER = ALL; 
 --
 ----kết nối sang user vừa tạo với chế default-----------------------------------------------
---alter session set "_oracle_script" = true;
+alter session set "_oracle_script" = true;
 ----====================XÓA BẢNG=======================================
 BEGIN
     EXECUTE IMMEDIATE 'ALTER TABLE PROJECT_NHANSU DROP CONSTRAINT FK_NS_DV'; 
