@@ -14,6 +14,7 @@ namespace DB_Management
     public partial class Login : Form
     {
         private Connection connection;
+        public static string role;
         public Login()
         {
             InitializeComponent();
@@ -29,50 +30,43 @@ namespace DB_Management
                 Config.password = password;
             }
             connection = new Connection();
-            if (connection.connect() != "complete") {
+            if (!connection.connect().Equals("complete")) {
                 MessageBox.Show("Thông tin đăng nhập không đúng!");
             }
             else
             {
                 // Do nothing
-            }
-            string sql = "SELECT granted_role FROM user_role_privs";
-            string roleSV = "C##P_SINHVIEN";
-            string roleDBA = "DBA";
-            string role = null;
-            using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
-            {
-                using (OracleDataReader reader = cmd.ExecuteReader())
+                string sql = "SELECT granted_role FROM user_role_privs";
+                string roleSV = "C##P_SINHVIEN";
+                string roleDBA = "DBA";
+                role = null;
+                using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
                 {
-                    while (reader.Read())
+                    using (OracleDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.GetString(0) == roleSV)
+                        while (reader.Read())
                         {
-                            role = "SINHVIEN";
-                            break;
+                            if (reader.GetString(0).Equals(roleSV))
+                            {
+                                role = "SINHVIEN";
+                                break;
+                            }
+                            else if (reader.GetString(0).Equals(roleDBA))
+                            {
+                                role = "DBA";
+                                break;
+
+                            }
+                            else
+                            {
+                                role = "NHANVIEN";
+                                break;
+
+                            }
                         }
-                        else if (reader.GetString(0) == roleDBA)
-                        {
-                            role = "DBA";
-                        }
-                        else
-                        {
-                            role = "NHANVIEN";
-                        }
-                    }
-/*                    MessageBox.Show("Bạn đã đăng nhập với vai trò: " +role);
-*/                    this.Hide();
-                    if(role != null) {
-                        if(role == "DBA")
-                        {
-                            Home dba_home = new Home();
-                            dba_home.Show();
-                        }
-                        else if(role == "SINHVIEN")
-                        {
-                            HomeSV sv_home = new HomeSV();
-                            sv_home.Show();
-                        }
+                        /*                    MessageBox.Show("Bạn đã đăng nhập với vai trò: " +role);
+                        */
+                        this.Close();
                     }
                 }
             }

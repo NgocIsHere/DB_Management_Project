@@ -1,15 +1,15 @@
--- tạo user từ connection của root------------------------------------------------------
-
-alter session set "_oracle_script" = true;
-CREATE USER C##ADMIN IDENTIFIED BY 123; 
-GRANT DBA TO C##ADMIN;
-GRANT EXECUTE ANY PROCEDURE TO C##ADMIN;
---CẤP QUYỀN TRÊN TOÀN BỘ CONTAINER
-GRANT CREATE SESSION TO C##ADMIN CONTAINER = ALL; 
-
---kết nối sang user vừa tạo với chế default-----------------------------------------------
-alter session set "_oracle_script" = true;
---====================XÓA BẢNG=======================================
+---- tạo user từ connection của root------------------------------------------------------
+--
+--alter session set "_oracle_script" = true;
+--CREATE USER C##ADMIN IDENTIFIED BY 123; 
+--GRANT DBA TO C##ADMIN;
+--GRANT EXECUTE ANY PROCEDURE TO C##ADMIN;
+----CẤP QUYỀN TRÊN TOÀN BỘ CONTAINER
+--GRANT CREATE SESSION TO C##ADMIN CONTAINER = ALL; 
+--
+----kết nối sang user vừa tạo với chế default-----------------------------------------------
+--alter session set "_oracle_script" = true;
+----====================XÓA BẢNG=======================================
 BEGIN
     EXECUTE IMMEDIATE 'ALTER TABLE PROJECT_NHANSU DROP CONSTRAINT FK_NS_DV'; 
 EXCEPTION
@@ -129,7 +129,7 @@ CREATE TABLE PROJECT_DANGKY
     HK INT, 
     NAM INT,
     MACT VARCHAR(10),
-    DIEMTHI FLOAT,
+    DIEMTH FLOAT,
     DIEMQT FLOAT,
     DIEMCK FLOAT,
     DIEMTK FLOAT,

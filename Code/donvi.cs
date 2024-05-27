@@ -124,8 +124,6 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            Debug.WriteLine(madv + " " + tendv + " " + trdv);
-
             string sql = $"update C##ADMIN.PROJECT_DONVI SET TENDV = '{tendv}', TRGDV = {trdv} WHERE MADV = '{madv}'";
 
             connection.connect();

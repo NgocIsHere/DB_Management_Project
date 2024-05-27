@@ -1,6 +1,7 @@
 ﻿using DB_Management;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,8 +18,32 @@ namespace DB_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Login());
-            Application.Run(new PH2());
+
+            Login login = new Login();
+
+            Application.Run(login);
+
+            if (Login.role != null)
+            {
+                if (Login.role.Equals("DBA"))
+                {
+                    Home dba_home = new Home();
+                    Application.Run(dba_home);
+
+                }
+                else if (Login.role.Equals("SINHVIEN"))
+                {
+                    HomeSV sv_home = new HomeSV();
+                    Application.Run(sv_home);
+                }
+                else
+                {
+                    PH2 pH2 = new PH2();
+                    Application.Run(pH2);
+                }
+            }
+
+
         }
     }
 }
