@@ -1,23 +1,55 @@
--- tạo user từ connection của root------------------------------------------------------
-
+---- tạo user từ connection của root------------------------------------------------------
+--
+--alter session set "_oracle_script" = true;
+--CREATE USER C##ADMIN IDENTIFIED BY 123; 
+--GRANT DBA TO C##ADMIN;
+--GRANT EXECUTE ANY PROCEDURE TO C##ADMIN;
+----CẤP QUYỀN TRÊN TOÀN BỘ CONTAINER
+--GRANT CREATE SESSION TO C##ADMIN CONTAINER = ALL; 
+--
+----kết nối sang user vừa tạo với chế default-----------------------------------------------
 alter session set "_oracle_script" = true;
-CREATE USER C##ADMIN IDENTIFIED BY 123; 
-GRANT DBA TO C##ADMIN;
-GRANT EXECUTE ANY PROCEDURE TO C##ADMIN;
---CẤP QUYỀN TRÊN TOÀN BỘ CONTAINER
-GRANT CREATE SESSION TO C##ADMIN CONTAINER = ALL; 
-
---kết nối sang user vừa tạo với chế default-----------------------------------------------
-alter session set "_oracle_script" = true;
-DROP TABLE PROJECT_DANGKY;
-DROP TABLE PROJECT_PHANCONG;
-drop TABLE PROJECT_KHMO;
-DROP TABLE PROJECT_HOCPHAN;
-DROP TABLE PROJECT_SINHVIEN;
-ALTER TABLE PROJECT_NHANSU
-DROP CONSTRAINT FK_NS_DV;
-DROP TABLE PROJECT_DONVI;
-DROP TABLE PROJECT_NHANSU;
+----====================XÓA BẢNG=======================================
+BEGIN
+    EXECUTE IMMEDIATE 'ALTER TABLE PROJECT_NHANSU DROP CONSTRAINT FK_NS_DV'; 
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -02443 THEN
+         RAISE;
+      END IF;
+END;
+/
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_DANGKY';
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_PHANCONG'; 
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_KHMO';
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_HOCPHAN';
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_SINHVIEN'; 
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_DONVI'; 
+    EXECUTE IMMEDIATE 'DROP TABLE ' || 'PROJECT_NHANSU'; 
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -942 THEN
+         RAISE;
+      END IF;
+END;
+/
+--===========================XÓA ROLE==============================
+BEGIN
+    EXECUTE IMMEDIATE 'DROP ROLE ' || 'C##P_NVCOBAN'; 
+    EXECUTE IMMEDIATE 'DROP ROLE ' || 'C##P_GIANGVIEN'; 
+    EXECUTE IMMEDIATE 'DROP ROLE ' || 'C##P_GIAOVU'; 
+    EXECUTE IMMEDIATE 'DROP ROLE ' || 'C##P_TRUONGDONVI'; 
+    EXECUTE IMMEDIATE 'DROP ROLE ' || 'C##P_TRUONGKHOA'; 
+    EXECUTE IMMEDIATE 'DROP ROLE ' || 'C##P_SINHVIEN'; 
+EXCEPTION
+   WHEN OTHERS THEN
+      IF SQLCODE != -1919 THEN
+         RAISE;
+      END IF;
+END;
+/
+--====================TẠO BẢNG=======================================
 
 CREATE TABLE PROJECT_NHANSU
 (
@@ -97,7 +129,7 @@ CREATE TABLE PROJECT_DANGKY
     HK INT, 
     NAM INT,
     MACT VARCHAR(10),
-    DIEMTHI FLOAT,
+    DIEMTH FLOAT,
     DIEMQT FLOAT,
     DIEMCK FLOAT,
     DIEMTK FLOAT,
@@ -159,7 +191,6 @@ CREATE ROLE C##P_GIAOVU;
 CREATE ROLE C##P_TRUONGDONVI;
 CREATE ROLE C##P_TRUONGKHOA;
 CREATE ROLE C##P_SINHVIEN;
---DROP ROLE C##P_NVCOBAN
 
 --XEM ROLE ĐÃ TẠO
 SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%';

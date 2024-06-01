@@ -49,7 +49,7 @@ namespace DB_Management
             NhanSu nhansu = new NhanSu();
             SinhVien sv = new SinhVien();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {dangKy,phanCong,dv,hp,nhansu,sv,k };
+            {nhansu,sv, dv, hp, dangKy, phanCong, k };
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);

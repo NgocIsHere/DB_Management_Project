@@ -33,7 +33,7 @@ namespace DB_Management
         }
         private void loadMaNganh()
         {
-            string query = "SELECT MADV FROM SYS.PROJECT_DONVI";
+            string query = "SELECT MADV FROM C##ADMIN.PROJECT_DONVI";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand(query, connection.connection))
             {
@@ -47,7 +47,7 @@ namespace DB_Management
         }
         private void load_data()
         {
-            string query = "select * from SYS.PROJECT_SINHVIEN";
+            string query = "select * from C##ADMIN.PROJECT_SINHVIEN";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
@@ -76,7 +76,7 @@ namespace DB_Management
             string dtbtl = dtbtl_textBox.Text;
 
 
-            string sql = "INSERT INTO SYS.PROJECT_SINHVIEN (MASV, HOTEN, PHAI, NGSINH, DCHI, DT, MACT, MANGANH, SOTCTL, DTBTL) " +
+            string sql = "INSERT INTO C##ADMIN.PROJECT_SINHVIEN (MASV, HOTEN, PHAI, NGSINH, DCHI, DT, MACT, MANGANH, SOTCTL, DTBTL) " +
              "VALUES (:masv, :hoten, :phai, TO_DATE(:ngaysinh, 'yyyy-MM-dd'), :diaChi, :dienThoai, :mact, :manganh, :sotctl, :dtbtl)";
 
             Debug.WriteLine(sql);
@@ -129,7 +129,7 @@ namespace DB_Management
                 int sotctl = int.Parse(stctl_textBox.Text);
                 float dtbtl = float.Parse(dtbtl_textBox.Text);
 
-                string sql = $"UPDATE SYS.PROJECT_SINHVIEN SET HOTEN = :hoten, PHAI = :phai, NGSINH = TO_DATE(:ngaysinh, 'yyyy-MM-dd'), DCHI = :diaChi, DT = :dienThoai, MACT = :mact, MANGANH = :manganh, SOTCTL = :sotctl, DTBTL = :dtbtl WHERE MASV = :masv";
+                string sql = $"UPDATE C##ADMIN.PROJECT_SINHVIEN SET HOTEN = :hoten, PHAI = :phai, NGSINH = TO_DATE(:ngaysinh, 'yyyy-MM-dd'), DCHI = :diaChi, DT = :dienThoai, MACT = :mact, MANGANH = :manganh, SOTCTL = :sotctl, DTBTL = :dtbtl WHERE MASV = :masv";
 
                 connection.connect();
                 try
@@ -181,14 +181,14 @@ namespace DB_Management
                     OracleTransaction transaction = connection.connection.BeginTransaction();
                     try
                     {                  
-                        using (OracleCommand cmd = new OracleCommand("DELETE FROM SYS.PROJECT_DANGKY WHERE MASV = :masv", connection.connection))
+                        using (OracleCommand cmd = new OracleCommand("DELETE FROM C##ADMIN.PROJECT_DANGKY WHERE MASV = :masv", connection.connection))
                         {
                             cmd.Transaction = transaction; 
                             cmd.Parameters.Add("masv", masv);
                             cmd.ExecuteNonQuery();
                         }
 
-                        using (OracleCommand cmd = new OracleCommand("DELETE FROM SYS.PROJECT_SINHVIEN WHERE MASV = :masv", connection.connection))
+                        using (OracleCommand cmd = new OracleCommand("DELETE FROM C##ADMIN.PROJECT_SINHVIEN WHERE MASV = :masv", connection.connection))
                         {
                             cmd.Transaction = transaction;
                             cmd.Parameters.Add("masv", masv);

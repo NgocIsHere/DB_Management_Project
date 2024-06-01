@@ -15,12 +15,22 @@ namespace DB_Management
     public partial class NhanSu : UserControl
     {
         Connection connection = new Connection();
+        DataSource DS = new DataSource();
+
 
         public NhanSu()
         {
             InitializeComponent();
-            load_data();
-            loadVaiTro();
+            if (DS.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE LIKE 'C##P%'", "ROLE").Contains("C##P_GIANGVIEN"))
+            {
+
+            }
+            else
+            {
+                load_data();    
+                loadVaiTro();
+
+            }
             loadMaDV();
         }
 
@@ -41,7 +51,7 @@ namespace DB_Management
 
         private void loadMaDV()
         {
-            string query = "SELECT MADV FROM SYS.PROJECT_DONVI";
+            string query = "SELECT MADV FROM C##ADMIN.PROJECT_DONVI";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand(query, connection.connection))
             {
@@ -56,7 +66,7 @@ namespace DB_Management
 
         private void load_data()
         {
-            string query = "select * from SYS.PROJECT_NHANSU";
+            string query = "select * from C##ADMIN.PROJECT_NHANSU";
             connection.connect();
             using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
@@ -96,7 +106,7 @@ namespace DB_Management
             string madv = madv_comboBox.SelectedItem?.ToString();
             string username = username_textBox.Text;
 
-            string sql = $"INSERT INTO SYS.PROJECT_NHANSU (MANV, HOTEN, PHAI, NGSINH, PHUCAP, DT, VAITRO, MADV, USERNAME) VALUES('{manv}', '{hoten}', '{phai}', TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), {phuCap}, '{dienThoai}', '{vaitro}', '{madv}', '{username}')";
+            string sql = $"INSERT INTO C##ADMIN.PROJECT_NHANSU (MANV, HOTEN, PHAI, NGSINH, PHUCAP, DT, VAITRO, MADV, USERNAME) VALUES('{manv}', '{hoten}', '{phai}', TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), {phuCap}, '{dienThoai}', '{vaitro}', '{madv}', '{username}')";
             Debug.WriteLine(sql);
 
             connection.connect();
@@ -145,7 +155,7 @@ namespace DB_Management
                 string username = username_textBox.Text; 
 
                 
-                string sql = $"UPDATE SYS.PROJECT_NHANSU SET HOTEN = '{hoten}', PHAI = '{phai}', NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), PHUCAP = {phuCap}, DT = '{dienThoai}', VAITRO = '{vaitro}', MADV = '{madv}', USERNAME = '{username}' WHERE MANV = '{manv}'";
+                string sql = $"UPDATE C##ADMIN.PROJECT_NHANSU SET HOTEN = '{hoten}', PHAI = '{phai}', NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), PHUCAP = {phuCap}, DT = '{dienThoai}', VAITRO = '{vaitro}', MADV = '{madv}', USERNAME = '{username}' WHERE MANV = '{manv}'";
 
                 connection.connect();
                 try
@@ -190,7 +200,7 @@ namespace DB_Management
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa dòng này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    string sql = $"DELETE FROM SYS.PROJECT_NHANSU WHERE MANV = '{manv}'";
+                    string sql = $"DELETE FROM C##ADMIN.PROJECT_NHANSU WHERE MANV = '{manv}'";
 
                     connection.connect();
                     try
