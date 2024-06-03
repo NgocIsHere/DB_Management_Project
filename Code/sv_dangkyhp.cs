@@ -42,15 +42,15 @@ namespace DB_Management
         private void DisplayUserData()
         {
             DateTime now = DateTime.Now;
-            DateTime deadline = new DateTime(2024,5,27);
+            DateTime deadline = new DateTime(2024,6,5);
             DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
             checkBoxColumn.Name = "Check";
             checkBoxColumn.HeaderText ="Đăng ký";
             dataGridView1.Columns.Add(checkBoxColumn);
+            dataGridView1.Columns.Add("MaGV", "Mã GV");
             dataGridView1.Columns.Add("Mã học phần", "Mã học phần");
             dataGridView1.Columns.Add("Tên học phần", "Tên học phần");
             dataGridView1.Columns.Add("Số TC", "Số TC");
-
             // Optionally set column types, widths, etc.
             dataGridView1.Columns["Mã học phần"].Width = 100;
             dataGridView1.Columns["Tên học phần"].Width = 150;
@@ -59,6 +59,7 @@ namespace DB_Management
             dataGridView1.Columns["Tên học phần"].ReadOnly = true;
             dataGridView1.Columns["Số TC"].ReadOnly = true;
             dataGridView1.Columns["Check"].ReadOnly = false;
+            dataGridView1.Columns["MaGV"].ReadOnly = true;
             if (now < deadline)
             {
                 string query1 = "SELECT * FROM C##ADMIN.V_PROJECT_DKHP WHERE NAM =" + now.Year.ToString() +" AND MAHP NOT IN (SELECT MAHP FROM C##ADMIN.PROJECT_DANGKY WHERE NAM="+ now.Year.ToString()+")";
@@ -70,7 +71,7 @@ namespace DB_Management
                 foreach (DataRow row in table1.Rows)
                 {
                     
-                        dataGridView1.Rows.Add(0, row["MAHP"].ToString(), row["TENHP"].ToString(), row["SOTC"].ToString());
+                        dataGridView1.Rows.Add(0, row["MAGV"].ToString(), row["MAHP"].ToString(), row["TENHP"].ToString(), row["SOTC"].ToString());
                     
                 }
                 flowLayoutPanel1.Show();
@@ -116,7 +117,41 @@ namespace DB_Management
 
         private void btn_choose_Click(object sender, EventArgs e)
         {
+            String result = "";
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Check"];
+                string MAHP = "";
+                string MAGV = "";
+                // Check if the checkbox is checked
+                if (chk.Value is true)
+                {
+                    MAHP = row.Cells["Mã học phần"].Value.ToString();
+                    MAGV = row.Cells["MaGV"].Value.ToString();
+                    result = result + MAHP;
+                }
 
+                string query = "BEGIN Insert_Project_Dangky(:p_MASV, :p_MAGV, :p_MAHP, :p_HK, :p_NAM, :p_MACT); END;";
+
+                using (OracleCommand command = new OracleCommand(query, connection.connection))
+                {
+                    // Set the command type as stored procedure
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters with values
+                    command.Parameters.Add("p_MASV", OracleDbType.Varchar2).Value = '1';
+                    command.Parameters.Add("p_MAGV", OracleDbType.Varchar2).Value = MAGV;
+                    command.Parameters.Add("p_MAHP", OracleDbType.Varchar2).Value = MAHP;
+                    command.Parameters.Add("p_HK", OracleDbType.Int32).Value = 3;
+                    command.Parameters.Add("p_NAM", OracleDbType.Int32).Value = 2024;
+                    command.Parameters.Add("p_MACT", OracleDbType.Varchar2).Value = "CTTT";
+
+                    // Open the connection and execute the command
+                    command.ExecuteNonQuery();
+                }
+            }
         }
+
+        
     }
 }
