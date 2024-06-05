@@ -20,8 +20,24 @@ namespace DB_Management
         {
             InitializeComponent();
             load_data();
+            config();
             loadMaCT();
             loadMaNganh();
+        }
+
+        private void config()
+        {
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.AutoResizeColumnHeadersHeight();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
+            dataGridView1.DefaultCellStyle.ForeColor = Color.Aqua;
+            dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
+            dataGridView1.BackgroundColor = Color.FromArgb(0, 0, 64);
         }
 
         private void loadMaCT()
