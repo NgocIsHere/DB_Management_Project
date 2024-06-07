@@ -14,6 +14,7 @@ namespace DB_Management
         string host = "localhost";
         string port = "1521";
         string sid = "xe";
+        string serviceName = "PROJECT_DBMANAGEMENT";
         string userId = Config.username;
         string password = Config.password;
 
@@ -21,7 +22,7 @@ namespace DB_Management
 
         public Connection()
         {
-            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SID={sid})));User Id={userId};Password={password};";
+            connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME={serviceName})));User Id={userId};Password={password};";
         }
 
         public string connect()

@@ -17,6 +17,7 @@ namespace DB_Management
     {
 
         Connection connection = new Connection();
+        string admin = "ADMIN_OLS";
         List<string> donvis = new List<string>();
 
         public donvi()
@@ -45,12 +46,12 @@ namespace DB_Management
 
         private void load_data()
         {
-            string query = "select * from C##ADMIN.PROJECT_DONVI";
+            string query = $"select * from {admin}.PROJECT_DONVI";
             connection.connect();
-            using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
+/*            using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
                 cmd.ExecuteNonQuery();
-            }
+            }*/
             using (OracleCommand cmd = new OracleCommand(query, connection.connection))
             {
                 OracleDataReader dr = cmd.ExecuteReader();
@@ -62,12 +63,12 @@ namespace DB_Management
 
         private void loadmadonvi()
         {
-            string query = "select MADV from C##ADMIN.PROJECT_DONVI";
+            string query = $"select MADV from {admin}.PROJECT_DONVI";
             connection.connect();
-            using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
+            /*using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
                 cmd.ExecuteNonQuery();
-            }
+            }*/
             using (OracleCommand cmd = new OracleCommand(query, connection.connection))
             {
                 OracleDataReader dr = cmd.ExecuteReader();
@@ -89,7 +90,7 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            string sql = "insert into C##ADMIN.PROJECT_DONVI values(:madv, :tendv, :trdv)";
+            string sql = $"insert into {admin}.PROJECT_DONVI values(:madv, :tendv, :trdv)";
             connection.connect();
             try
             {
@@ -124,7 +125,7 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            string sql = $"update C##ADMIN.PROJECT_DONVI SET TENDV = '{tendv}', TRGDV = {trdv} WHERE MADV = '{madv}'";
+            string sql = $"update {admin}.PROJECT_DONVI SET TENDV = '{tendv}', TRGDV = {trdv} WHERE MADV = '{madv}'";
 
             connection.connect();
             try

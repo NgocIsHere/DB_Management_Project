@@ -23,6 +23,7 @@ namespace DB_Management
         List<string> viewinserts = new List<string>();
         List<string> viewdeletes = new List<string>();
         string viewGlobal = "";
+        string admin = "ADMIN_OLS";
         int edit_type = 0; //0 due to insert and 1 due to update;
         int insert = 0;
         int update = 1;
@@ -33,7 +34,7 @@ namespace DB_Management
         public DangKy()
         {
             InitializeComponent();
-            stringsql = $"Data Source=localhost:1521/XE;User Id={Config.username};Password={Config.password};";
+            stringsql = $"Data Source=localhost:1521/PROJECT_DBMANAGEMENT;User Id={Config.username};Password={Config.password};";
             conn = new OracleConnection(stringsql);
             initializeMyComponent();
         }
@@ -84,9 +85,9 @@ namespace DB_Management
             dangkyList.Clear();
             usrolepri = getObjectv1("SELECT * FROM USER_ROLE_PRIVS WHERE GRANTED_ROLE" +
                 " LIKE 'C##P%'", "GRANTED_ROLE");
-            if (usrolepri.Contains("C##P_TRUONGDONVI") || usrolepri.Contains("C##P_TRUONGKHOA"))
+            if (usrolepri.Contains("P_TRUONGDONVI") || usrolepri.Contains("P_TRUONGKHOA"))
             {
-                usrolepri.Add("C##P_GIANGVIEN");
+                usrolepri.Add("P_GIANGVIEN");
             }
             foreach (string role in usrolepri)
             {
@@ -98,7 +99,7 @@ namespace DB_Management
             string query = "";
             for (int i = 0; i < views.Count; i++)
             {
-                query += "SELECT* FROM C##ADMIN." + views[i];
+                query += $"SELECT* FROM {admin}." + views[i];
                 if (i != views.Count - 1)
                 {
                     query += " UNION ";
@@ -146,12 +147,13 @@ namespace DB_Management
             if (viewinserts.Count > 0)
             {
                 string v = viewinserts[0];
-                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                OracleCommand command = new OracleCommand();
                 conn.Open();
                 command.ExecuteNonQuery();
                 try
                 {
-                    command.CommandText = "INSERT INTO C##ADMIN." + v + "(MASV,MAGV,MAHP,HK,NAM,MACT,DIEMTHI,DIEMQT,DIEMTCK,DIEMTK)" +
+                    command.CommandText = $"INSERT INTO {admin}." + v + "(MASV,MAGV,MAHP,HK,NAM,MACT,DIEMTHI,DIEMQT,DIEMTCK,DIEMTK)" +
                         " VALUES(" + tb_masv.Text + "," + tb_magv.Text + "," + tb_mahp.Text + "," + tb_hk.Text + "," +
                         tb_nam.Text + "," + tb_mact.Text + "," + tb_DT.Text + "," + tb_DQT.Text + "," + tb_DCK.Text + "," + tb_DTK.Text + ")";
                     command.ExecuteNonQuery();
@@ -201,10 +203,11 @@ namespace DB_Management
                 {
                     setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
                 }
-                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                OracleCommand command = new OracleCommand();
                 conn.Open();
                 command.ExecuteNonQuery();
-                command.CommandText = "UPDATE C##ADMIN." + viewGlobal + setclause + wherecluase;
+                command.CommandText = $"UPDATE {admin}." + viewGlobal + setclause + wherecluase;
                 command.ExecuteNonQuery();
                 conn.Close();
                 MessageBox.Show("1 row update!");
@@ -438,7 +441,7 @@ namespace DB_Management
             string query = "";
             for (int i = 0; i < v.Count; i++)
             {
-                query += "SELECT* FROM C##ADMIN." + v[i];
+                query += $"SELECT* FROM {admin}." + v[i];
                 if (i != v.Count - 1)
                 {
                     query += " UNION ";

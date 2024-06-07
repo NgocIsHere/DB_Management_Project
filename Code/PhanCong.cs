@@ -30,6 +30,7 @@ namespace DB_Management
         List<string> viewinserts = new List<string>();
         List<string> viewdeletes = new List<string>();
         string viewGlobal = "";
+        string admin = "ADMIN_OLS";
         int edit_type = 0;
         int insert = 0;
         int update = 1;
@@ -40,7 +41,7 @@ namespace DB_Management
         public PhanCong()
         {
             InitializeComponent();
-            stringsql = $"Data Source=localhost:1521/XE;User Id={Config.username};Password={Config.password};";
+            stringsql = $"Data Source=localhost:1521/PROJECT_DBMANAGEMENT;User Id={Config.username};Password={Config.password};";
             conn = new OracleConnection(stringsql);
             initializeMyComponent();
         }
@@ -95,7 +96,7 @@ namespace DB_Management
             string query = "";
             for (int i = 0; i < views.Count; i++)
             {
-                query += "SELECT* FROM C##ADMIN." + views[i];
+                query += $"SELECT* FROM {admin}." + views[i];
                 if (i != views.Count - 1)
                 {
                     query += " UNION ";
@@ -132,14 +133,15 @@ namespace DB_Management
         private void removeRowAt(int index)
         {
             List<string> row = phanCongList[index];
-            OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+            //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+            OracleCommand command = new OracleCommand();
             conn.Open();
             command.ExecuteNonQuery();
             for (int i = 0; i < viewdeletes.Count; i++)
             {
                 try
                 {
-                    command.CommandText = "DELETE FROM C##ADMIN." + viewdeletes[i] + " WHERE MAGV = '" + row[0] + "' AND MAHP = '" +
+                    command.CommandText = $"DELETE FROM {admin}." + viewdeletes[i] + " WHERE MAGV = '" + row[0] + "' AND MAHP = '" +
                     row[1] + "' AND HK = '" + row[2] + "' AND NAM = '" + row[3] + "' AND MACT = '" + row[4] + "'";
                     command.ExecuteNonQuery();
                 }
@@ -175,9 +177,10 @@ namespace DB_Management
                 {
                     setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
                 }
-                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                OracleCommand command = new OracleCommand();
                 conn.Open();
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 command.CommandText = "UPDATE C##ADMIN." + viewGlobal + setclause + wherecluase;
                 command.ExecuteNonQuery();
                 conn.Close();
@@ -190,12 +193,13 @@ namespace DB_Management
             if (viewinserts.Count > 0)
             {
                 string v = viewinserts[0];
-                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                OracleCommand command = new OracleCommand();
                 conn.Open();
                 command.ExecuteNonQuery();
                 try
                 {
-                    command.CommandText = "INSERT INTO C##ADMIN." + v + "(MAGV,MAHP,HK,NAM,MACT) VALUES(" + tb_magv.Text + "," +
+                    command.CommandText = $"INSERT INTO {admin}." + v + "(MAGV,MAHP,HK,NAM,MACT) VALUES(" + tb_magv.Text + "," +
                         tb_mahp.Text + "," + tb_hk.Text + "," + tb_nam.Text + "," + tb_mact.Text + ")";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Successfull");
@@ -424,7 +428,7 @@ namespace DB_Management
             string query = "";
             for (int i = 0; i < v.Count; i++)
             {
-                query += "SELECT* FROM C##ADMIN." + v[i];
+                query += $"SELECT* FROM {admin}." + v[i];
                 if (i != v.Count - 1)
                 {
                     query += " UNION ";
