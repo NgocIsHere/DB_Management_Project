@@ -19,30 +19,34 @@ namespace DB_Management
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
-            Login login = new Login();
-
-            Application.Run(login);
-
-            if (Login.role != null)
+            while (!Login.exit)
             {
-                if (Login.role.Equals("DBA"))
-                {
-                    Home dba_home = new Home();
-                    Application.Run(dba_home);
+                Login.exit = true;
+                Login login = new Login();
 
-                }
-                else if (Login.role.Equals("SINHVIEN"))
+                Application.Run(login);
+
+                if (Login.role != null)
                 {
-                    HomeSV sv_home = new HomeSV();
-                    Application.Run(sv_home);
-                }
-                else
-                {
-                    PH2 pH2 = new PH2();
-                    Application.Run(pH2);
+                    if (Login.role.Equals("DBA"))
+                    {
+                        Home dba_home = new Home();
+                        Application.Run(dba_home);
+
+                    }
+                    else if (Login.role.Equals("SINHVIEN"))
+                    {
+                        HomeSV sv_home = new HomeSV();
+                        Application.Run(sv_home);
+                    }
+                    else
+                    {
+                        PH2 pH2 = new PH2();
+                        Application.Run(pH2);
+                    }
                 }
             }
+            
 
         }
     }

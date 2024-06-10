@@ -15,6 +15,7 @@ namespace DB_Management
     {
         private Connection connection;
         public static string role;
+        public static bool exit = false;
         public Login()
         {
             InitializeComponent();
@@ -66,6 +67,7 @@ namespace DB_Management
                         }
                         /*                    MessageBox.Show("Bạn đã đăng nhập với vai trò: " +role);
                         */
+                        
                         this.Close();
                     }
                 }

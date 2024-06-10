@@ -15,6 +15,7 @@ namespace DB_Management
 {
     public partial class PH2 : Form
     {
+        
         NavigationControl navigationControl;
         NavigationButtons navigationButtons;
 
@@ -129,6 +130,12 @@ namespace DB_Management
         {
             navigationControl.Display(7);
             navigationButtons.Highlight(btn_tb);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Login.exit = false;
+            this.Close();
         }
     }
 }

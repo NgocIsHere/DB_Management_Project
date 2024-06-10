@@ -41,12 +41,14 @@ namespace DB_Management
             this.btn_nhansu = new System.Windows.Forms.Button();
             this.content = new System.Windows.Forms.Panel();
             this.btn_tb = new System.Windows.Forms.Button();
+            this.btn_dx = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.btn_dx);
             this.panel1.Controls.Add(this.btn_tb);
             this.panel1.Controls.Add(this.btn_hp);
             this.panel1.Controls.Add(this.btn_phancong);
@@ -209,6 +211,23 @@ namespace DB_Management
             this.btn_tb.UseVisualStyleBackColor = false;
             this.btn_tb.Click += new System.EventHandler(this.btn_tb_Click);
             // 
+            // btn_dx
+            // 
+            this.btn_dx.BackColor = System.Drawing.Color.Aqua;
+            this.btn_dx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_dx.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_dx.ForeColor = System.Drawing.Color.Black;
+            this.btn_dx.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_dx.Location = new System.Drawing.Point(0, 598);
+            this.btn_dx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_dx.Name = "btn_dx";
+            this.btn_dx.Size = new System.Drawing.Size(241, 71);
+            this.btn_dx.TabIndex = 9;
+            this.btn_dx.Text = "Đăng xuất";
+            this.btn_dx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_dx.UseVisualStyleBackColor = false;
+            this.btn_dx.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // PH2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -237,5 +256,6 @@ namespace DB_Management
         private Button btn_khm;
         private Button btn_dangky;
         private Button btn_tb;
+        private Button btn_dx;
     }
 }
