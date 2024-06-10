@@ -40,12 +40,14 @@ namespace DB_Management
             this.btn_donvi = new System.Windows.Forms.Button();
             this.btn_nhansu = new System.Windows.Forms.Button();
             this.content = new System.Windows.Forms.Panel();
+            this.btn_tb = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.btn_tb);
             this.panel1.Controls.Add(this.btn_hp);
             this.panel1.Controls.Add(this.btn_phancong);
             this.panel1.Controls.Add(this.btn_khm);
@@ -67,7 +69,7 @@ namespace DB_Management
             this.btn_hp.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.btn_hp.ForeColor = System.Drawing.Color.Black;
             this.btn_hp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_hp.Location = new System.Drawing.Point(2, 223);
+            this.btn_hp.Location = new System.Drawing.Point(-1, 223);
             this.btn_hp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_hp.Name = "btn_hp";
             this.btn_hp.Size = new System.Drawing.Size(241, 71);
@@ -118,7 +120,7 @@ namespace DB_Management
             this.btn_dangky.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.btn_dangky.ForeColor = System.Drawing.Color.Black;
             this.btn_dangky.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_dangky.Location = new System.Drawing.Point(2, 298);
+            this.btn_dangky.Location = new System.Drawing.Point(-1, 298);
             this.btn_dangky.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_dangky.Name = "btn_dangky";
             this.btn_dangky.Size = new System.Drawing.Size(241, 71);
@@ -135,10 +137,10 @@ namespace DB_Management
             this.btn_sv.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.btn_sv.ForeColor = System.Drawing.Color.Black;
             this.btn_sv.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_sv.Location = new System.Drawing.Point(0, 72);
+            this.btn_sv.Location = new System.Drawing.Point(-1, 73);
             this.btn_sv.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_sv.Name = "btn_sv";
-            this.btn_sv.Size = new System.Drawing.Size(243, 71);
+            this.btn_sv.Size = new System.Drawing.Size(240, 71);
             this.btn_sv.TabIndex = 3;
             this.btn_sv.Text = "Sinh Viên";
             this.btn_sv.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -168,7 +170,7 @@ namespace DB_Management
             this.btn_nhansu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_nhansu.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.btn_nhansu.ForeColor = System.Drawing.Color.Black;
-            this.btn_nhansu.Location = new System.Drawing.Point(3, 2);
+            this.btn_nhansu.Location = new System.Drawing.Point(-1, 2);
             this.btn_nhansu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_nhansu.Name = "btn_nhansu";
             this.btn_nhansu.Size = new System.Drawing.Size(240, 66);
@@ -189,6 +191,23 @@ namespace DB_Management
             this.content.Size = new System.Drawing.Size(1013, 720);
             this.content.TabIndex = 1;
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
+            // 
+            // btn_tb
+            // 
+            this.btn_tb.BackColor = System.Drawing.Color.Aqua;
+            this.btn_tb.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_tb.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_tb.ForeColor = System.Drawing.Color.Black;
+            this.btn_tb.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_tb.Location = new System.Drawing.Point(0, 523);
+            this.btn_tb.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_tb.Name = "btn_tb";
+            this.btn_tb.Size = new System.Drawing.Size(241, 71);
+            this.btn_tb.TabIndex = 8;
+            this.btn_tb.Text = "Thông Báo";
+            this.btn_tb.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_tb.UseVisualStyleBackColor = false;
+            this.btn_tb.Click += new System.EventHandler(this.btn_tb_Click);
             // 
             // PH2
             // 
@@ -217,5 +236,6 @@ namespace DB_Management
         private Button btn_phancong;
         private Button btn_khm;
         private Button btn_dangky;
+        private Button btn_tb;
     }
 }

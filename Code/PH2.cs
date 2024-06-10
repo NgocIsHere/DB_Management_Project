@@ -48,8 +48,9 @@ namespace DB_Management
             khmo k = new khmo();
             NhanSu nhansu = new NhanSu();
             SinhVien sv = new SinhVien();
+            ThongBao tb = new ThongBao();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {nhansu,sv, dv, hp, dangKy, phanCong, k };
+            {nhansu,sv, dv, hp, dangKy, phanCong, k ,tb};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -122,6 +123,12 @@ namespace DB_Management
         {
             navigationControl.Display(6);
             navigationButtons.Highlight(btn_khm);
+        }
+
+        private void btn_tb_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(7);
+            navigationButtons.Highlight(btn_tb);
         }
     }
 }

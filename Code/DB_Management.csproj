@@ -260,6 +260,12 @@
     <Compile Include="NhanSu.Designer.cs">
       <DependentUpon>NhanSu.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThongBao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThongBao.Designer.cs">
+      <DependentUpon>ThongBao.cs</DependentUpon>
+    </Compile>
     <Compile Include="userList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -333,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="sv_ttcn.resx">
       <DependentUpon>sv_ttcn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongBao.resx">
+      <DependentUpon>ThongBao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="userList.resx">
       <DependentUpon>userList.cs</DependentUpon>
