@@ -56,7 +56,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button2.ForeColor = System.Drawing.Color.Aqua;
-            this.button2.Location = new System.Drawing.Point(521, 509);
+            this.button2.Location = new System.Drawing.Point(419, 463);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(107, 40);
             this.button2.TabIndex = 18;
@@ -68,7 +68,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button1.ForeColor = System.Drawing.Color.Aqua;
-            this.button1.Location = new System.Drawing.Point(279, 509);
+            this.button1.Location = new System.Drawing.Point(160, 463);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 40);
             this.button1.TabIndex = 17;
@@ -81,7 +81,7 @@
             this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.textBox3.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox3.Location = new System.Drawing.Point(426, 374);
+            this.textBox3.Location = new System.Drawing.Point(160, 370);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 34);
             this.textBox3.TabIndex = 16;
@@ -90,7 +90,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.Aqua;
-            this.label3.Location = new System.Drawing.Point(392, 386);
+            this.label3.Location = new System.Drawing.Point(126, 382);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 15);
             this.label3.TabIndex = 15;
@@ -131,11 +131,11 @@
             this.khmo_dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.khmo_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.khmo_dataGridView.GridColor = System.Drawing.Color.Aqua;
-            this.khmo_dataGridView.Location = new System.Drawing.Point(315, 3);
+            this.khmo_dataGridView.Location = new System.Drawing.Point(60, 3);
             this.khmo_dataGridView.Name = "khmo_dataGridView";
             this.khmo_dataGridView.RowHeadersWidth = 51;
             this.khmo_dataGridView.RowTemplate.Height = 24;
-            this.khmo_dataGridView.Size = new System.Drawing.Size(313, 287);
+            this.khmo_dataGridView.Size = new System.Drawing.Size(568, 287);
             this.khmo_dataGridView.TabIndex = 11;
             // 
             // textBox4
@@ -143,7 +143,7 @@
             this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.textBox4.Font = new System.Drawing.Font("Consolas", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox4.Location = new System.Drawing.Point(426, 444);
+            this.textBox4.Location = new System.Drawing.Point(426, 370);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 34);
             this.textBox4.TabIndex = 21;
@@ -152,7 +152,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.Aqua;
-            this.label4.Location = new System.Drawing.Point(378, 456);
+            this.label4.Location = new System.Drawing.Point(378, 382);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 15);
             this.label4.TabIndex = 20;

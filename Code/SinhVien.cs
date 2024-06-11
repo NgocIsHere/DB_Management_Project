@@ -51,15 +51,22 @@ namespace DB_Management
         {
             string query = $"SELECT MADV FROM {admin}.PROJECT_DONVI";
             connection.connect();
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+            try
             {
-                OracleDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
                 {
-                    manganh_comboBox.Items.Add(dr["MADV"].ToString());
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        manganh_comboBox.Items.Add(dr["MADV"].ToString());
+                    }
                 }
             }
-            connection.disconnect();
+            catch (Exception ex)
+            {
+                MessageBox.Show("bang sinh vien load manganh thất bại: " + ex.Message);  
+            }
+            finally { connection.disconnect(); }   
         }
         private void load_data()
         {
@@ -69,13 +76,22 @@ namespace DB_Management
             {
                 cmd.ExecuteNonQuery();
             }*/
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+            try
             {
-                OracleDataReader dr = cmd.ExecuteReader();
-                DataTable data = new DataTable();
-                data.Load(dr);
-                dataGridView1.DataSource = data;
-            }           
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+                {
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    DataTable data = new DataTable();
+                    data.Load(dr);
+                    dataGridView1.DataSource = data;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("bang sinh vien load manganh thất bại: " + ex.Message);
+            }
+            finally { connection.disconnect(); }
+                      
         }   
 
         private void InsertSV_Click(object sender, EventArgs e)

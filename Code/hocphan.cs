@@ -27,15 +27,25 @@ namespace DB_Management
         {
             string sql = $"select * from {admin}.PROJECT_HOCPHAN";
             connection.connect();
-            using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+            try
             {
-                using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
                 {
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    hocphan_dataGridView.DataSource = dataTable;
+                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+                        hocphan_dataGridView.DataSource = dataTable;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("load thất bại: " + ex.Message);
+
+            }
+            finally { connection.disconnect(); }
+
 
         }
         private void config()

@@ -48,35 +48,47 @@ namespace DB_Management
         {
             string query = $"select * from {admin}.PROJECT_DONVI";
             connection.connect();
-/*            using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
+            try
             {
-                cmd.ExecuteNonQuery();
-            }*/
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
-            {
-                OracleDataReader dr = cmd.ExecuteReader();
-                DataTable data = new DataTable();
-                data.Load(dr);
-                donvi_dataGridView.DataSource = data;
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+                {
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    DataTable data = new DataTable();
+                    data.Load(dr);
+                    donvi_dataGridView.DataSource = data;
+
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("xem đơn vị : " + ex.Message);
+            }
+            finally { connection.disconnect(); }
+
         }
 
         private void loadmadonvi()
         {
             string query = $"select MADV from {admin}.PROJECT_DONVI";
             connection.connect();
-            /*using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
+
+            try
             {
-                cmd.ExecuteNonQuery();
-            }*/
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
-            {
-                OracleDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
                 {
-                   donvis.Add(dr.GetString(0));
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        donvis.Add(dr.GetString(0));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("xem mã đơn vị : " + ex.Message);
+            }
+            finally { connection.disconnect(); }
+
         }
 
         private void label3_Click(object sender, EventArgs e)

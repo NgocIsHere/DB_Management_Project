@@ -38,47 +38,74 @@ namespace DB_Management
         {
             string query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%'";
             connection.connect();
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+            try
             {
-                OracleDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
                 {
-                    vaitro_comboBox.Items.Add(dr["ROLE"].ToString());
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        vaitro_comboBox.Items.Add(dr["ROLE"].ToString());
+                    }
                 }
+                connection.disconnect();
             }
-            connection.disconnect();
+            catch (Exception ex)
+            {
+                MessageBox.Show("load role thất bại: " + ex.Message);
+
+            }
+
         }
 
         private void loadMaDV()
         {
             string query = $"SELECT MADV FROM {admin}.PROJECT_DONVI";
             connection.connect();
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+
+            try
             {
-                OracleDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
                 {
-                    madv_comboBox.Items.Add(dr["MADV"].ToString());
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        madv_comboBox.Items.Add(dr["MADV"].ToString());
+                    }
                 }
+                connection.disconnect();
             }
-            connection.disconnect();
+            catch (Exception ex)
+            {
+                MessageBox.Show("load madv thất bại: " + ex.Message);
+            }
+            finally { connection.disconnect(); }
+
+
+
         }
 
         private void load_data()
         {
             string query = $"select * from {admin}.PROJECT_NHANSU";
             connection.connect();
-/*            using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
+            try
             {
-                cmd.ExecuteNonQuery();
-            }*/
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
-            {
-                OracleDataReader dr = cmd.ExecuteReader();
-                DataTable data = new DataTable();
-                data.Load(dr);
-                dataGridView1.DataSource = data;
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+                {
+                    OracleDataReader dr = cmd.ExecuteReader();
+                    DataTable data = new DataTable();
+                    data.Load(dr);
+                    dataGridView1.DataSource = data;
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("load data nhân sự thất bại: " + ex.Message);
+            }
+            finally { connection.disconnect(); }
+
+
         }
 
         private void manv_textBox_TextChanged(object sender, EventArgs e)
