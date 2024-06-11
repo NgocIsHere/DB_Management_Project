@@ -19,23 +19,52 @@ namespace DB_Management
         public khmo()
         {
             InitializeComponent();
-            config();
-            load_data();
+
+            initializeLV();
         }
 
-        private void load_data()
+        private void initializeLV()
+        {            
+            lv_khmo.View = View.Details;
+            int size = 70;
+            lv_khmo.Columns.Add("MAHP").Width = size;
+            lv_khmo.Columns.Add("HK").Width = size;
+            lv_khmo.Columns.Add("NAM").Width = size;
+            lv_khmo.Columns.Add("MACT").Width = size;
+
+            loadLV();
+            
+        }
+
+        private void loadLV()
         {
-            string sql = $"select * from {admin}.PROJECT_KHMO";
+            lv_khmo.Items.Clear();
+
+            string query = $"select * from {admin}.PROJECT_KHMO";
             connection.connect();
             try
             {
-                using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
                 {
-                    using (OracleDataAdapter adapter = new OracleDataAdapter(cmd))
+                   using(OracleDataReader reader = cmd.ExecuteReader())
                     {
-                        DataTable dataTable = new DataTable();
-                        adapter.Fill(dataTable);
-                        khmo_dataGridView.DataSource = dataTable;
+                    
+                        while (reader.Read())
+                        {
+                            ListViewItem item = new ListViewItem();
+                            for (int i = 0;i < reader.FieldCount;i++)
+                            {
+                                if (i == 0)
+                                {
+                                    item.Text = reader[i].ToString();
+                                }
+                                else
+                                {
+                                    item.SubItems.Add(reader[i].ToString());
+                                }
+                            }
+                            lv_khmo.Items.Add(item);
+                        }
                     }
                 }
             }
@@ -44,28 +73,9 @@ namespace DB_Management
                 MessageBox.Show("load khmo thất bại: " + ex.Message);
             }
             finally { connection.disconnect(); }
-            
-
         }
 
-        private void config()
-        {
-            khmo_dataGridView.AutoResizeColumns();
-            khmo_dataGridView.AutoResizeColumnHeadersHeight();
-            khmo_dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            khmo_dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            khmo_dataGridView.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            khmo_dataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-
-            khmo_dataGridView.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
-            khmo_dataGridView.DefaultCellStyle.ForeColor = Color.Aqua;
-
-            khmo_dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
-            khmo_dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
-            khmo_dataGridView.BackgroundColor = Color.FromArgb(0, 0, 64);
-
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -84,7 +94,7 @@ namespace DB_Management
                 {
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Thêm khmo thành công");
-                    load_data();
+                    loadLV();
                 }
             }
             catch (Exception ex)
@@ -126,7 +136,7 @@ namespace DB_Management
                 {
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Cập nhật khmo thành công");
-                    load_data();
+                    loadLV();
                 }
             }
             catch (Exception ex)

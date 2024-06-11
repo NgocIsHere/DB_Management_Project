@@ -36,10 +36,9 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.khmo_dataGridView = new System.Windows.Forms.DataGridView();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.khmo_dataGridView)).BeginInit();
+            this.lv_khmo = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // textBox
@@ -126,18 +125,6 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "MÃ HỌC PHẦN";
             // 
-            // khmo_dataGridView
-            // 
-            this.khmo_dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.khmo_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.khmo_dataGridView.GridColor = System.Drawing.Color.Aqua;
-            this.khmo_dataGridView.Location = new System.Drawing.Point(60, 3);
-            this.khmo_dataGridView.Name = "khmo_dataGridView";
-            this.khmo_dataGridView.RowHeadersWidth = 51;
-            this.khmo_dataGridView.RowTemplate.Height = 24;
-            this.khmo_dataGridView.Size = new System.Drawing.Size(568, 287);
-            this.khmo_dataGridView.TabIndex = 11;
-            // 
             // textBox4
             // 
             this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
@@ -158,11 +145,24 @@
             this.label4.TabIndex = 20;
             this.label4.Text = "MÃ CT";
             // 
+            // lv_khmo
+            // 
+            this.lv_khmo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lv_khmo.Font = new System.Drawing.Font("Consolas", 14F);
+            this.lv_khmo.ForeColor = System.Drawing.Color.Aqua;
+            this.lv_khmo.HideSelection = false;
+            this.lv_khmo.Location = new System.Drawing.Point(15, 3);
+            this.lv_khmo.Name = "lv_khmo";
+            this.lv_khmo.Size = new System.Drawing.Size(675, 246);
+            this.lv_khmo.TabIndex = 22;
+            this.lv_khmo.UseCompatibleStateImageBehavior = false;
+            // 
             // khmo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.Controls.Add(this.lv_khmo);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox);
@@ -173,12 +173,10 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.khmo_dataGridView);
             this.Font = new System.Drawing.Font("Consolas", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "khmo";
             this.Size = new System.Drawing.Size(1000, 720);
             this.Load += new System.EventHandler(this.khmo_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.khmo_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,8 +192,8 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView khmo_dataGridView;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListView lv_khmo;
     }
 }
