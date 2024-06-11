@@ -17,26 +17,46 @@ namespace DB_Management
         Connection connection = new Connection();
         DataSource DS = new DataSource();
         string admin = "ADMIN_OLS";
+        bool isTruongkhoa = false;
 
         public NhanSu()
         {
             InitializeComponent();
-            if (DS.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE LIKE 'P%'", "ROLE").Contains("P_GIANGVIEN"))
+            config();
+            if (DS.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE LIKE 'P%'", "ROLE").Contains("P_TRUONGKHOA"))
             {
-
+                isTruongkhoa =true;
             }
             else
             {
-                load_data();    
-                loadVaiTro();
-
-            }
+              
+            }  
+            load_data();    
+            loadVaiTro();
             loadMaDV();
+            
+        }
+
+        private void config()
+        {
+            dataGridView1.AutoResizeColumns();
+            dataGridView1.AutoResizeColumnHeadersHeight();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
+            dataGridView1.DefaultCellStyle.ForeColor = Color.Aqua;
+            dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
+            dataGridView1.BackgroundColor = Color.FromArgb(0, 0, 64);
         }
 
         private void loadVaiTro()
         {
-            string query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%'";
+            //string query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'P_%'";
+  /*          string query = "SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE LIKE 'P%'";
+
             connection.connect();
             try
             {
@@ -48,13 +68,20 @@ namespace DB_Management
                         vaitro_comboBox.Items.Add(dr["ROLE"].ToString());
                     }
                 }
-                connection.disconnect();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("load role thất bại: " + ex.Message);
 
             }
+            finally { connection.disconnect(); }*/
+
+
+            vaitro_comboBox.Items.Add("P_NVCOBAN");
+            vaitro_comboBox.Items.Add("P_GIANGVIEN");
+            vaitro_comboBox.Items.Add("P_GIAOVU");
+            vaitro_comboBox.Items.Add("P_TRUONGDONVI");
+
 
         }
 
@@ -73,7 +100,6 @@ namespace DB_Management
                         madv_comboBox.Items.Add(dr["MADV"].ToString());
                     }
                 }
-                connection.disconnect();
             }
             catch (Exception ex)
             {
@@ -87,7 +113,15 @@ namespace DB_Management
 
         private void load_data()
         {
-            string query = $"select * from {admin}.PROJECT_NHANSU";
+            string query = "";
+            if (isTruongkhoa)
+            {
+                query = $"select * from {admin}.PROJECT_NHANSU";
+            }
+            else
+            {
+                query = $"select * from {admin}.PROJECT_NVCOBAN_XEMTHONGTINCANHAN";
+            }
             connection.connect();
             try
             {
