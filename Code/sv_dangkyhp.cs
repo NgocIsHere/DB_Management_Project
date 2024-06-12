@@ -29,7 +29,8 @@ namespace DB_Management
 {
     public partial class sv_dangkyhp : UserControl
     {
-        private Connection connection; 
+        private Connection connection;
+        string admin = "ADMIN_OLS";
         public sv_dangkyhp()
         {
             InitializeComponent();
@@ -65,7 +66,7 @@ namespace DB_Management
             dataGridView1.Columns["MaGV"].ReadOnly = true;
             if (now < deadline)
             {
-                string query1 = "SELECT * FROM C##ADMIN.V_PROJECT_DKHP WHERE NAM =" + now.Year.ToString() +" AND MAHP NOT IN (SELECT MAHP FROM C##ADMIN.PROJECT_DANGKY WHERE NAM="+ now.Year.ToString()+")";
+                string query1 = $"SELECT * FROM {admin}.V_PROJECT_DKHP WHERE NAM =" + now.Year.ToString() +" AND MAHP NOT IN (SELECT MAHP FROM C##ADMIN.PROJECT_DANGKY WHERE NAM="+ now.Year.ToString()+")";
                 label2.Hide();
                 OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
                 System.Data.DataTable table1 = new System.Data.DataTable();
@@ -136,7 +137,7 @@ namespace DB_Management
                     MAGV = row.Cells["MaGV"].Value.ToString();
                     HK = int.TryParse(row.Cells["HK"].Value?.ToString(), out int hkValue) ? hkValue : 0;
                     Nam = int.TryParse(row.Cells["Năm"].Value?.ToString(), out int namValue) ? namValue : 0;
-                    using (OracleCommand command = new OracleCommand("C##ADMIN.InsertProjectDangKy", connection.connection))
+                    using (OracleCommand command = new OracleCommand($"{admin}.InsertProjectDangKy", connection.connection))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 

@@ -28,7 +28,8 @@ namespace DB_Management
 {
     public partial class sv_hocphan : UserControl
     {
-        private Connection connection; 
+        private Connection connection;
+        string admin = "ADMIN_OLS";
         public sv_hocphan()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace DB_Management
 
         private void DisplayUserData()
         {
-            string query = "SELECT DISTINCT HK FROM  c##admin.project_khmo"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
+            string query = $"SELECT DISTINCT HK FROM  {admin}.project_khmo"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
             OracleCommand command1 = new OracleCommand(query, connection.connection);
 
             // Sử dụng SqlDataReader để đọc dữ liệu từ truy vấn
@@ -55,7 +56,7 @@ namespace DB_Management
                 comboBox1.Items.Add(reader1["HK"].ToString()); // Thay column_name bằng tên cột bạn muốn điền vào ComboBox
             }
             comboBox1.Items.Add("Tất cả");
-            string query1 = "SELECT * FROM c##admin.project_khmo kh inner join c##admin.project_hocphan hp on kh.mahp = hp.mahp";
+            string query1 = $"SELECT * FROM {admin}.project_khmo kh inner join {admin}.project_hocphan hp on kh.mahp = hp.mahp";
             
             int quantity1 = 0;
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
@@ -63,19 +64,12 @@ namespace DB_Management
             adapter1.Fill(table1);
             dataGridView1.DataSource = table1;
         }
-
-       
-        
-        
-
         private void button2_Click(object sender, EventArgs e)
         {
             
             DisplayUserData();
         }
 
-     
-        
         private void userList_Load(object sender, EventArgs e)
         {
 
@@ -91,21 +85,21 @@ namespace DB_Management
             string query1;
             if (comboBox1.Text.ToString() == "1")
             {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 1";
+                query1 = $"SELECT * FROM {admin}.project_khmo kh join {admin}.project_hocphan hp on kh.mahp = hp.mahp where HK = 1";
 
             }
             else if (comboBox1.Text.ToString() == "2")
             {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 2";
+                query1 = $"SELECT * FROM {admin}.project_khmo kh join {admin}.project_hocphan hp on kh.mahp = hp.mahp where HK = 2";
 
             }
             else if (comboBox1.Text.ToString() == "3")
             {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp where HK = 3";
+                query1 = $"SELECT * FROM {admin}.project_khmo kh join {admin}.project_hocphan hp on kh.mahp = hp.mahp where HK = 3";
             }
             else
             {
-                query1 = "SELECT * FROM c##admin.project_khmo kh join c##admin.project_hocphan hp on kh.mahp = hp.mahp";
+                query1 = $"SELECT * FROM {admin}.project_khmo kh join {admin}.project_hocphan hp on kh.mahp = hp.mahp";
             }
             int quantity1 = 0;
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);

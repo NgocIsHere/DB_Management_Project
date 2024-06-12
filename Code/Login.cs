@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -37,7 +38,7 @@ namespace DB_Management
             else
             {
                 // Do nothing
-                string sql = "SELECT granted_role FROM user_role_privs";
+                string sql = "SELECT granted_role FROM user_role_privs ORDER BY granted_role DESC";
                 string roleSV = "P_SINHVIEN";
                 string roleDBA = "DBA";
                 role = null;

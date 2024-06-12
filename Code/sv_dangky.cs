@@ -28,7 +28,8 @@ namespace DB_Management
 {
     public partial class sv_dangky : UserControl
     {
-        private Connection connection; 
+        private Connection connection;
+        string admin = "ADMIN_OLS";
         public sv_dangky()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace DB_Management
         {
             
             int quantity1 = 0;
-            string query = "SELECT DISTINCT HK FROM  c##admin.project_dangky"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
+            string query = $"SELECT DISTINCT HK FROM  {admin}.project_dangky"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
             OracleCommand command1 = new OracleCommand(query, connection.connection);
 
             // Sử dụng SqlDataReader để đọc dữ liệu từ truy vấn
@@ -58,7 +59,7 @@ namespace DB_Management
             }
             comboBox1.Items.Add("Tất cả");
 
-            string query1 = "SELECT * FROM c##admin.project_dangky";
+            string query1 = $"SELECT * FROM {admin}.project_dangky";
 
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
             System.Data.DataTable table1 = new System.Data.DataTable();
@@ -99,21 +100,21 @@ namespace DB_Management
             string query1;
             if (comboBox1.Text.ToString() == "1")
             {
-                query1 = "SELECT * FROM c##admin.project_dangky where HK = 1";
+                query1 = $"SELECT * FROM {admin}.project_dangky where HK = 1";
 
             }
             else if (comboBox1.Text.ToString() == "2")
             {
-                query1 = "SELECT * FROM c##admin.project_dangky where HK = 2";
+                query1 = $"SELECT * FROM {admin}.project_dangky where HK = 2";
 
             }
             else if (comboBox1.Text.ToString() == "3")
             {
-                query1 = "SELECT * FROM c##admin.project_dangky where HK = 3";
+                query1 = $"SELECT * FROM {admin}.project_dangky where HK = 3";
             }
             else
             {
-                query1 = "SELECT * FROM c##admin.project_dangky";
+                query1 = $"SELECT * FROM {admin}.project_dangky";
             }
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
             System.Data.DataTable table1 = new System.Data.DataTable();
@@ -131,7 +132,7 @@ namespace DB_Management
                 string MAGV = "";
                 int HK;
                 int Nam;
-                string deleteQuery = "DELETE FROM C##ADMIN.PROJECT_DANGKY " +
+                string deleteQuery = $"DELETE FROM {admin}.PROJECT_DANGKY " +
                          "WHERE MAGV = :p_magv " +
                          "AND MAHP = :p_mahp " +
                          "AND HK = :p_hk " +

@@ -29,7 +29,8 @@ namespace DB_Management
 {
     public partial class sv_ttcn : UserControl
     {
-        private Connection connection; 
+        private Connection connection;
+        string admin = "ADMIN_OLS";
         public sv_ttcn()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace DB_Management
         private void DisplayUserData()
         {
             int quantity1 = 0;
-            string query = "SELECT * FROM c##admin.project_sinhvien";
+            string query = $"SELECT * FROM {admin}.project_sinhvien";
             using (OracleCommand cmd = new OracleCommand(query, connection.connection))
             {
                 using (OracleDataReader reader = cmd.ExecuteReader())
@@ -70,7 +71,7 @@ namespace DB_Management
             string sqlquery;
             if (textBox1.Text != "")
             {
-                sqlquery = "UPDATE C##ADMIN.PROJECT_SINHVIEN SET DCHI = :DIACHI";
+                sqlquery = $"UPDATE {admin}.PROJECT_SINHVIEN SET DCHI = :DIACHI";
                 using (OracleCommand cmd = new OracleCommand(sqlquery, connection.connection))
                 {
                     cmd.Parameters.Add(new OracleParameter("DIACHI", textBox1.Text.ToString()));
@@ -80,7 +81,7 @@ namespace DB_Management
             }
             if (textBox2.Text != "")
             {
-                sqlquery = "UPDATE C##ADMIN.PROJECT_SINHVIEN SET DT = :SDT";
+                sqlquery = $"UPDATE {admin}.PROJECT_SINHVIEN SET DT = :SDT";
                 using (OracleCommand cmd = new OracleCommand(sqlquery, connection.connection))
                 {
                     cmd.Parameters.Add(new OracleParameter("SDT", textBox2.Text.ToString()));
