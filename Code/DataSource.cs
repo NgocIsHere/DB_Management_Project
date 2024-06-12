@@ -20,7 +20,7 @@ namespace DB_Management
     {
         public string stringsql;
         public OracleConnection conn;
-        public static string role_query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'C##P_%'";
+        public static string role_query = "SELECT * FROM DBA_ROLES WHERE ROLE LIKE 'P_%'";
         public static string table_query = "select table_name from all_tables where table_name like 'PROJECT_%'";
         public static string role_table_query = "SELECT * FROM ROLE_TAB_PRIVS";
 
@@ -185,9 +185,9 @@ namespace DB_Management
         {
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
             conn.Open();
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
             role.Name = role.Name.ToUpper();
-            role.Name = role.Name.Contains("C##P_") ? role.Name : "C##P_" + role.Name;
+            role.Name = role.Name.Contains("P_") ? role.Name : "P_" + role.Name;
             command.CommandText = "CREATE ROLE " + role.Name;
             try
             {
@@ -208,12 +208,12 @@ namespace DB_Management
         {
             conn.Open();
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
             if (!oldrolename.Equals(""))
             {
                 bool isdelete = false;
                 role.Name = role.Name.ToUpper();
-                role.Name = role.Name.Contains("C##P_") ? role.Name : "C##P_" + role.Name;
+                role.Name = role.Name.Contains("P_") ? role.Name : "P_" + role.Name;
                 if (role.Name.Equals(oldrolename))
                 {
                     command.CommandText = "DROP ROLE " + oldrolename;
@@ -289,7 +289,7 @@ namespace DB_Management
             List<string> oldtabs = getAllObject(getQueryPriOfUsr(user.Name), "TABLE_NAME");
             conn.Open();
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
             List<string> Pris = new List<string>() { "SELECT", "INSERT", "DELETE", "UPDATE" };
             for (int i = 0; i < oldpris.Count; i++)
             {
@@ -363,7 +363,7 @@ namespace DB_Management
             try
             {
                 OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 
                 foreach(ListViewItem item in lv_role.Items)
                 {
@@ -394,7 +394,7 @@ namespace DB_Management
         {
             conn.Open();
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
             command.CommandText = "DROP ROLE " + rolename;
             command.ExecuteNonQuery();
             conn.Close();
@@ -403,7 +403,7 @@ namespace DB_Management
         {
             conn.Open();
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
             command.CommandText = "DROP USER " + usrname + " CASCADE" ;
             command.ExecuteNonQuery();
             conn.Close();

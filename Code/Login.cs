@@ -38,7 +38,7 @@ namespace DB_Management
             {
                 // Do nothing
                 string sql = "SELECT granted_role FROM user_role_privs";
-                string roleSV = "C##P_SINHVIEN";
+                string roleSV = "P_SINHVIEN";
                 string roleDBA = "DBA";
                 role = null;
                 using (OracleCommand cmd = new OracleCommand(sql, connection.connection))

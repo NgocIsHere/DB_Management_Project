@@ -64,7 +64,7 @@ namespace DB_Management
             connection.connect();
             using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
             }
 
             using (OracleCommand cmd = new OracleCommand($"CREATE USER {textBox3.Text}{textBox1.Text} IDENTIFIED BY {textBox2.Text}", connection.connection))
@@ -124,7 +124,7 @@ namespace DB_Management
             }
             using (OracleCommand cmd = new OracleCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE", connection.connection))
             {
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
             }
             roles = roles.Remove(roles.Length - 1);
             using (OracleCommand cmd = new OracleCommand($"GRANT {roles} TO {textBox3.Text}{textBox1.Text}", connection.connection))

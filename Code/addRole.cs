@@ -13,6 +13,8 @@ namespace DB_Management
 {
     public partial class addRole : UserControl
     {
+        List<string> rolesystem = new List<string>(){ "P_SINHVIEN", "P_NVCOBAN", "P_GIANGVIEN", 
+                                                "P_GIAOVU", "P_TRUONGDONVI", "P_TRUONGKHOA" };
         int count = 0;
         private bool allcheck = true;
         private bool isadd = false;
@@ -41,9 +43,18 @@ namespace DB_Management
             //lv_roles.Columns.Add("description").Width = 200;
             lv_roles.View = View.Details;
             roles = getAllRoles();
-            foreach (string role in roles)
+            
+            for (int i = 0;i<roles.Count;i++)
             {
-                getViewForRole(role);
+                if (roles[i].Contains("P_"))
+                {
+                    getViewForRole(roles[i]);
+                }
+                else
+                {
+                    roles.RemoveAt(i);
+                    i--;
+                }
             }
             //lv table
             lv_table.Columns.Add("tablename").Width = 200;
@@ -260,7 +271,7 @@ namespace DB_Management
             bool t_check = false;
             current_role.Name = tb_rolename.Text;
             string t = tb_rolename.Text.ToUpper();
-            t = t.Contains("C##P_") ? t : "C##P_" + t;
+            t = t.Contains("P_") ? t : "P_" + t;
             if (isedit)
             {
                 if (!existRole(t, lv_roles.SelectedItems[0].Text))
@@ -332,7 +343,11 @@ namespace DB_Management
         {
             if (lv_roles.SelectedItems.Count > 0 && !ischoose)
             {
-
+                if (rolesystem.Contains(lv_roles.SelectedItems[0].Text))
+                {
+                    MessageBox.Show("Cannot edit on role system!");
+                    return;
+                }
                 btn_choose.Visible = false;
                 isadd = false;
                 btn_add.Visible = false;
@@ -395,15 +410,23 @@ namespace DB_Management
 
         private void lv_roles_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            foreach (ListViewItem item in lv_roles.Items)
-            {
-                if (item.Checked)
+            ListViewItem item = e.Item;
+            if (item.Checked && rolesystem.Contains(item.Text)){
+                item.Checked = false;
+                if (!ischooseall)
                 {
-                    btn_back.Text = "Delete";
-                    return;
+                    MessageBox.Show("Cannot delete on role system!");
                 }
             }
-            btn_back.Text = "Back";
+            if (lv_roles.CheckedItems.Count > 0)
+            {
+                btn_back.Text = "Delete";
+            }
+            else
+            {
+                btn_back.Text = "Back";
+            }
+            
         }
 
         private void lv_privilege_SelectedIndexChanged(object sender, EventArgs e)

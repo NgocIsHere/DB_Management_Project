@@ -170,7 +170,7 @@ namespace DB_Management
             if (comboBox2.Text.Length > 0)
             {
                 OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", connection.connection);
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 command.CommandText = "DROP USER " + comboBox2.Text + " CASCADE";
                 try
                 {
