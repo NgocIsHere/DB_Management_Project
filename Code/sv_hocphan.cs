@@ -111,7 +111,7 @@ namespace DB_Management
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
             System.Data.DataTable table1 = new System.Data.DataTable();
             adapter1.Fill(table1);
-            dataGridView1.DataSource = table1;
+            
         }
     }
 }

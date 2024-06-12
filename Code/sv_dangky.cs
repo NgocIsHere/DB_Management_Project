@@ -63,13 +63,18 @@ namespace DB_Management
             OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
             System.Data.DataTable table1 = new System.Data.DataTable();
             adapter1.Fill(table1);
+            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
+            checkBoxColumn.Name = "Check";
+            checkBoxColumn.HeaderText = "Chọn";
+            dataGridView1.Columns.Add(checkBoxColumn);
             dataGridView1.DataSource = table1;
-            
+            dataGridView1.Columns["Check"].ReadOnly = false;
+
         }
 
-       
-        
-        
+
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -114,6 +119,47 @@ namespace DB_Management
             System.Data.DataTable table1 = new System.Data.DataTable();
             adapter1.Fill(table1);
             dataGridView1.DataSource = table1;
+        }
+
+        private void btn_choose_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Check"];
+                string result = "";
+                string MAHP = "";
+                string MAGV = "";
+                int HK;
+                int Nam;
+                string deleteQuery = "DELETE FROM C##ADMIN.PROJECT_DANGKY " +
+                         "WHERE MAGV = :p_magv " +
+                         "AND MAHP = :p_mahp " +
+                         "AND HK = :p_hk " +
+                         "AND NAM = :p_nam";
+                // Check if the checkbox is checked
+                if (chk.Value is true)
+                {
+                    MAHP = row.Cells["MAHP"].Value.ToString();
+                    MAGV = row.Cells["MAGV"].Value.ToString();
+                    HK = int.TryParse(row.Cells["HK"].Value?.ToString(), out int hkValue) ? hkValue : 0;
+                    Nam = int.TryParse(row.Cells["NAM"].Value?.ToString(), out int namValue) ? namValue : 0;
+                    using (OracleCommand command = new OracleCommand(deleteQuery, connection.connection))
+                    {
+                        command.Parameters.Add("p_magv", OracleDbType.Varchar2).Value = MAGV;
+                        command.Parameters.Add("p_mahp", OracleDbType.Varchar2).Value = MAHP;
+                        command.Parameters.Add("p_hk", OracleDbType.Int32).Value = HK;
+                        command.Parameters.Add("p_nam", OracleDbType.Int32).Value = Nam;
+
+                        // Execute the command
+                        command.ExecuteNonQuery();
+
+                    }
+
+                }
+                DisplayUserData();
+
+
+            }
         }
     }
 }

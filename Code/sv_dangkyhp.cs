@@ -42,7 +42,7 @@ namespace DB_Management
         private void DisplayUserData()
         {
             DateTime now = DateTime.Now;
-            DateTime deadline = new DateTime(2024,6,5);
+            DateTime deadline = new DateTime(2024,6,6);
             DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
             checkBoxColumn.Name = "Check";
             checkBoxColumn.HeaderText ="Đăng ký";
@@ -50,7 +50,10 @@ namespace DB_Management
             dataGridView1.Columns.Add("MaGV", "Mã GV");
             dataGridView1.Columns.Add("Mã học phần", "Mã học phần");
             dataGridView1.Columns.Add("Tên học phần", "Tên học phần");
+            dataGridView1.Columns.Add("HK", "HK");
+            dataGridView1.Columns.Add("Năm", "Năm");
             dataGridView1.Columns.Add("Số TC", "Số TC");
+
             // Optionally set column types, widths, etc.
             dataGridView1.Columns["Mã học phần"].Width = 100;
             dataGridView1.Columns["Tên học phần"].Width = 150;
@@ -71,7 +74,7 @@ namespace DB_Management
                 foreach (DataRow row in table1.Rows)
                 {
                     
-                        dataGridView1.Rows.Add(0, row["MAGV"].ToString(), row["MAHP"].ToString(), row["TENHP"].ToString(), row["SOTC"].ToString());
+                        dataGridView1.Rows.Add(0, row["MAGV"].ToString(), row["MAHP"].ToString(), row["TENHP"].ToString(), row["HK"].ToString(), row["NAM"].ToString(), row["SOTC"].ToString());
                     
                 }
                 flowLayoutPanel1.Show();
@@ -117,41 +120,43 @@ namespace DB_Management
 
         private void btn_choose_Click(object sender, EventArgs e)
         {
-            String result = "";
+            
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Check"];
+                string result = "";
                 string MAHP = "";
                 string MAGV = "";
+                int HK;
+                int Nam;
                 // Check if the checkbox is checked
                 if (chk.Value is true)
                 {
                     MAHP = row.Cells["Mã học phần"].Value.ToString();
                     MAGV = row.Cells["MaGV"].Value.ToString();
-                    result = result + MAHP;
+                    HK = int.TryParse(row.Cells["HK"].Value?.ToString(), out int hkValue) ? hkValue : 0;
+                    Nam = int.TryParse(row.Cells["Năm"].Value?.ToString(), out int namValue) ? namValue : 0;
+                    using (OracleCommand command = new OracleCommand("C##ADMIN.InsertProjectDangKy", connection.connection))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        // Add parameters
+                        command.Parameters.Add("p_masv", OracleDbType.Varchar2).Value = '1';
+                        command.Parameters.Add("p_magv", OracleDbType.Varchar2).Value = MAGV;
+                        command.Parameters.Add("p_mahp", OracleDbType.Varchar2).Value = MAHP;
+                        command.Parameters.Add("p_hk", OracleDbType.Int32).Value = HK;
+                        command.Parameters.Add("p_nam", OracleDbType.Int32).Value = Nam;
+                        command.Parameters.Add("p_mact", OracleDbType.Varchar2).Value = "CTTT";
+
+                        // Execute the command
+                        command.ExecuteNonQuery();
+                        DisplayUserData();
+
+                    }
+
                 }
 
-                string query = "BEGIN Insert_Project_Dangky(:p_MASV, :p_MAGV, :p_MAHP, :p_HK, :p_NAM, :p_MACT); END;";
-
-                using (OracleCommand command = new OracleCommand(query, connection.connection))
-                {
-                    // Set the command type as stored procedure
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add parameters with values
-                    command.Parameters.Add("p_MASV", OracleDbType.Varchar2).Value = '1';
-                    command.Parameters.Add("p_MAGV", OracleDbType.Varchar2).Value = MAGV;
-                    command.Parameters.Add("p_MAHP", OracleDbType.Varchar2).Value = MAHP;
-                    command.Parameters.Add("p_HK", OracleDbType.Int32).Value = 3;
-                    command.Parameters.Add("p_NAM", OracleDbType.Int32).Value = 2024;
-                    command.Parameters.Add("p_MACT", OracleDbType.Varchar2).Value = "CTTT";
-
-                    // Open the connection and execute the command
-                    command.ExecuteNonQuery();
-                }
             }
         }
-
-        
     }
 }
