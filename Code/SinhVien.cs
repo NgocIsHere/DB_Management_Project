@@ -162,7 +162,6 @@ namespace DB_Management
                 float dtbtl = float.Parse(dtbtl_textBox.Text);
 
                 string sql = $"UPDATE {admin}.PROJECT_SINHVIEN SET HOTEN = :hoten, PHAI = :phai, NGSINH = TO_DATE(:ngaysinh, 'yyyy-MM-dd'), DCHI = :diaChi, DT = :dienThoai, MACT = :mact, MANGANH = :manganh, SOTCTL = :sotctl, DTBTL = :dtbtl WHERE MASV = :masv";
-
                 connection.connect();
                 try
                 {
