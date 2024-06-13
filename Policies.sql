@@ -28,7 +28,8 @@ BEFORE DELETE
    FOR EACH ROW
    
 BEGIN
-    DELETE FROM PROJECT_DONVI
+    UPDATE PROJECT_DONVI
+    SET TRGDV = NULL
     WHERE TRGDV = :OLD.MANV;
     DELETE FROM PROJECT_PHANCONG
     WHERE MAGV = :OLD.MANV;
@@ -45,14 +46,18 @@ BEGIN
 
 END;
 /
+
 CREATE OR REPLACE TRIGGER DONVI_BEFORE_DELETE
 BEFORE DELETE
    ON PROJECT_DONVI
    FOR EACH ROW
-   
 BEGIN
-    DELETE FROM PROJECT_NHANSU
+--    DELETE FROM PROJECT_NHANSU
+--    WHERE MADV = :OLD.MADV;
+    UPDATE PROJECT_NHANSU
+    SET MADV = NULL
     WHERE MADV = :OLD.MADV;
+    
     DELETE FROM PROJECT_HOCPHAN
     WHERE MADV = :OLD.MADV;
 
@@ -111,7 +116,7 @@ BEGIN
 --    EXECUTE IMMEDIATE STRSQL;
     STRSQL := 'GRANT SELECT ON PROJECT_NVCOBAN_XEMTHONGTINCANHAN TO P_NVCOBAN';
     EXECUTE IMMEDIATE STRSQL;
-    STRSQL := 'GRANT UPDATE ON PROJECT_NVCOBAN_UPDATESDT TO P_NVCOBAN';
+    STRSQL := 'GRANT UPDATE(DT) ON PROJECT_NVCOBAN_XEMTHONGTINCANHAN TO P_NVCOBAN';
     EXECUTE IMMEDIATE STRSQL;
     
     STRSQL := 'GRANT SELECT ON PROJECT_SINHVIEN TO P_NVCOBAN';
@@ -443,17 +448,17 @@ AS
     v_year int;
     v_month VARCHAR2(50);
 BEGIN
-    -- Set the end of the valid registration period
+    -- Set the end of the valid registration period   
     SELECT EXTRACT(YEAR FROM SYSDATE) into v_year FROM DUAL;
     SELECT MAX(HK) into v_hk FROM ADMIN_OLS.PROJECT_KHMO WHERE NAM = v_year ;
     IF v_hk = 1 THEN
-        v_month := '09';
+        v_month := '01';
     ELSIF v_hk = 2 THEN
-        v_month := '02';
+        v_month := '05';
     ELSIF v_hk = 3 THEN
-        v_month := '07';
+        v_month := '09';
     END IF;
-    v_limit_date := TO_DATE(v_year || '/' || v_month || '/19', 'yyyy/mm/dd');
+    v_limit_date := TO_DATE(v_year || '/' || v_month || '/14', 'yyyy/mm/dd');
     
     -- Get the student ID from the current session user
     v_masv := REPLACE(SYS_CONTEXT('USERENV', 'SESSION_USER'), 'SV', '');

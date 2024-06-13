@@ -57,7 +57,7 @@ namespace DB_Management
                 }
             }
 
-            string query1 = "SELECT USERNAME FROM all_users where username like 'PROJECT_U_%'"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
+            string query1 = "SELECT USERNAME FROM all_users where username like 'PROJECT_U_%' or username like 'SV%'"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
             OracleCommand command1 = new OracleCommand(query1, connection.connection);
 
             // Sử dụng SqlDataReader để đọc dữ liệu từ truy vấn
@@ -76,7 +76,7 @@ namespace DB_Management
         private void DisplayUserData()
         {
             int quantity1 = 0;
-            string query = "SELECT * FROM all_users where username like 'PROJECT_U_%'";
+            string query = "SELECT * FROM all_users where username like 'PROJECT_U_%' or username like 'SV%'";
             using (OracleCommand cmd = new OracleCommand(query, connection.connection))
             {
                 using (OracleDataReader reader = cmd.ExecuteReader())

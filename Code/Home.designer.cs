@@ -36,12 +36,14 @@ namespace DB_Management
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.content = new System.Windows.Forms.Panel();
+            this.btn_dx = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.btn_dx);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button1);
@@ -59,10 +61,10 @@ namespace DB_Management
             this.button2.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(0, 72);
+            this.button2.Location = new System.Drawing.Point(3, 72);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(243, 71);
+            this.button2.Size = new System.Drawing.Size(240, 71);
             this.button2.TabIndex = 3;
             this.button2.Text = "ADD USER";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -76,7 +78,7 @@ namespace DB_Management
             this.button3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.button3.ForeColor = System.Drawing.Color.Black;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(-1, 148);
+            this.button3.Location = new System.Drawing.Point(2, 148);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(241, 71);
@@ -114,6 +116,23 @@ namespace DB_Management
             this.content.TabIndex = 1;
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             // 
+            // btn_dx
+            // 
+            this.btn_dx.BackColor = System.Drawing.Color.Aqua;
+            this.btn_dx.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_dx.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.btn_dx.ForeColor = System.Drawing.Color.Black;
+            this.btn_dx.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_dx.Location = new System.Drawing.Point(2, 223);
+            this.btn_dx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_dx.Name = "btn_dx";
+            this.btn_dx.Size = new System.Drawing.Size(241, 71);
+            this.btn_dx.TabIndex = 10;
+            this.btn_dx.Text = "Đăng xuất";
+            this.btn_dx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_dx.UseVisualStyleBackColor = false;
+            this.btn_dx.Click += new System.EventHandler(this.btn_dx_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -137,5 +156,6 @@ namespace DB_Management
         private Button button3;
         private Button button1;
         private Button button2;
+        private Button btn_dx;
     }
 }

@@ -151,6 +151,8 @@ namespace DB_Management
                         command.Parameters.Add("p_hk", OracleDbType.Int32).Value = HK;
                         command.Parameters.Add("p_nam", OracleDbType.Int32).Value = Nam;
 
+                        Debug.WriteLine(command.CommandText);
+
                         // Execute the command
                         command.ExecuteNonQuery();
 

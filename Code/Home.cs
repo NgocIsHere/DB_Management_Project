@@ -92,5 +92,11 @@ namespace DB_Management
         {
 
         }
+
+        private void btn_dx_Click(object sender, EventArgs e)
+        {
+            Login.exit = false;
+            this.Close();
+        }
     } 
 }

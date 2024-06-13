@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace DB_Management
         int update = 1;
         int choose = 2;
         int chooseall = 3;
+      
         public string stringsql;
         public OracleConnection conn;
         public PhanCong()
@@ -85,7 +87,7 @@ namespace DB_Management
         {
             phanCongList.Clear();
             usrolepri = getObjectv1("SELECT * FROM USER_ROLE_PRIVS WHERE GRANTED_ROLE" +
-                " LIKE 'C##P%'", "GRANTED_ROLE");
+                " LIKE 'P%'", "GRANTED_ROLE");
             foreach (string role in usrolepri)
             {
                 views.AddRange(getObjectv1("SELECT * FROM ROLE_TAB_PRIVS WHERE PRIVILEGE = 'SELECT'" +
@@ -102,6 +104,7 @@ namespace DB_Management
                     query += " UNION ";
                 }
             }
+            //MessageBox.Show(query);
             if (!query.Equals(""))
             {
                 phanCongList.AddRange(getObjectv2(query, new List<string>()
@@ -133,16 +136,16 @@ namespace DB_Management
         private void removeRowAt(int index)
         {
             List<string> row = phanCongList[index];
-            //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-            OracleCommand command = new OracleCommand();
+            OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
             conn.Open();
-            command.ExecuteNonQuery();
+            //command.ExecuteNonQuery();
             for (int i = 0; i < viewdeletes.Count; i++)
             {
                 try
                 {
                     command.CommandText = $"DELETE FROM {admin}." + viewdeletes[i] + " WHERE MAGV = '" + row[0] + "' AND MAHP = '" +
                     row[1] + "' AND HK = '" + row[2] + "' AND NAM = '" + row[3] + "' AND MACT = '" + row[4] + "'";
+                    Debug.WriteLine(command.CommandText);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -177,11 +180,12 @@ namespace DB_Management
                 {
                     setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
                 }
-                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-                OracleCommand command = new OracleCommand();
+                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                //OracleCommand command = new OracleCommand();
                 conn.Open();
                 //command.ExecuteNonQuery();
-                command.CommandText = "UPDATE C##ADMIN." + viewGlobal + setclause + wherecluase;
+                command.CommandText = $"UPDATE {admin}." + viewGlobal + setclause + wherecluase;
+                Debug.WriteLine("ahihihi: " +  command.CommandText);
                 command.ExecuteNonQuery();
                 conn.Close();
                 MessageBox.Show("1 row update!");
@@ -190,20 +194,20 @@ namespace DB_Management
         }
         private void insertData()
         {
+
             if (viewinserts.Count > 0)
             {
                 string v = viewinserts[0];
-                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-                OracleCommand command = new OracleCommand();
+                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
                 conn.Open();
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 try
                 {
-                    command.CommandText = $"INSERT INTO {admin}." + v + "(MAGV,MAHP,HK,NAM,MACT) VALUES(" + tb_magv.Text + "," +
-                        tb_mahp.Text + "," + tb_hk.Text + "," + tb_nam.Text + "," + tb_mact.Text + ")";
+                    command.CommandText = $"INSERT INTO {admin}." + v + "(MAGV,MAHP,HK,NAM,MACT) VALUES(" + tb_magv.Text + ",'" +
+                        tb_mahp.Text + "'," + tb_hk.Text + "," + tb_nam.Text + ",'" +  tb_mact.Text + "')";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Successfull");
-                    phanCongList.Add(new List<string>() { tb_magv.Text,tb_mahp.Text,tb_hk.Text,tb_hk.Text,
+                    phanCongList.Add(new List<string>() { tb_magv.Text,tb_mahp.Text,tb_hk.Text,
                     tb_nam.Text,tb_mact.Text});
                     getViewforItem(phanCongList[phanCongList.Count - 1]);
                 }
@@ -320,6 +324,7 @@ namespace DB_Management
                 {
                     lv_pc.Items.RemoveAt(i);
                     removeRowAt(i);
+                    phanCongList.RemoveAt(0);
                     i--;
                 }
             }
@@ -360,6 +365,7 @@ namespace DB_Management
 
         private void btn_save_Click(object sender, EventArgs e)
         {
+
             if (edit_type == update)
             {
                 try

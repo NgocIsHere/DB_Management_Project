@@ -25,7 +25,7 @@ namespace DB_Management
             config();
             if (DS.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE ROLE LIKE 'P%'", "ROLE").Contains("P_TRUONGKHOA"))
             {
-                isTruongkhoa =true;
+                isTruongkhoa = true;
             }
             else
             {
@@ -213,11 +213,18 @@ namespace DB_Management
                 string dienThoai = dt_textBox.Text;
                 string vaitro = vaitro_comboBox.SelectedItem?.ToString();
                 string madv = madv_comboBox.SelectedItem?.ToString();
-                string username = username_textBox.Text; 
+                string username = username_textBox.Text;
+                string sql = "";
 
-                
-                string sql = $"UPDATE {admin}.PROJECT_NHANSU SET HOTEN = '{hoten}', PHAI = '{phai}', NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), PHUCAP = {phuCap}, DT = '{dienThoai}', VAITRO = '{vaitro}', MADV = '{madv}', USERNAME = '{username}' WHERE MANV = '{manv}'";
 
+                if (!isTruongkhoa)
+                {
+                    sql = $"UPDATE {admin}.PROJECT_NVCOBAN_XEMTHONGTINCANHAN SET DT = {dienThoai}";
+                }
+                else
+                {
+                    sql = $"UPDATE {admin}.PROJECT_NHANSU SET HOTEN = '{hoten}', PHAI = '{phai}', NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), PHUCAP = {phuCap}, DT = '{dienThoai}', VAITRO = '{vaitro}', MADV = '{madv}', USERNAME = '{username}' WHERE MANV = '{manv}'";
+                }
                 connection.connect();
                 try
                 {

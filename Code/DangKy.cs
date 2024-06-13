@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,7 @@ namespace DB_Management
             lv_dk.Columns.Add("HOCKY").Width = size;
             lv_dk.Columns.Add("NAM").Width = size;
             lv_dk.Columns.Add("MACT").Width = size;
-            lv_dk.Columns.Add("DIEMTHI").Width = size;
+            lv_dk.Columns.Add("DIEMTH").Width = size;
             lv_dk.Columns.Add("DIEMQT").Width = size;
             lv_dk.Columns.Add("DIEMCK").Width = size;
             lv_dk.Columns.Add("DIEMTK").Width = size;
@@ -84,7 +85,7 @@ namespace DB_Management
         {
             dangkyList.Clear();
             usrolepri = getObjectv1("SELECT * FROM USER_ROLE_PRIVS WHERE GRANTED_ROLE" +
-                " LIKE 'C##P%'", "GRANTED_ROLE");
+                " LIKE 'P%'", "GRANTED_ROLE");
             if (usrolepri.Contains("P_TRUONGDONVI") || usrolepri.Contains("P_TRUONGKHOA"))
             {
                 usrolepri.Add("P_GIANGVIEN");
@@ -108,7 +109,7 @@ namespace DB_Management
             if (!query.Equals(""))
             {
                 dangkyList.AddRange(getObjectv2(query, new List<string>()
-                { "MASV","MAGV", "MAHP", "HK", "NAM", "MACT","DIEMTHI","DIEMQT","DIEMCK","DIEMTK" }));
+                { "MASV","MAGV", "MAHP", "HK", "NAM", "MACT","DIEMTH","DIEMQT","DIEMCK","DIEMTK" }));
             }
 
         }
@@ -147,15 +148,14 @@ namespace DB_Management
             if (viewinserts.Count > 0)
             {
                 string v = viewinserts[0];
-                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-                OracleCommand command = new OracleCommand();
+                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
                 conn.Open();
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 try
                 {
-                    command.CommandText = $"INSERT INTO {admin}." + v + "(MASV,MAGV,MAHP,HK,NAM,MACT,DIEMTHI,DIEMQT,DIEMTCK,DIEMTK)" +
-                        " VALUES(" + tb_masv.Text + "," + tb_magv.Text + "," + tb_mahp.Text + "," + tb_hk.Text + "," +
-                        tb_nam.Text + "," + tb_mact.Text + "," + tb_DT.Text + "," + tb_DQT.Text + "," + tb_DCK.Text + "," + tb_DTK.Text + ")";
+                    command.CommandText = $"INSERT INTO {admin}." + v + "(MASV,MAGV,MAHP,HK,NAM,MACT,DIEMTH,DIEMQT,DIEMTCK,DIEMTK)" +
+                        " VALUES(" + tb_masv.Text + "," + tb_magv.Text + ",'" + tb_mahp.Text + "'," + tb_hk.Text + "," +
+                        tb_nam.Text + ",'" + tb_mact.Text + "'," + tb_DT.Text + "," + tb_DQT.Text + "," + tb_DCK.Text + "," + tb_DTK.Text + ")";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Successfull");
                     dangkyList.Add(new List<string>() { tb_masv.Text,tb_magv.Text,tb_mahp.Text,
@@ -195,7 +195,7 @@ namespace DB_Management
                 if (tb_hk.Enabled) column.Add("HK = " + tb_hk.Text);
                 if (tb_nam.Enabled) column.Add(" NAM = " + tb_nam.Text);
                 if (tb_mact.Enabled) column.Add(" MACT = '" + tb_mact.Text + "' ");
-                if (tb_DT.Enabled) column.Add(" DIEMTHI = '" + tb_DT.Text + "' ");
+                if (tb_DT.Enabled) column.Add(" DIEMTH = '" + tb_DT.Text + "' ");
                 if (tb_DQT.Enabled) column.Add(" DIEMQT = '" + tb_DQT.Text + "' ");
                 if (tb_DCK.Enabled) column.Add(" DIEMCK = '" + tb_DCK.Text + "' ");
                 if (tb_DTK.Enabled) column.Add(" DIEMTK = '" + tb_DTK.Text + "' ");
@@ -203,10 +203,9 @@ namespace DB_Management
                 {
                     setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
                 }
-                //OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-                OracleCommand command = new OracleCommand();
+                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
                 conn.Open();
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
                 command.CommandText = $"UPDATE {admin}." + viewGlobal + setclause + wherecluase;
                 command.ExecuteNonQuery();
                 conn.Close();
@@ -273,7 +272,7 @@ namespace DB_Management
                             tb_nam.Enabled = columnupdate.Contains("NAM");
                             tb_mact.Enabled = columnupdate.Contains("MACT");
                             tb_masv.Enabled = columnupdate.Contains("MASV");
-                            tb_DT.Enabled = columnupdate.Contains("DIEMTHI");
+                            tb_DT.Enabled = columnupdate.Contains("DIEMTH");
                             tb_DQT.Enabled = columnupdate.Contains("DIEMQT");
                             tb_DCK.Enabled = columnupdate.Contains("DIEMCK");
                             tb_DTK.Enabled = columnupdate.Contains("DIEMTK");
@@ -296,6 +295,7 @@ namespace DB_Management
                 {
                     lv_dk.Items.RemoveAt(i);
                     removeRowAt(i);
+                    dangkyList.RemoveAt(i);
                     i--;
                 }
             }
@@ -451,7 +451,7 @@ namespace DB_Management
             if (!query.Equals(""))
             {
                 tempt.AddRange(getObjectv2(query, new List<string>()
-                        { "MASV","MAGV", "MAHP", "HK", "NAM", "MACT","DIEMTHI","DIEMQT","DIEMCK","DIEMTK" }));
+                        { "MASV","MAGV", "MAHP", "HK", "NAM", "MACT","DIEMTH","DIEMQT","DIEMCK","DIEMTK" }));
             }
             return tempt;
         }

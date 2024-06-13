@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace DB_Management
@@ -42,33 +43,32 @@ namespace DB_Management
                 string roleSV = "P_SINHVIEN";
                 string roleDBA = "DBA";
                 role = null;
+                List<string> roles = new List<string>();
                 using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
                 {
                     using (OracleDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            if (reader.GetString(0).Equals(roleSV))
-                            {
-                                role = "SINHVIEN";
-                                break;
-                            }
-                            else if (reader.GetString(0).Equals(roleDBA))
-                            {
-                                role = "DBA";
-                                break;
-
-                            }
-                            else
-                            {
-                                role = "NHANVIEN";
-                                break;
-
-                            }
+                            roles.Add(reader.GetString(0));
                         }
                         /*                    MessageBox.Show("Bạn đã đăng nhập với vai trò: " +role);
                         */
                         
+                        if (roles.Contains(roleDBA))
+                        {
+                            role = roleDBA;
+                        }
+                        else if(roles.Contains(roleSV))
+                        {
+                            role = "SINHVIEN";
+                        }    
+                        else
+                        {
+                            role = "NHANVIEN";
+                        }
+
+
                         this.Close();
                     }
                 }

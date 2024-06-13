@@ -432,4 +432,8 @@ GRANT P_SINHVIEN TO SV1;
 
 SELECT granted_role FROM user_role_privs ORDER BY granted_role DESC;
 SELECT * FROM ADMIN_OLS.project_khmo kh inner join ADMIN_OLS.project_hocphan hp on kh.mahp = hp.mahp;
-SELECT * FROM ADMIN_OLS.project_hocphan
+SELECT * FROM ADMIN_OLS.PROJECT_NHANSU;
+select * from project_PHANCONG;
+select * from project_phancong pc join project_nhansu ns on ns.manv = pc.magv;
+
+SELECT granted_role FROM user_role_privs ;
