@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -49,15 +50,25 @@ namespace DB_Management
         }
         private void initializeMyComponent()
         {
-            getList();
-            getPriView();
+            
             int size = 140;
             lv_pc.Columns.Add("MAGV").Width = size;
             lv_pc.Columns.Add("MAHP").Width = size;
             lv_pc.Columns.Add("HOCKY").Width = size;
             lv_pc.Columns.Add("NAM").Width = size;
             lv_pc.Columns.Add("MACT").Width = size;
-            getViewForList();
+            
+        }
+        public void load()
+        {
+            if(phanCongList.Count == 0)
+            {
+                getList();
+                getPriView();
+                if (!backgroundWorker1.IsBusy)
+                    backgroundWorker1.RunWorkerAsync();
+                //getViewForList();
+            }
         }
         private void getPriView()
         {
@@ -466,6 +477,21 @@ namespace DB_Management
         private void PhanCong_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            getViewForList();
         }
     }
 }

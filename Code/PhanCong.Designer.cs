@@ -44,6 +44,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btn_delete = new System.Windows.Forms.Button();
             this.btn_choose = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.gb_edit.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -226,6 +227,13 @@
             this.btn_choose.UseVisualStyleBackColor = false;
             this.btn_choose.Click += new System.EventHandler(this.btn_choose_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // PhanCong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -262,5 +270,6 @@
         private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.Button btn_choose;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

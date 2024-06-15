@@ -22,6 +22,7 @@ namespace DB_Management
         Color btnDefaultColor = Color.Transparent;
         Color btnSelectedtColor = Color.Teal;
         public string role;
+        List<UserControl> userControls;
 
         public PH2()
         {
@@ -50,7 +51,7 @@ namespace DB_Management
             NhanSu nhansu = new NhanSu();
             SinhVien sv = new SinhVien();
             ThongBao tb = new ThongBao();
-            List<UserControl> userControls = new List<UserControl>() // Your UserControl list
+            userControls = new List<UserControl>() // Your UserControl list
             {nhansu,sv, dv, hp, dangKy, phanCong, k ,tb};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
@@ -110,14 +111,19 @@ namespace DB_Management
 
         private void btn_dangky_Click(object sender, EventArgs e)
         {
+            DangKy dk = userControls[4] as DangKy;
             navigationControl.Display(4);
             navigationButtons.Highlight(btn_dangky);
+            dk.load();
         }
 
         private void btn_phancong_Click(object sender, EventArgs e)
         {
+            PhanCong pc = userControls[5] as PhanCong;
+            
             navigationControl.Display(5);
             navigationButtons.Highlight(btn_phancong);
+            pc.load();
         }
 
         private void btn_khm_Click(object sender, EventArgs e)

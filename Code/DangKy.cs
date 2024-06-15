@@ -41,8 +41,7 @@ namespace DB_Management
         }
         private void initializeMyComponent()
         {
-            getList();
-            getPriView();
+
             int size = 70;
             lv_dk.Columns.Add("MASV").Width = size;
             lv_dk.Columns.Add("MAGV").Width = size;
@@ -55,7 +54,17 @@ namespace DB_Management
             lv_dk.Columns.Add("DIEMCK").Width = size;
             lv_dk.Columns.Add("DIEMTK").Width = size;
             temptable = initTempt(viewdeletes);
-            getViewForList();
+        }
+        public void load()
+        {
+            if (dangkyList.Count == 0)
+            {
+                getList();
+                getPriView();
+                if (!backgroundWorker1.IsBusy)
+                    backgroundWorker1.RunWorkerAsync();
+            }
+
         }
         private void getPriView()
         {
@@ -468,6 +477,21 @@ namespace DB_Management
                 }
             }
             return false;
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            getViewForList();
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
     }
 }

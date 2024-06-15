@@ -285,6 +285,9 @@
     <EmbeddedResource Include="addTable.resx">
       <DependentUpon>addTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DangKy.resx">
+      <DependentUpon>DangKy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="donvi.resx">
       <DependentUpon>donvi.cs</DependentUpon>
     </EmbeddedResource>
