@@ -121,8 +121,14 @@ END;
 -- DBA_AUDIT_TRAIL: Chế độ xem này hiển thị tất cả các bản ghi kiểm toán tiêu chuẩn được tạo bởi Oracle. 
 -- Nó chứa thông tin chi tiết về các hoạt động như câu lệnh DDL (Data Definition Language) đã thực thi, 
 -- các hoạt động cấp đặc quyền hệ thống và các hoạt động đăng nhập/đăng xuất.
-SELECT USERNAME, OBJ_NAME, ACTION_NAME, RETURNCODE, EXTENDED_TIMESTAMP FROM DBA_AUDIT_TRAIL WHERE USERNAME != 'ADMIN_OLS' ORDER BY EXTENDED_TIMESTAMP DESC ; 
-
+SELECT USERNAME, OBJ_NAME, ACTION_NAME, RETURNCODE, EXTENDED_TIMESTAMP 
+FROM (
+  SELECT USERNAME, OBJ_NAME, ACTION_NAME, RETURNCODE, EXTENDED_TIMESTAMP 
+  FROM DBA_AUDIT_TRAIL 
+  WHERE USERNAME != 'ADMIN_OLS' 
+  ORDER BY EXTENDED_TIMESTAMP DESC
+) 
+WHERE ROWNUM <= 50;
 -- DBA_COMMON_AUDIT_TRAIL: Chế độ xem này kết hợp các bản ghi kiểm toán tiêu chuẩn và chi tiết. 
 -- Nó cung cấp chế độ xem hợp nhất của tất cả các hoạt động kiểm toán, giúp dễ dàng phân tích và báo cáo.
 SELECT * FROM DBA_COMMON_AUDIT_TRAIL;
