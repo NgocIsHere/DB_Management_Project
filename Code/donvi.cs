@@ -85,7 +85,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("xem mã đơn vị : " + ex.Message);
+                //MessageBox.Show("xem mã đơn vị : " + ex.Message);
             }
             finally { connection.disconnect(); }
 
@@ -102,15 +102,13 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            string sql = $"insert into {admin}.PROJECT_DONVI values(:madv, :tendv, :trdv)";
+            string sql = $"insert into {admin}.PROJECT_DONVI values({madv}, N'{tendv}', {trdv})";
             connection.connect();
             try
             {
                 using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
                 {
-                    cmd.Parameters.Add("madv", OracleDbType.Varchar2).Value = madv;
-                    cmd.Parameters.Add("tendv", OracleDbType.Varchar2).Value = tendv;
-                    cmd.Parameters.Add("trdv", OracleDbType.Varchar2).Value = trdv;
+                    
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Thêm đơn vị thành công");
                     load_data();
@@ -137,7 +135,7 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            string sql = $"update {admin}.PROJECT_DONVI SET TENDV = '{tendv}', TRGDV = {trdv} WHERE MADV = '{madv}'";
+            string sql = $"update {admin}.PROJECT_DONVI SET TENDV = N'{tendv}', TRGDV = {trdv} WHERE MADV = '{madv}'";
 
             connection.connect();
             try

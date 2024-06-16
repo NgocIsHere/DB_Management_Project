@@ -266,6 +266,7 @@ namespace DB_Management
                             "WHERE TABLE_NAME = '" + viewGlobal + "' AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
                         tb_mact.Enabled = columnupdate.Contains("MACT");
                         //MessageBox.Show(columnupdate.Count.ToString());
+                        Debug.WriteLine(columnupdate);
                         if (columnupdate[0].Equals(""))
                         {
                             tb_magv.Enabled = tb_mahp.Enabled = tb_hk.Enabled = tb_nam.Enabled = tb_mact.Enabled
@@ -416,6 +417,7 @@ namespace DB_Management
         {
             List<List<string>> myobject = new List<List<string>>();
             OracleCommand command = new OracleCommand(query, conn);
+            Debug.WriteLine(query);
             conn.Open();
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())

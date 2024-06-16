@@ -70,7 +70,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("load khmo thất bại: " + ex.Message);
+                //MessageBox.Show("load khmo thất bại: " + ex.Message);
             }
             finally { connection.disconnect(); }
         }

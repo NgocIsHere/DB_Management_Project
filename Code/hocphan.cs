@@ -41,7 +41,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("load thất bại: " + ex.Message);
+                //MessageBox.Show("load thất bại: " + ex.Message);
 
             }
             finally { connection.disconnect(); }
@@ -79,7 +79,7 @@ namespace DB_Management
             string madv = textBox7.Text;
 
 
-            string sql = $"insert into {admin}.PROJECT_HOCPHAN values('{mahp}', '{tenhp}', {sotc}, {sotietlt}, {sotietth}, {sosvtd}, '{madv}')";
+            string sql = $"insert into {admin}.PROJECT_HOCPHAN values('{mahp}', N'{tenhp}', {sotc}, {sotietlt}, {sotietth}, {sosvtd}, '{madv}')";
             Debug.WriteLine(sql);
 
             connection.connect();
@@ -128,7 +128,7 @@ namespace DB_Management
             string madv = textBox7.Text;
 
 
-            string sql = $"UPDATE {admin}.PROJECT_HOCPHAN SET TENHP = '{tenhp}', SOTC = {sotc}, SSLT = {sotietlt}, STTH = {sotietth}, SOSVTD = {sosvtd}, MADV = '{madv}' WHERE MAHP = '{mahp}' ";
+            string sql = $"UPDATE {admin}.PROJECT_HOCPHAN SET TENHP = N'{tenhp}', SOTC = {sotc}, SSLT = {sotietlt}, STTH = {sotietth}, SOSVTD = {sosvtd}, MADV = '{madv}' WHERE MAHP = '{mahp}' ";
             Debug.WriteLine(sql);
 
             connection.connect();
