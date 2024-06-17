@@ -176,12 +176,22 @@ namespace DB_Management
                 string tablename = lv_table.SelectedItems[0].Text;
                 Table table = current_role.GetTable(tablename);
                 allcheck = false;
-                lv_grant.Items[lv_privilege.SelectedItems[0].Index].Checked = true;
+                int option = lv_privilege.SelectedItems[0].Index;
+                lv_grant.Items[option].Checked = true;
+                if (option == Privilege.U) lv_grant.Items[Privilege.S].Checked = true;
                 foreach (string col in table.columns)
                 {
                     //MessageBox.Show(tablename);
                     int pri = addColumn.message.Contains(col) ? Privilege.GRANT : Privilege.NONE;
-                    table.editPrivilege(col, lv_privilege.SelectedItems[0].Index, pri);
+                    table.editPrivilege(col,option , pri);
+                    if (option == Privilege.U && pri == Privilege.GRANT)
+                    {
+                        table.editPrivilege(col, Privilege.S, pri);
+                    }
+                    else if(option == Privilege.S && pri == Privilege.NONE)
+                    {
+                        table.editPrivilege(col, Privilege.U, pri);
+                    }
                 }
                 allcheck = true;
             }
@@ -382,13 +392,19 @@ namespace DB_Management
                     if (item.Index == Privilege.U || item.Index == Privilege.S)
                     {
                         if (allcheck)
+                        {
                             table.editPrivilege(Table.all, item.Index, Privilege.GRANT);
+                            if (item.Index == Privilege.U)
+                                lv_grant.Items[Privilege.S].Checked = true;
+                        }
+                            
                     }
                     else
                     {
                         table.editPrivilege(Table.all, item.Index, Privilege.GRANT);
                     }
                     lv_deny.Items[item.Index].Checked = false;
+                    
                 }
                 else
                 {
@@ -405,6 +421,10 @@ namespace DB_Management
             if (item.Checked)
             {
                 lv_grant.Items[item.Index].Checked = false;
+                if(item.Index == Privilege.S)
+                {
+                    lv_deny.Items[Privilege.U].Checked = true;
+                }
             }
         }
 

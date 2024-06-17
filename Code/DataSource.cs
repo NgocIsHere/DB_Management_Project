@@ -247,7 +247,7 @@ namespace DB_Management
 
                 if (column_select.Count > 0)
                 {
-                    string newView = "PROJECT_UV_" + role.Name.Substring(5) + "_" + table.Name.Substring(8);
+                    string newView = "PROJECT_UV_" + role.Name.Substring(2) + "_" + table.Name.Substring(8);
                     string selectquery = string.Join(",", column_select);
                     command.CommandText = "CREATE OR REPLACE VIEW " + newView
                         + " AS SELECT " + selectquery + " FROM " + table.Name;
@@ -268,12 +268,13 @@ namespace DB_Management
                 if (table.checkPrivilege(Table.any, Privilege.U, Privilege.GRANT))
                 {
                     //grant privilige update on column
+                    string view = "PROJECT_UV_" + role.Name.Substring(2) + "_" + table.Name.Substring(8);
                     foreach (string column in table.columns)
                     {
                         if (table.checkPrivilege(column, Privilege.U, Privilege.GRANT))
                         {
                             command.CommandText = "GRANT UPDATE(" + column
-                            + ") ON " + table.Name + " TO " + rolename;
+                            + ") ON " + view + " TO " + rolename;
                             command.ExecuteNonQuery();
                         }
                     }
@@ -321,6 +322,10 @@ namespace DB_Management
                                 command.CommandText = "GRANT " + Pris[i] + " ON " + viewname + " TO " + user.Name;
                                 //MessageBox.Show(command.CommandText);
                                 command.ExecuteNonQuery();
+                                if (Pris[i].Equals("UPDATE")){
+                                    command.CommandText = "GRANT SELECT ON " + viewname + " TO " + user.Name;
+                                    command.ExecuteNonQuery();
+                                }
                             }
                             if (columnwgo.Count > 0)
                             {
@@ -334,6 +339,12 @@ namespace DB_Management
                                     + " WITH GRANT OPTION";
                                 //MessageBox.Show(command.CommandText);
                                 command.ExecuteNonQuery();
+                                if (Pris[i].Equals("UPDATE"))
+                                {
+                                    command.CommandText = "GRANT SELECT ON " + viewname + " TO " + user.Name
+                                        + " WITH GRANT OPTION";
+                                    command.ExecuteNonQuery();
+                                }
                             }
 
                         }

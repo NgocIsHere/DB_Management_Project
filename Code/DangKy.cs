@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -109,10 +110,13 @@ namespace DB_Management
             string query = "";
             for (int i = 0; i < views.Count; i++)
             {
-                query += $"SELECT* FROM {admin}." + views[i];
-                if (i != views.Count - 1)
+                if (!views[i].Contains("PROJECT_U_"))
                 {
-                    query += " UNION ";
+                    query += $"SELECT* FROM {admin}." + views[i];
+                    if (i != views.Count - 1)
+                    {
+                        query += " UNION ";
+                    }
                 }
             }
             if (!query.Equals(""))
@@ -259,11 +263,16 @@ namespace DB_Management
                             break;
                         }
                     }
+                    MessageBox.Show(viewGlobal);
                     if (!viewGlobal.Equals(""))
                     {
-
                         List<string> columnupdate = getObjectv1("SELECT * FROM ROLE_TAB_PRIVS " +
                             "WHERE TABLE_NAME = '" + viewGlobal + "' AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
+                        if(columnupdate.Count == 0)
+                        {
+                            DataSource ds = new DataSource();
+                            columnupdate.AddRange(ds.getColumnView(viewGlobal));
+                        }
                         tb_mact.Enabled = columnupdate.Contains("MACT");
                         //MessageBox.Show(columnupdate.Count.ToString());
                         Debug.WriteLine(columnupdate);
@@ -449,20 +458,41 @@ namespace DB_Management
         }
         List<List<string>> initTempt(List<string> v)
         {
-            string query = "";
-            for (int i = 0; i < v.Count; i++)
+            List<List<string>> tempt = new List<List<string>>();
+            try
             {
-                query += $"SELECT* FROM {admin}." + v[i];
-                if (i != v.Count - 1)
+                string query = "";
                 {
-                    query += " UNION ";
+                    for (int i = 0; i < v.Count; i++)
+                    {
+                        if (v[i].Contains("PROJECT_U"))
+                        {
+                            query += $"SELECT* FROM {admin}.PROJECT_S_" + v[i].Substring(10);
+                        }
+                        else
+                        {
+                            query += $"SELECT* FROM {admin}." + v[i];
+                        }
+                        
+                        if (i != v.Count - 1)
+                        {
+                            query += " UNION ";
+                        }
+                    }
+                    MessageBox.Show(query);
+                    if (!query.Equals(""))
+                    {
+                        tempt.AddRange(getObjectv2(query, new List<string>()
+                        { "MASV","MAGV", "MAHP", "HK", "NAM", "MACT","DIEMTH","DIEMQT","DIEMCK","DIEMTK" }));
+                    }
                 }
             }
-            List<List<string>> tempt = new List<List<string>>();
-            if (!query.Equals(""))
+            catch(Exception ex)
             {
-                tempt.AddRange(getObjectv2(query, new List<string>()
-                        { "MASV","MAGV", "MAHP", "HK", "NAM", "MACT","DIEMTH","DIEMQT","DIEMCK","DIEMTK" }));
+                //xu ly cho ph1
+                MessageBox.Show("PH1");
+                string username = Config.username.ToUpper();
+                string query = $"SELECT* FROM {admin}.PROJECT__"+username.Substring(10) +"_DANGKY";
             }
             return tempt;
         }
