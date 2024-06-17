@@ -64,7 +64,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("bang sinh vien load manganh thất bại: " + ex.Message);  
+                //MessageBox.Show("bang sinh vien load manganh thất bại: " + ex.Message);  
             }
             finally { connection.disconnect(); }   
         }
@@ -88,7 +88,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("bang sinh vien load manganh thất bại: " + ex.Message);
+                //MessageBox.Show("bang sinh vien load manganh thất bại: " + ex.Message);
             }
             finally { connection.disconnect(); }
                       

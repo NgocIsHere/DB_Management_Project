@@ -103,7 +103,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("load madv thất bại: " + ex.Message);
+                //MessageBox.Show("load madv thất bại: " + ex.Message);
             }
             finally { connection.disconnect(); }
 
@@ -135,7 +135,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("load data nhân sự thất bại: " + ex.Message);
+                //MessageBox.Show("load data nhân sự thất bại: " + ex.Message);
             }
             finally { connection.disconnect(); }
 

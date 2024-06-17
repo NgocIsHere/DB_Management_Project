@@ -61,7 +61,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                MessageBox.Show("xem đơn vị : " + ex.Message);
+                //MessageBox.Show("xem đơn vị : " + ex.Message);
             }
             finally { connection.disconnect(); }
 

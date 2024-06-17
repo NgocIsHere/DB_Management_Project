@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Xml.Linq;
 using DB_Management;
 using Oracle.ManagedDataAccess.Client;
@@ -55,6 +56,8 @@ namespace DB_Management
                 string viewtable = reader["TABLE_NAME"].ToString();
                 if (viewtable.Contains("PROJECT_UV"))
                 { // day la view cho select tren cot
+                    string pritable = reader["PRIVILEGE"].ToString();
+                    string colnam = reader["COLUMN_NAME"].ToString();
                     OracleDataReader reader1 = new OracleCommand("SELECT * FROM ALL_VIEWS" +
                         " WHERE VIEW_NAME ='" + viewtable + "'", conn).ExecuteReader();
                     reader1.Read();
@@ -78,6 +81,11 @@ namespace DB_Management
                     foreach (string col in columnselect)
                     {
                         table.editPrivilege(col, Privilege.S, Privilege.GRANT);
+                    }
+                    //check pri update
+                    if (pritable.Equals("UPDATE"))
+                    {
+                        table.editPrivilege(colnam.Equals("")?"ALL":colnam, Privilege.U, Privilege.GRANT);
                     }
                 }
                 else
@@ -206,7 +214,7 @@ namespace DB_Management
         }
         public bool updateRole(Role role, string oldrolename = "")
         {
-            conn.Open();
+            //conn.Open();
             OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
             //command.ExecuteNonQuery();
             if (!oldrolename.Equals(""))
@@ -214,29 +222,39 @@ namespace DB_Management
                 bool isdelete = false;
                 role.Name = role.Name.ToUpper();
                 role.Name = role.Name.Contains("P_") ? role.Name : "P_" + role.Name;
-                if (role.Name.Equals(oldrolename))
+                List<string> tab = getAllObject("SELECT distinct table_name,privilege FROM ROLE_TAB_PRIVS where role = 'P_NEWROLE'", "TABLE_NAME");
+                List<string> pri = getAllObject("SELECT distinct table_name,privilege FROM ROLE_TAB_PRIVS where role = 'P_NEWROLE'", "PRIVILEGE");
+                conn.Open();
+                for(int i = 0; i < tab.Count; i++)
                 {
-                    command.CommandText = "DROP ROLE " + oldrolename;
-                    command.ExecuteNonQuery();
-                    isdelete = true;
-                }
-                command.CommandText = "CREATE ROLE " + role.Name;
-                try
-                {
+                    command.CommandText = "REVOKE "+ pri[i] +" on " + tab[i] + " from " + role.Name;
                     command.ExecuteNonQuery();
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Invalid role name! Check and try again!");
-                    conn.Close();
-                    return false;
-                }
-                if (!isdelete)
-                {
-                    command.CommandText = "DROP ROLE " + oldrolename;
-                    command.ExecuteNonQuery();
-                }
+                conn.Close();
+                //if (role.Name.Equals(oldrolename))
+                //{
+                //    command.CommandText = "DROP ROLE " + oldrolename;
+                //    command.ExecuteNonQuery();
+                //    isdelete = true;
+                //}
+                //command.CommandText = "CREATE ROLE " + role.Name;
+                //try
+                //{
+                //    command.ExecuteNonQuery();
+                //}
+                //catch (Exception e)
+                //{
+                //    MessageBox.Show("Invalid role name! Check and try again!");
+                //    conn.Close();
+                //    return false;
+                //}
+                //if (!isdelete)
+                //{
+                //    command.CommandText = "DROP ROLE " + oldrolename;
+                //    command.ExecuteNonQuery();
+                //}
             }
+            conn.Open();
             string rolename = role.Name;
             List<string> privileges = new List<string> { "SELECT", "INSERT", "DELETE", "UPDATE" };
 
