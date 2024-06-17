@@ -198,5 +198,23 @@ namespace DB_Management
         {
 
         }
+
+        private void donvi_dataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (donvi_dataGridView.SelectedRows.Count > 0)
+            {
+
+                DataGridViewRow selectedRow = donvi_dataGridView.SelectedRows[0]; 
+                if (selectedRow != null)
+                {
+                    textBox1.Text = selectedRow.Cells["MADV"].Value.ToString();
+                    textBox2.Text = selectedRow.Cells["TENDV"].Value.ToString();
+                    textBox3.Text = selectedRow.Cells["TRGDV"].Value.ToString();
+
+                }
+
+
+            }
+        }
     }
 }

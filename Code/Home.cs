@@ -41,8 +41,10 @@ namespace DB_Management
             addRole rl = new addRole();
             // EditUser edituser = new EditUser("");
             userList usr = new userList();
+            StandardAudit standardAudit = new StandardAudit();
+            FGAAudit fgaAudit = new FGAAudit();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {usr,addUser,rl};
+            {usr,addUser,rl, standardAudit, fgaAudit};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -51,7 +53,7 @@ namespace DB_Management
         private void InitializeNavigationButtons()
         {
             List<Button> buttons = new List<Button>()
-            { button1, button2, button3};
+            { button1, button2, button3, standard_btn, FGA_btn};
 
             // create a NavigationButtons instance
             navigationButtons = new NavigationButtons(buttons, btnDefaultColor, btnSelectedtColor);
@@ -97,6 +99,18 @@ namespace DB_Management
         {
             Login.exit = false;
             this.Close();
+        }
+
+        private void standard_btn_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(3);
+            navigationButtons.Highlight(standard_btn);
+        }
+
+        private void FGA_btn_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(4);
+            navigationButtons.Highlight(FGA_btn);
         }
     } 
 }

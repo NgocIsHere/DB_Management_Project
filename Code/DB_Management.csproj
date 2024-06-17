@@ -169,6 +169,12 @@
     <Compile Include="EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="FGAAudit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FGAAudit.Designer.cs">
+      <DependentUpon>FGAAudit.cs</DependentUpon>
+    </Compile>
     <Compile Include="HomeSV.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,12 @@
     </Compile>
     <Compile Include="SinhVien.Designer.cs">
       <DependentUpon>SinhVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StandardAudit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StandardAudit.Designer.cs">
+      <DependentUpon>StandardAudit.cs</DependentUpon>
     </Compile>
     <Compile Include="sv_dangky.cs">
       <SubType>UserControl</SubType>
@@ -294,6 +306,9 @@
     <EmbeddedResource Include="EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FGAAudit.resx">
+      <DependentUpon>FGAAudit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="hocphan.resx">
       <DependentUpon>hocphan.cs</DependentUpon>
     </EmbeddedResource>
@@ -330,6 +345,9 @@
     </Compile>
     <EmbeddedResource Include="SinhVien.resx">
       <DependentUpon>SinhVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StandardAudit.resx">
+      <DependentUpon>StandardAudit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="sv_dangky.resx">
       <DependentUpon>sv_dangky.cs</DependentUpon>

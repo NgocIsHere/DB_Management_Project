@@ -166,8 +166,25 @@ namespace DB_Management
             }
         }
 
+        private void hocphan_dataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (hocphan_dataGridView.SelectedRows.Count > 0)
+            {
+
+                DataGridViewRow selectedRow = hocphan_dataGridView.SelectedRows[0];
+                if (selectedRow != null)
+                {
+                    textBox.Text = selectedRow.Cells["MAHP"].Value.ToString();
+                    textBox2.Text = selectedRow.Cells["TENHP"].Value.ToString();
+                    textBox3.Text = selectedRow.Cells["SOTC"].Value.ToString();
+                    textBox4.Text = selectedRow.Cells["SSLT"].Value.ToString();
+                    textBox5.Text = selectedRow.Cells["STTH"].Value.ToString();
+                    textBox6.Text = selectedRow.Cells["SOSVTD"].Value.ToString();
+                    textBox7.Text = selectedRow.Cells["MADV"].Value.ToString();
+                }
 
 
-
+            }
+        }
     }
 }

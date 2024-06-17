@@ -52,6 +52,7 @@
             this.donvi_dataGridView.Size = new System.Drawing.Size(428, 234);
             this.donvi_dataGridView.TabIndex = 0;
             this.donvi_dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.donvi_dataGridView_CellContentClick);
+            this.donvi_dataGridView.SelectionChanged += new System.EventHandler(this.donvi_dataGridView_SelectionChanged);
             // 
             // label1
             // 

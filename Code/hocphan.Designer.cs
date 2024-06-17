@@ -59,6 +59,7 @@
             this.hocphan_dataGridView.RowTemplate.Height = 24;
             this.hocphan_dataGridView.Size = new System.Drawing.Size(931, 243);
             this.hocphan_dataGridView.TabIndex = 1;
+            this.hocphan_dataGridView.SelectionChanged += new System.EventHandler(this.hocphan_dataGridView_SelectionChanged);
             // 
             // textBox2
             // 
