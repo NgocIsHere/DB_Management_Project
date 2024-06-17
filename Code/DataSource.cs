@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 using System.Xml.Linq;
 using DB_Management;
 using Oracle.ManagedDataAccess.Client;
@@ -274,7 +275,7 @@ namespace DB_Management
                     command.ExecuteNonQuery();
                 }
                 //grant privilige on table
-                for (int i = 1; i < privileges.Count; i++)
+                for (int i = 0; i < privileges.Count; i++)
                 {
                     if (table.checkPrivilege(Table.all, i, Privilege.GRANT))
                     {
@@ -343,6 +344,12 @@ namespace DB_Management
                                 if (Pris[i].Equals("UPDATE")){
                                     command.CommandText = "GRANT SELECT ON " + viewname + " TO " + user.Name;
                                     command.ExecuteNonQuery();
+                                    for(int t = 0; t < columngrant.Count; t++)
+                                    {
+                                        command.CommandText = "GRANT UPDATE("+ columngrant[t]+") ON PROJECT_S_" 
+                                            + username + "_" + tablename + " TO " + user.Name;
+                                        command.ExecuteNonQuery();
+                                    }
                                 }
                             }
                             if (columnwgo.Count > 0)
@@ -378,6 +385,17 @@ namespace DB_Management
                             }
                             //MessageBox.Show(command.CommandText);
                             command.ExecuteNonQuery();
+                            if(i == Privilege.D)
+                            {
+                                command.CommandText = "GRANT SELECT ON " + table.Name + " TO " + user.Name;
+                                command.ExecuteNonQuery();
+
+                                command.CommandText= "CREATE OR REPLACE VIEW PROJECT_S_" +
+                                    user.Name.Substring(10).ToUpper()+"_"+table.Name.Substring(8).ToUpper()+
+                                    " AS SELECT * FROM " + table.Name ;
+                                command.ExecuteNonQuery();
+                                //table.editPrivilege(Table.all,Privilege.S,)
+                            }
                         }
                     }
                 }

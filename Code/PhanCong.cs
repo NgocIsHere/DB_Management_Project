@@ -109,11 +109,14 @@ namespace DB_Management
             string query = "";
             for (int i = 0; i < views.Count; i++)
             {
-                query += $"SELECT* FROM {admin}." + views[i];
-                if (i != views.Count - 1)
+                if (!views[i].Contains("PROJECT_U_"))
                 {
-                    query += " UNION ";
-                }
+                    if (!query.Equals(""))
+                    {
+                        query += " UNION ";
+                    }
+                    query += $"SELECT* FROM {admin}." + views[i];
+                }   
             }
             //MessageBox.Show(query);
             if (!query.Equals(""))
@@ -154,8 +157,8 @@ namespace DB_Management
             {
                 try
                 {
-                    command.CommandText = $"DELETE FROM {admin}." + viewdeletes[i] + " WHERE MAGV = '" + row[0] + "' AND MAHP = '" +
-                    row[1] + "' AND HK = '" + row[2] + "' AND NAM = '" + row[3] + "' AND MACT = '" + row[4] + "'";
+                    command.CommandText = $"DELETE FROM {admin}." + viewdeletes[i] + " WHERE MAGV = " + row[0] + " AND MAHP = '" +
+                    row[1] + "' AND HK = " + row[2] + " AND NAM = " + row[3] + " AND MACT = '" + row[4] + "'";
                     Debug.WriteLine(command.CommandText);
                     command.ExecuteNonQuery();
                 }
@@ -195,7 +198,8 @@ namespace DB_Management
                 //OracleCommand command = new OracleCommand();
                 conn.Open();
                 //command.ExecuteNonQuery();
-                command.CommandText = $"UPDATE {admin}." + viewGlobal + setclause + wherecluase;
+                string v = viewGlobal.Contains("PROJECT_U_") ?"PROJECT_S_"+viewGlobal.Substring(10):viewGlobal;
+                command.CommandText = $"UPDATE {admin}." + v+ setclause + wherecluase;
                 Debug.WriteLine("ahihihi: " +  command.CommandText);
                 command.ExecuteNonQuery();
                 conn.Close();
@@ -303,7 +307,11 @@ namespace DB_Management
 
                         List<string> columnupdate = getObjectv1("SELECT * FROM ROLE_TAB_PRIVS " +
                             "WHERE TABLE_NAME = '" + viewGlobal + "' AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
-
+                        if (columnupdate.Count == 0)
+                        {
+                            DataSource ds = new DataSource();
+                            columnupdate.AddRange(ds.getColumnView(viewGlobal));
+                        }
                         if (columnupdate[0].Equals(""))
                         {
                             tb_magv.Enabled = tb_mahp.Enabled = tb_hk.Enabled = tb_nam.Enabled = tb_mact.Enabled = true;
@@ -335,7 +343,7 @@ namespace DB_Management
                 {
                     lv_pc.Items.RemoveAt(i);
                     removeRowAt(i);
-                    phanCongList.RemoveAt(0);
+                    phanCongList.RemoveAt(i);
                     i--;
                 }
             }
@@ -410,6 +418,12 @@ namespace DB_Management
             {
                 insertData();
             }
+            tb_magv.Enabled = true;
+            tb_mahp.Enabled = true;
+            tb_hk.Enabled = true;
+            tb_nam.Enabled = true;
+            tb_mact.Enabled = true;
+            edit_type = insert;
         }
 
         private void lv_pc_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -442,20 +456,35 @@ namespace DB_Management
         }
         List<List<string>> initTempt(List<string> v)
         {
-            string query = "";
-            for (int i = 0; i < v.Count; i++)
+            List<List<string>> tempt = new List<List<string>>();
+            try
             {
-                query += $"SELECT* FROM {admin}." + v[i];
-                if (i != v.Count - 1)
+                string query = "";
+                for (int i = 0; i < v.Count; i++)
                 {
-                    query += " UNION ";
+                    if (v[i].Contains("PROJECT_U_"))
+                    {
+                        query += $"SELECT* FROM {admin}.PROJECT_S_" + v[i].Substring(10);
+                    }
+                    else
+                    {
+                        query += $"SELECT* FROM {admin}." + v[i];
+                    }
+                    if (i != v.Count - 1)
+                    {
+                        query += " UNION ";
+                    }
+                }
+                
+                if (!query.Equals(""))
+                {
+                    tempt.AddRange(getObjectv2(query, new List<string>()
+                        { "MAGV", "MAHP", "HK", "NAM", "MACT" }));
                 }
             }
-            List<List<string>> tempt = new List<List<string>>();
-            if (!query.Equals(""))
+            catch(Exception ex)
             {
-                tempt.AddRange(getObjectv2(query, new List<string>()
-                        { "MAGV", "MAHP", "HK", "NAM", "MACT" }));
+                MessageBox.Show(ex.Message);
             }
             return tempt;
         }

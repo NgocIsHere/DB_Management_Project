@@ -17,7 +17,6 @@ namespace DB_Management
     public partial class DangKy : UserControl
     {
         bool my = false;
-        List<List<string>> temptable;
         List<List<string>> dangkyList = new List<List<string>>();
         List<string> usrolepri = new List<string>();
         List<string> views = new List<string>();
@@ -54,7 +53,7 @@ namespace DB_Management
             lv_dk.Columns.Add("DIEMQT").Width = size;
             lv_dk.Columns.Add("DIEMCK").Width = size;
             lv_dk.Columns.Add("DIEMTK").Width = size;
-            temptable = initTempt(viewdeletes);
+            //temptable = initTempt(viewdeletes);
         }
         public void load()
         {
@@ -90,6 +89,7 @@ namespace DB_Management
                 viewupdates.AddRange(getObjectv1("SELECT DISTINCT TABLE_NAME FROM ROLE_TAB_PRIVS WHERE PRIVILEGE = 'UPDATE'" +
                     " AND ROLE = '" + role + "' AND TABLE_NAME LIKE '%DANGKY%'", "TABLE_NAME"));
             }
+            MessageBox.Show(viewdeletes.Count.ToString());
         }
         private void getList()
         {
@@ -154,6 +154,25 @@ namespace DB_Management
         }
         private void removeRowAt(int index)
         {
+            List<string> row = dangkyList[index];
+            OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+            conn.Open();
+            //command.ExecuteNonQuery();
+            for (int i = 0; i < viewdeletes.Count; i++)
+            {
+                try
+                {
+                    command.CommandText = $"DELETE FROM {admin}." + viewdeletes[i] + " WHERE MASV= "+row[0] +" AND MAGV = " + row[1] + " AND MAHP = '" +
+                    row[2] + "' AND HK = " + row[3] + " AND NAM = " + row[4] + " AND MACT = '" + row[5] + "'";
+                    Debug.WriteLine(command.CommandText);
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            conn.Close();
 
         }
         private void insertData()
@@ -166,13 +185,13 @@ namespace DB_Management
                 //command.ExecuteNonQuery();
                 try
                 {
-                    command.CommandText = $"INSERT INTO {admin}." + v + "(MASV,MAGV,MAHP,HK,NAM,MACT,DIEMTH,DIEMQT,DIEMTCK,DIEMTK)" +
+                    command.CommandText = $"INSERT INTO {admin}." + v + "(MASV,MAGV,MAHP,HK,NAM,MACT,DIEMTH,DIEMQT,DIEMCK,DIEMTK)" +
                         " VALUES(" + tb_masv.Text + "," + tb_magv.Text + ",'" + tb_mahp.Text + "'," + tb_hk.Text + "," +
                         tb_nam.Text + ",'" + tb_mact.Text + "'," + tb_DT.Text + "," + tb_DQT.Text + "," + tb_DCK.Text + "," + tb_DTK.Text + ")";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Successfull");
                     dangkyList.Add(new List<string>() { tb_masv.Text,tb_magv.Text,tb_mahp.Text,
-                        tb_hk.Text,tb_hk.Text,tb_nam.Text,tb_mact.Text,tb_DT.Text,tb_DQT.Text,
+                        tb_hk.Text,tb_nam.Text,tb_mact.Text,tb_DT.Text,tb_DQT.Text,
                     tb_DCK.Text,tb_DTK.Text});
                     getViewforItem(dangkyList[dangkyList.Count - 1]);
                 }
@@ -189,8 +208,7 @@ namespace DB_Management
         }
         private void updateData()
         {
-            if (viewupdates.Count == 0 || (!tb_magv.Enabled && !tb_mahp.Enabled &&
-                !tb_hk.Enabled && !tb_nam.Enabled && !tb_mact.Enabled))
+            if (viewupdates.Count == 0 )
             {
                 return;
             }
@@ -212,6 +230,10 @@ namespace DB_Management
                 if (tb_DQT.Enabled) column.Add(" DIEMQT = '" + tb_DQT.Text + "' ");
                 if (tb_DCK.Enabled) column.Add(" DIEMCK = '" + tb_DCK.Text + "' ");
                 if (tb_DTK.Enabled) column.Add(" DIEMTK = '" + tb_DTK.Text + "' ");
+                if(column.Count == 0)
+                {
+                    return;
+                }
                 for (int i = 0; i < column.Count; i++)
                 {
                     setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
@@ -219,7 +241,8 @@ namespace DB_Management
                 OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
                 conn.Open();
                 //command.ExecuteNonQuery();
-                command.CommandText = $"UPDATE {admin}." + viewGlobal + setclause + wherecluase;
+                string v = viewGlobal.Contains("PROJECT_U_") ? "PROJECT_S_" + viewGlobal.Substring(10) : viewGlobal;
+                command.CommandText = $"UPDATE {admin}." + v + setclause + wherecluase;
                 command.ExecuteNonQuery();
                 conn.Close();
                 MessageBox.Show("1 row update!");
@@ -263,7 +286,7 @@ namespace DB_Management
                             break;
                         }
                     }
-                    MessageBox.Show(viewGlobal);
+                    //MessageBox.Show(viewGlobal);
                     if (!viewGlobal.Equals(""))
                     {
                         List<string> columnupdate = getObjectv1("SELECT * FROM ROLE_TAB_PRIVS " +
@@ -398,12 +421,17 @@ namespace DB_Management
             {
                 insertData();
             }
+            tb_magv.Enabled = true; tb_mahp.Enabled = true; tb_hk.Enabled = true;
+            tb_nam.Enabled = true; tb_mact.Enabled = true; tb_masv.Enabled = true;
+            tb_DT.Enabled = true; tb_DQT.Enabled = true; tb_DCK.Enabled = true;
+            tb_DTK.Enabled = true;
+            edit_type = insert;
         }
 
         private void lv_pc_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             ListViewItem item = e.Item;
-
+            List<List<string>> temptable = initTempt(viewdeletes);
             if (item.Checked)
             {
                 if (!checkExist(temptable, item))
@@ -465,7 +493,7 @@ namespace DB_Management
                 {
                     for (int i = 0; i < v.Count; i++)
                     {
-                        if (v[i].Contains("PROJECT_U"))
+                        if (v[i].Contains("PROJECT_U_"))
                         {
                             query += $"SELECT* FROM {admin}.PROJECT_S_" + v[i].Substring(10);
                         }
@@ -479,7 +507,7 @@ namespace DB_Management
                             query += " UNION ";
                         }
                     }
-                    MessageBox.Show(query);
+                    //MessageBox.Show(query);
                     if (!query.Equals(""))
                     {
                         tempt.AddRange(getObjectv2(query, new List<string>()
@@ -489,10 +517,7 @@ namespace DB_Management
             }
             catch(Exception ex)
             {
-                //xu ly cho ph1
-                MessageBox.Show("PH1");
-                string username = Config.username.ToUpper();
-                string query = $"SELECT* FROM {admin}.PROJECT__"+username.Substring(10) +"_DANGKY";
+                MessageBox.Show(ex.Message);
             }
             return tempt;
         }

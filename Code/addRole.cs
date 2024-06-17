@@ -389,12 +389,12 @@ namespace DB_Management
                 //MessageBox.Show("Oke");
                 if (item.Checked)
                 {
-                    if (item.Index == Privilege.U || item.Index == Privilege.S)
+                    if (item.Index == Privilege.U || item.Index == Privilege.S|| item.Index == Privilege.D)
                     {
                         if (allcheck)
                         {
                             table.editPrivilege(Table.all, item.Index, Privilege.GRANT);
-                            if (item.Index == Privilege.U)
+                            if (item.Index == Privilege.U || item.Index == Privilege.D)
                                 lv_grant.Items[Privilege.S].Checked = true;
                         }
                             
@@ -424,6 +424,7 @@ namespace DB_Management
                 if(item.Index == Privilege.S)
                 {
                     lv_deny.Items[Privilege.U].Checked = true;
+                    lv_deny.Items[Privilege.D].Checked = true;
                 }
             }
         }
