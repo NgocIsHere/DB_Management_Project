@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,8 +22,10 @@ namespace DB_Management
 
             while (!Login.exit)
             {
-                Login.exit = true;
                 Login login = new Login();
+                Login.exit = true;
+                Login.role = null;
+
 
                 Application.Run(login);
 
@@ -43,8 +46,12 @@ namespace DB_Management
                     {
                         PH2 pH2 = new PH2();
                         Application.Run(pH2);
-                    }
+                    }                
+                    
+
                 }
+                
+
             }
             
 

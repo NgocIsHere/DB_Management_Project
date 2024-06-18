@@ -92,6 +92,18 @@ BEGIN
 END;
 /
 
+DROP TRIGGER DANGKY_AFTER_UPDATE;
+
+CREATE OR REPLACE TRIGGER DANGKY_AFTER_UPDATE
+AFTER UPDATE ON PROJECT_DANGKY 
+FOR EACH ROW
+BEGIN
+    :NEW.DIEMTK := :OLD.DIEMTH * 0.6 + :OLD.DIEMQT * 0.1 + :OLD.DIEMCK * 0.3;
+END;
+/
+
+
+
 --================================================================
 --CS1
 CREATE OR REPLACE VIEW PROJECT_NVCOBAN_XEMTHONGTINCANHAN
@@ -140,6 +152,28 @@ AS SELECT DK.*
 FROM PROJECT_NHANSU NS JOIN PROJECT_DANGKY DK ON DK.MAGV = NS.MANV
 WHERE USERNAME = SYS_CONTEXT('USERENV', 'SESSION_USER'); 
 
+CREATE OR REPLACE PROCEDURE PROJECT_GIANGVIEN_UPDATEDIEM (
+    MASV1 VARCHAR,
+    MAGV1 VARCHAR,
+    MAHP1 VARCHAR,
+    HK1 INT, 
+    NAM1 INT,
+    MACT1 VARCHAR,
+    
+    DTH FLOAT,
+    DQT FLOAT,
+    DCK FLOAT
+    )
+AS
+BEGIN
+    UPDATE ADMIN_OLS.PROJECT_GIANGVIEN_XEMDANGKYDCPC 
+    SET DIEMTH = DTH, 
+        DIEMQT = DQT, 
+        DIEMCK = DCK
+    WHERE MASV = MASV1 AND MAGV = MAGV1 AND MAHP = MAHP1 AND HK = HK1 AND MACT = MACT1;
+END;
+/
+
 --CREATE OR REPLACE VIEW PROJECT_GIANGVIEN_CAPNHATDIEM_DANGKY
 --AS SELECT DK.MASV,DK.DIEMTHI, DK.DIEMQT, DK.DIEMCK, DK.DIEMTK
 --FROM PROJECT_NHANSU NS JOIN PROJECT_DANGKY DK ON DK.MAGV = NS.MANV
@@ -157,6 +191,8 @@ BEGIN
     STRSQL := 'GRANT SELECT ON PROJECT_GIANGVIEN_XEMDANGKYDCPC TO P_GIANGVIEN';
     EXECUTE IMMEDIATE STRSQL;
     STRSQL := 'GRANT SELECT, UPDATE(DIEMTH, DIEMQT, DIEMCK, DIEMTK) ON PROJECT_GIANGVIEN_XEMDANGKYDCPC TO P_GIANGVIEN';
+    EXECUTE IMMEDIATE STRSQL;
+    STRSQL := 'GRANT EXECUTE ON PROJECT_GIANGVIEN_UPDATEDIEM TO P_GIANGVIEN';
     EXECUTE IMMEDIATE STRSQL;
 
     --STRSQL := 'GRANT CONNECT TO C##P_GIANGVIEN';
@@ -251,6 +287,303 @@ EXEC PROJECT_CS#5;
 --CS6
 --SELECT* FROM PROJECT_PHANCONG WHERE MAGV = 23 AND MAHP = 'HTTTDN' AND HK = 3 AND NAM = 2024 AND MACT = 'CQ'
 --
+--=============================XÓA POLICY===========================================
+BEGIN
+  DBMS_RLS.DROP_POLICY(
+    object_schema   => 'ADMIN_OLS',
+    object_name     => 'project_sinhvien',
+    policy_name     => 'SV_SELECT_SINHVIEN');
+END;
+/
+
+BEGIN
+  DBMS_RLS.DROP_POLICY(
+     OBJECT_SCHEMA =>'ADMIN_OLS',
+    OBJECT_NAME=>'PROJECT_KHMO', -- Corrected table name to uppercase
+    POLICY_NAME =>'SV_SELECT_KHMO');
+END;
+/
+
+BEGIN
+  DBMS_RLS.DROP_POLICY(
+    OBJECT_SCHEMA =>'ADMIN_OLS',
+    OBJECT_NAME=>'project_HOCPHAN',
+    POLICY_NAME =>'SV_SELECT_HOCPHAN');
+END;
+/
+
+BEGIN
+  DBMS_RLS.DROP_POLICY(
+        OBJECT_SCHEMA =>'ADMIN_OLS',
+        OBJECT_NAME=>'PROJECT_DANGKY',
+        POLICY_NAME =>'SV_DANGKY_INSERT');
+END;
+/
+BEGIN
+  DBMS_RLS.DROP_POLICY(    
+        OBJECT_SCHEMA    => 'ADMIN_OLS',
+        OBJECT_NAME      => 'PROJECT_DANGKY',
+        POLICY_NAME      => 'SV_DANGKY_DELETE');
+END;
+/
+
+BEGIN
+  DBMS_RLS.DROP_POLICY(    
+        OBJECT_SCHEMA    => 'ADMIN_OLS',
+        OBJECT_NAME      => 'PROJECT_DANGKY',
+        POLICY_NAME      => 'SV_UPDATE_DIEM');
+END;
+/
+
+BEGIN
+  DBMS_RLS.DROP_POLICY(    
+        OBJECT_SCHEMA =>'ADMIN_OLS',
+        OBJECT_NAME=>'PROJECT_DANGKY',
+        POLICY_NAME =>'SV_DANGKY_SELECT');
+END;
+/
+--=======================================================
+
+CREATE OR REPLACE FUNCTION SV_SELECT_FUNCTION (
+    P_SCHEMA VARCHAR2,
+    P_OBJ VARCHAR2
+)
+RETURN VARCHAR2
+AS
+    L_USER VARCHAR2(100); -- Changed USER to L_USER to avoid conflicts
+    MASV VARCHAR2(100); -- Corrected the declaration
+BEGIN
+    L_USER := SYS_CONTEXT('USERENV','SESSION_USER'); -- Corrected the typo in USERENV
+    
+    --KIỂM TRA USER CONNECT CÓ PHẢI LÀ SV KHÔNG, NẾU KHÔNG THÌ KHÔNG ÁP DỤNG CHÍNH SÁCH 
+    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
+        RETURN NULL;
+    END IF;
+    
+    MASV := REPLACE(L_USER, 'SV', ''); -- Corrected the typo in variable name
+    RETURN 'MASV = ''' || MASV || '''';
+END;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        OBJECT_SCHEMA =>'ADMIN_OLS',
+        OBJECT_NAME=>'project_sinhvien',
+        POLICY_NAME =>'SV_SELECT_SINHVIEN',
+        POLICY_FUNCTION=>'SV_SELECT_FUNCTION',
+        STATEMENT_TYPES=>'SELECT, UPDATE',
+        UPDATE_CHECK => TRUE
+);
+END;
+/
+grant SELECT ON PROJECT_SINHVIEN TO P_SINHVIEN;
+grant UPDATE (DCHI,DT) ON PROJECT_SINHVIEN TO P_SINHVIEN;
+-- Xem danh sách tất cả học phần (HOCPHAN), kế hoạch mở môn (KHMO) của chương
+-- trình đào tạo mà sinh viên đang theo học.
+CREATE OR REPLACE FUNCTION SV_SELECT_KHMO_FUNCTION
+  (P_SCHEMA VARCHAR2, P_OBJ VARCHAR2)
+RETURN VARCHAR2
+AS
+  MA VARCHAR(5);
+  STRSQL VARCHAR2(2000);
+  CURSOR CUR IS (
+    SELECT MACT
+    FROM PROJECT_SINHVIEN
+    WHERE MASV = REPLACE(SYS_CONTEXT('USERENV','SESSION_USER'), 'SV', ''));
+BEGIN
+  STRSQL := ''; 
+  OPEN CUR;
+  LOOP
+    FETCH CUR INTO MA;
+    EXIT WHEN CUR%NOTFOUND;
+    IF (STRSQL IS NOT NULL) THEN
+      STRSQL := STRSQL || ',''' || MA || ''''; -- Corrected concatenation operator
+    ELSE
+      STRSQL := '''' || MA || ''''; -- Corrected concatenation operator
+    END IF;
+  END LOOP;
+  
+  --KIỂM TRA USER CONNECT CÓ PHẢI LÀ SV KHÔNG, NẾU KHÔNG THÌ KHÔNG ÁP DỤNG CHÍNH SÁCH 
+    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
+        RETURN NULL;
+    END IF;
+    
+  RETURN 'MACT IN (' || STRSQL || ')';
+END;
+/
+BEGIN
+  DBMS_RLS.ADD_POLICY(
+    OBJECT_SCHEMA =>'ADMIN_OLS',
+    OBJECT_NAME=>'PROJECT_KHMO', -- Corrected table name to uppercase
+    POLICY_NAME =>'SV_SELECT_KHMO',
+    POLICY_FUNCTION=>'SV_SELECT_KHMO_FUNCTION',
+    STATEMENT_TYPES=>'SELECT',
+    UPDATE_CHECK => TRUE
+  );
+END;
+/
+
+CREATE OR REPLACE FUNCTION SV_SELECT_HOCPHAN_FUNCTION
+ (P_SCHEMA VARCHAR2, P_OBJ VARCHAR2)
+RETURN VARCHAR2
+AS
+ MA VARCHAR2(1000);
+ STRSQL VARCHAR2(2000);
+ CURSOR CUR IS (SELECT KHM1.MAHP FROM ADMIN_OLS.PROJECT_KHMO KHM1 WHERE KHM1.MACT = 
+ (SELECT SV.MACT FROM ADMIN_OLS.PROJECT_SINHVIEN SV WHERE SV.MASV = SUBSTR(SYS_CONTEXT('USERENV','SESSION_USER'),3)  )
+);
+BEGIN
+  -- Check if the user is not a student, if not then do not apply the policy
+    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
+        RETURN NULL;
+    END IF;
+    
+ OPEN CUR;
+ LOOP
+ FETCH CUR INTO MA;
+ EXIT WHEN CUR%NOTFOUND;
+ IF (STRSQL IS NOT NULL) THEN
+ STRSQL := STRSQL || ''',''';
+ END IF;
+ STRSQL := STRSQL || MA ;  
+ END LOOP;
+ CLOSE CUR;
+
+ RETURN 'MAHP IN (''' || STRSQL || ''')';
+END; 
+/
+BEGIN
+  DBMS_RLS.ADD_POLICY(
+    OBJECT_SCHEMA =>'ADMIN_OLS',
+    OBJECT_NAME=>'project_HOCPHAN',
+    POLICY_NAME =>'SV_SELECT_HOCPHAN',
+    POLICY_FUNCTION=>'SV_SELECT_HOCPHAN_FUNCTION',
+    STATEMENT_TYPES=>'SELECT'
+  );
+END;
+/
+-- Thêm, Xóa các dòng dữ liệu đăng ký học phần (ĐANGKY) liên quan đến chính sinh
+--viên đó trong học kỳ của năm học hiện tại (nếu thời điểm hiệu chỉnh đăng ký còn hợp
+--lệ).
+CREATE OR REPLACE FUNCTION SV_INSERT_DELETE_DANGKY_FUNCTION (
+    P_SCHEMA VARCHAR2,
+    P_OBJ VARCHAR2
+)
+RETURN VARCHAR2
+AS
+    v_limit_date DATE;
+    v_masv VARCHAR2(50);
+    v_hk int;
+    v_year int;
+    v_month VARCHAR2(50);
+BEGIN
+    -- Set the end of the valid registration period   
+    SELECT EXTRACT(YEAR FROM SYSDATE) into v_year FROM DUAL;
+    SELECT MAX(HK) into v_hk FROM ADMIN_OLS.PROJECT_KHMO WHERE NAM = v_year ;
+    IF v_hk = 1 THEN
+        v_month := '01';
+    ELSIF v_hk = 2 THEN
+        v_month := '05';
+    ELSIF v_hk = 3 THEN
+        v_month := '09';
+    END IF;
+    v_limit_date := TO_DATE(v_year || '/' || v_month || '/14', 'yyyy/mm/dd');
+    
+    -- Get the student ID from the current session user
+    v_masv := REPLACE(SYS_CONTEXT('USERENV', 'SESSION_USER'), 'SV', '');
+    
+    --KIỂM TRA USER CONNECT CÓ PHẢI LÀ SV KHÔNG, NẾU KHÔNG THÌ KHÔNG ÁP DỤNG CHÍNH SÁCH 
+    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
+        RETURN NULL;
+    END IF;
+    
+    -- Check if the current date is within the valid registration period
+    IF CURRENT_DATE <= v_limit_date THEN
+        -- Allow operations for the current student in the current academic year and semester
+        RETURN 'MASV = ''' || v_masv || '''';
+    ELSE
+        -- Disallow operations
+        RETURN '1=0';
+    END IF;
+END;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        OBJECT_SCHEMA =>'ADMIN_OLS',
+        OBJECT_NAME=>'PROJECT_DANGKY',
+        POLICY_NAME =>'SV_DANGKY_INSERT',
+        POLICY_FUNCTION=>'SV_INSERT_DELETE_DANGKY_FUNCTION',
+        STATEMENT_TYPES=> 'INSERT',
+        UPDATE_CHECK => TRUE
+
+        
+    );
+END;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        OBJECT_SCHEMA    => 'ADMIN_OLS',
+        OBJECT_NAME      => 'PROJECT_DANGKY',
+        POLICY_NAME      => 'SV_DANGKY_DELETE',
+        FUNCTION_SCHEMA  => 'ADMIN_OLS', -- Schema where the function is located
+        POLICY_FUNCTION  => 'SV_INSERT_DELETE_DANGKY_FUNCTION',
+        STATEMENT_TYPES  => 'DELETE'
+    );
+END;
+/
+-- Sinh viên không được chỉnh sửa trên các trường liên quan đến điểm.
+CREATE OR REPLACE FUNCTION SV_UPDATE_DIEM_FUNCTION (
+    P_SCHEMA VARCHAR2,
+    P_OBJ VARCHAR2
+)
+RETURN VARCHAR2
+AS
+BEGIN
+    --KIỂM TRA USER CONNECT CÓ PHẢI LÀ SV KHÔNG, NẾU KHÔNG THÌ KHÔNG ÁP DỤNG CHÍNH SÁCH 
+    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
+        RETURN NULL;
+    END IF;
+
+    -- This policy will always be FALSE for UPDATE operations on grade-related fields
+    RETURN '1=0'; -- Prevent all updates
+END;
+/
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        OBJECT_SCHEMA    => 'ADMIN_OLS',
+        OBJECT_NAME      => 'PROJECT_DANGKY',
+        POLICY_NAME      => 'SV_UPDATE_DIEM',
+        FUNCTION_SCHEMA  => 'ADMIN_OLS', -- Schema where the function is located
+        POLICY_FUNCTION  => 'SV_UPDATE_DIEM_FUNCTION',
+        STATEMENT_TYPES  => 'UPDATE',
+        sec_relevant_cols    => 'DIEMTH, DIEMQT, DIEMCK, DIEMTK' -- Columns to restrict
+    );
+END;
+/
+-- Sinh viên được Xem tất cả thông tin trên quan hệ ĐANGKY tại các dòng dữ liệu liên
+-- quan đến chính sinh 
+BEGIN
+    DBMS_RLS.ADD_POLICY(
+        OBJECT_SCHEMA =>'ADMIN_OLS',
+        OBJECT_NAME=>'PROJECT_DANGKY',
+        POLICY_NAME =>'SV_DANGKY_SELECT',
+        POLICY_FUNCTION=>'SV_SELECT_FUNCTION',
+        STATEMENT_TYPES=>'SELECT'
+    );
+END;
+/
+GRANT SELECT ON PROJECT_SINHVIEN TO P_SINHVIEN;
+GRANT UPDATE (DCHI,DT) ON PROJECT_SINHVIEN TO P_SINHVIEN;
+GRANT SELECT ON PROJECT_HOCPHAN TO P_SINHVIEN;
+GRANT SELECT ON PROJECT_KHMO TO P_SINHVIEN;
+GRANT SELECT ON PROJECT_PHANCONG TO P_SINHVIEN;
+GRANT INSERT ON PROJECT_DANGKY TO P_SINHVIEN;
+GRANT DELETE ON PROJECT_DANGKY TO P_SINHVIEN;
+GRANT SELECT ON PROJECT_DANGKY TO P_SINHVIEN;
+GRANT P_SINHVIEN TO SV1;
+
+
+
+
 --select* from project_nhansu
 CREATE USER PROJECT_U_18 IDENTIFIED BY 123;
 GRANT CONNECT TO PROJECT_U_18;

@@ -32,7 +32,7 @@ namespace DB_Management
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView1.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
+            dataGridView1.DefaultCellStyle.Font = new Font("Consolas", 12, FontStyle.Regular);
             dataGridView1.DefaultCellStyle.ForeColor = Color.Aqua;
             dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
