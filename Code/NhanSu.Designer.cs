@@ -46,12 +46,12 @@
             this.dt_textBox = new System.Windows.Forms.TextBox();
             this.dt_label = new System.Windows.Forms.Label();
             this.phucap_label = new System.Windows.Forms.Label();
-            this.madv_comboBox = new System.Windows.Forms.ComboBox();
             this.update_button = new System.Windows.Forms.Button();
             this.insert_button = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.phucap_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tb_madv = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -238,14 +238,6 @@
             this.phucap_label.TabIndex = 69;
             this.phucap_label.Text = "PHỤ CẤP";
             // 
-            // madv_comboBox
-            // 
-            this.madv_comboBox.FormattingEnabled = true;
-            this.madv_comboBox.Location = new System.Drawing.Point(837, 438);
-            this.madv_comboBox.Name = "madv_comboBox";
-            this.madv_comboBox.Size = new System.Drawing.Size(130, 24);
-            this.madv_comboBox.TabIndex = 79;
-            // 
             // update_button
             // 
             this.update_button.BackColor = System.Drawing.Color.Aqua;
@@ -306,17 +298,23 @@
             this.label1.Text = "NHÂN SỰ";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // tb_madv
+            // 
+            this.tb_madv.Location = new System.Drawing.Point(837, 440);
+            this.tb_madv.Name = "tb_madv";
+            this.tb_madv.Size = new System.Drawing.Size(130, 22);
+            this.tb_madv.TabIndex = 84;
+            // 
             // NhanSu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(982, 673);
+            this.Controls.Add(this.tb_madv);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.insert_button);
             this.Controls.Add(this.update_button);
-            this.Controls.Add(this.madv_comboBox);
             this.Controls.Add(this.vaitro_comboBox);
             this.Controls.Add(this.vaitro_label);
             this.Controls.Add(this.username_label);
@@ -337,6 +335,7 @@
             this.Controls.Add(this.manv_textBox);
             this.Controls.Add(this.delete_button);
             this.Name = "NhanSu";
+            this.Size = new System.Drawing.Size(982, 673);
             this.Load += new System.EventHandler(this.NhanSu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -363,11 +362,11 @@
         private System.Windows.Forms.TextBox dt_textBox;
         private System.Windows.Forms.Label dt_label;
         private System.Windows.Forms.Label phucap_label;
-        private System.Windows.Forms.ComboBox madv_comboBox;
         private System.Windows.Forms.Button update_button;
         private System.Windows.Forms.Button insert_button;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox phucap_textBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tb_madv;
     }
 }
