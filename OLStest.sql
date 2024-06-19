@@ -58,3 +58,13 @@ SELECT *
 FROM cdb_services
 
 
+INSERT INTO admin_ols.project_dangky VALUES (1, 77, 'KTDLUD', 3, 2024, 'CTTT', NULL,NULL,NULL,NULL)
+
+select * from admin_ols.project_dangky;
+
+DELETE FROM admin_ols.project_dangky WHERE MAGV = 77 AND MAHP = 'KTDLUD' AND HK = 3 AND NAM = 2024 AND MACT = 'CTTT' 
+
+select * from admin_ols.project_sinhvien;
+
+delete from admin_ols.project_sinhvien where masv = 4
+

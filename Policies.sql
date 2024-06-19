@@ -464,7 +464,12 @@ AS
     v_hk int;
     v_year int;
     v_month VARCHAR2(50);
-BEGIN
+BEGIN   
+--KIỂM TRA USER CONNECT CÓ PHẢI LÀ SV KHÔNG, NẾU KHÔNG THÌ KHÔNG ÁP DỤNG CHÍNH SÁCH 
+    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
+        RETURN NULL;
+    END IF;
+    
     -- Set the end of the valid registration period   
     SELECT EXTRACT(YEAR FROM SYSDATE) into v_year FROM DUAL;
     SELECT MAX(HK) into v_hk FROM ADMIN_OLS.PROJECT_KHMO WHERE NAM = v_year ;
@@ -480,10 +485,6 @@ BEGIN
     -- Get the student ID from the current session user
     v_masv := REPLACE(SYS_CONTEXT('USERENV', 'SESSION_USER'), 'SV', '');
     
-    --KIỂM TRA USER CONNECT CÓ PHẢI LÀ SV KHÔNG, NẾU KHÔNG THÌ KHÔNG ÁP DỤNG CHÍNH SÁCH 
-    IF (SYS_CONTEXT('USERENV','SESSION_USER') NOT LIKE '%SV%') THEN
-        RETURN NULL;
-    END IF;
     
     -- Check if the current date is within the valid registration period
     IF CURRENT_DATE <= v_limit_date THEN
