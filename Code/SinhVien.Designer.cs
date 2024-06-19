@@ -31,7 +31,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.insert_button = new System.Windows.Forms.Button();
             this.update_button = new System.Windows.Forms.Button();
-            this.manganh_comboBox = new System.Windows.Forms.ComboBox();
             this.mact_comboBox = new System.Windows.Forms.ComboBox();
             this.mact_label = new System.Windows.Forms.Label();
             this.diachi_label = new System.Windows.Forms.Label();
@@ -54,6 +53,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dt_textBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tb_manganh = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,14 +95,6 @@
             this.update_button.Text = "Update";
             this.update_button.UseVisualStyleBackColor = false;
             this.update_button.Click += new System.EventHandler(this.Update_Click);
-            // 
-            // manganh_comboBox
-            // 
-            this.manganh_comboBox.FormattingEnabled = true;
-            this.manganh_comboBox.Location = new System.Drawing.Point(691, 423);
-            this.manganh_comboBox.Name = "manganh_comboBox";
-            this.manganh_comboBox.Size = new System.Drawing.Size(140, 24);
-            this.manganh_comboBox.TabIndex = 102;
             // 
             // mact_comboBox
             // 
@@ -321,19 +313,25 @@
             this.label2.TabIndex = 108;
             this.label2.Text = "SINH VIÊN";
             // 
+            // tb_manganh
+            // 
+            this.tb_manganh.Location = new System.Drawing.Point(691, 421);
+            this.tb_manganh.Name = "tb_manganh";
+            this.tb_manganh.Size = new System.Drawing.Size(140, 22);
+            this.tb_manganh.TabIndex = 109;
+            // 
             // SinhVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(982, 673);
+            this.Controls.Add(this.tb_manganh);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dt_textBox);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.insert_button);
             this.Controls.Add(this.update_button);
-            this.Controls.Add(this.manganh_comboBox);
             this.Controls.Add(this.mact_comboBox);
             this.Controls.Add(this.mact_label);
             this.Controls.Add(this.diachi_label);
@@ -354,6 +352,7 @@
             this.Controls.Add(this.masv_textBox);
             this.Controls.Add(this.delete_button);
             this.Name = "SinhVien";
+            this.Size = new System.Drawing.Size(982, 673);
             this.Load += new System.EventHandler(this.SinhVien_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -366,7 +365,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button insert_button;
         private System.Windows.Forms.Button update_button;
-        private System.Windows.Forms.ComboBox manganh_comboBox;
         private System.Windows.Forms.ComboBox mact_comboBox;
         private System.Windows.Forms.Label mact_label;
         private System.Windows.Forms.Label diachi_label;
@@ -389,5 +387,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox dt_textBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tb_manganh;
     }
 }

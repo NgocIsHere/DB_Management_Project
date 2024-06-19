@@ -142,7 +142,8 @@ namespace DB_Management
             //finally { connection.disconnect(); }
             DataSource ds = new DataSource();
             List<string> viewselects = ds.getAllObject("SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE" +
-                " LIKE 'PROJECT_U_%' AND PRIVILEGE = 'SELECT' AND TABLE_NAME NOT LIKE 'PROJECT_U_%'", "TABLE_NAME");
+                " LIKE 'PROJECT_U_%' AND PRIVILEGE = 'SELECT' AND TABLE_NAME NOT LIKE 'PROJECT_U_%'" +
+                " AND TABLE_NAME LIKE '%NHANVIEN'", "TABLE_NAME");
             if (viewselects.Count == 0)
             {
                 viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' " +
@@ -257,15 +258,16 @@ namespace DB_Management
                     " WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' OR TABLE_NAME LIKE '%_NHANSU%') " +
                     "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
                 List<string> column = new List<string>();
-                if (columns.Contains("MANV")) column.Add(" MANV = '" + manv + "' ");
-                if (columns.Contains("HOTEN")) column.Add("HOTEN = N'" + hoten + "' ");
-                if (columns.Contains("PHAI")) column.Add("PHAI = N'" + phai + "' ");
-                if (columns.Contains("NGSINH")) column.Add($"NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd')");
-                if (columns.Contains("PHUCAP")) column.Add(" PHUCAP = " + phuCap + "' ");
-                if (columns.Contains("DT")) column.Add(" DT = " + dienThoai);
-                if (columns.Contains("VAITRO")) column.Add(" VAITRO = " + vaitro);
-                if (columns.Contains("MADV")) column.Add(" MADV = " + madv);
-                if (columns.Contains("USERNAME")) column.Add(" USERNAME = " + username);
+                bool all = columns.Contains("");
+                if (columns.Contains("MANV")||all) column.Add(" MANV = '" + manv + "' ");
+                if (columns.Contains("HOTEN") || all) column.Add("HOTEN = N'" + hoten + "' ");
+                if (columns.Contains("PHAI") || all) column.Add("PHAI = N'" + phai + "' ");
+                if (columns.Contains("NGSINH") || all) column.Add($"NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd')");
+                if (columns.Contains("PHUCAP") || all) column.Add(" PHUCAP = " + phuCap + "' ");
+                if (columns.Contains("DT") || all) column.Add(" DT = " + dienThoai);
+                if (columns.Contains("VAITRO") || all) column.Add(" VAITRO = " + vaitro);
+                if (columns.Contains("MADV") || all) column.Add(" MADV = " + madv);
+                if (columns.Contains("USERNAME")||all) column.Add(" USERNAME = " + username);
                 string setclause = "SET ";
                 for (int i = 0; i < column.Count; i++)
                 {
@@ -302,7 +304,10 @@ namespace DB_Management
                     username_textBox.Clear();
                     nam_radioButton.Checked = true;
                     ngaysinh_dateTimePicker.Value = DateTime.Today;
-
+                    manv_textBox.Enabled = hoten_textBox.Enabled = nam_radioButton.Enabled
+                        = nu_radioButton.Enabled = ngaysinh_dateTimePicker.Enabled =
+                        dt_textBox.Enabled = username_textBox.Enabled = vaitro_comboBox.Enabled
+                        = tb_madv.Enabled = true;
                     connection.disconnect();
                     }
                 }
@@ -388,7 +393,22 @@ namespace DB_Management
                 vaitro_comboBox.SelectedItem = dataGridView1.Columns.Contains("VAITRO") ? selectedRow.Cells["VAITRO"].Value.ToString() : ""; ;
                 tb_madv.Text = dataGridView1.Columns.Contains("MADV") ? selectedRow.Cells["MADV"].Value.ToString() : ""; ;
                 username_textBox.Text = dataGridView1.Columns.Contains("USERNAME") ? selectedRow.Cells["USERNAME"].Value.ToString() : "";
-                Debug.WriteLine(selectedRow.Cells["MADV"].Value.ToString());
+                
+
+                DataSource ds = new DataSource();
+                List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
+                   " WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' OR TABLE_NAME LIKE '%_NHANSU%') " +
+                   "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
+                bool all = columns.Contains("");
+                manv_textBox.Enabled = columns.Contains("MANV") || all;
+                hoten_textBox.Enabled = columns.Contains("HOTEN") || all;
+                nam_radioButton.Enabled = nu_radioButton.Enabled = columns.Contains("PHAI") || all;
+                ngaysinh_dateTimePicker.Enabled = columns.Contains("NGSINH") || all;
+                phucap_textBox.Enabled = columns.Contains("PHUCAP") || all;
+                dt_textBox.Enabled = columns.Contains("DT") || all;
+                vaitro_comboBox.Enabled = columns.Contains("VAITRO") || all;
+                tb_madv.Enabled = columns.Contains("MADV") || all;
+                username_textBox.Enabled = columns.Contains("USERNAME") || all;
             }
         }
 
