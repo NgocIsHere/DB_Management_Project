@@ -6,10 +6,10 @@ middle_names = ["Văn", "Thị", "Đăng", "Lê", "Hữu", "Bảo", "Minh", "Tru
 last_names = ["Anh", "Trang", "Phương", "Thu", "Huy", "Tùng", "Việt", "Nam", "Hoa", "Linh"]
 
 
-MADONVI = ['VPK', 'HTTT', 'CNPM', 'KHMT', 'CTTT', 'TGMT', 'MMTVT']
+MADONVI = ['VPK', 'HTTT', 'CNPM', 'KHMT', 'CNTT', 'TGMT', 'MMTVT']
 DONVI = ['Văn phòng khoa', 'Bộ môn HTTT', 'Bộ môn CNPM', 'Bộ môn KHMT', 'Bộ môn CNTT', 'Bộ môn TGMT' , 'Bộ môn MMT và Viễn thông']
-VAITRO = ['C##P_NVCOBAN', 'C##P_GIANGVIEN', 'C##P_GIAOVU']
-VAITROTRUONG = ['C##P_TRUONGDONVI', 'C##P_TRUONGKHOA']
+VAITRO = ['P_NVCOBAN', 'P_GIANGVIEN', 'P_GIAOVU']
+VAITROTRUONG = ['P_TRUONGDONVI', 'P_TRUONGKHOA']
 gender = ['Nam', 'Nữ']
 
 TENHOCPHAN =  [
@@ -47,7 +47,7 @@ DIACHI = ['Hà Nội', 'Hồ Chí Minh','Khánh Hòa', 'Tiền Giang', 'Gia lai'
 
 
 
-sinhvien_size = 100
+sinhvien_size = 4000
 nhansu_size = 100
 
 
@@ -108,10 +108,10 @@ for i in range (DONVI.__len__()):
     account = 'PROJECT_U_' + str(i+1)
 
     nhansu.append([manv, random_name, gioitinh, ngay_sinh, phucap, phonenumber, vaitro, madonvi, account])
-    SQL_truong_dv2 += f'{manv}, \'{random_name}\', \'{gioitinh}\', to_date(\'{ngay_sinh}\',\'YYYY-MM-DD\'), {phucap}, \'{phonenumber}\', \'{vaitro}\', \'{madonvi}\', \'{account}\');\n'
+    SQL_truong_dv2 += f'{manv}, N\'{random_name}\', N\'{gioitinh}\', to_date(\'{ngay_sinh}\',\'YYYY-MM-DD\'), {phucap}, \'{phonenumber}\', N\'{vaitro}\', \'{madonvi}\', \'{account}\');\n'
     SQL_TRUONG_NHANSU_INSERT += SQL_truong_dv1 + SQL_truong_dv2
 
-    SQL_dv2 += f'\'{madonvi}\', \'{DONVI[i]}\', null);\n'
+    SQL_dv2 += f'\'{madonvi}\', N\'{DONVI[i]}\', null);\n'
     SQL_DONVI_INSERT += SQL_dv1 + SQL_dv2
     donvi.append([madonvi, DONVI[i], manv])
 
@@ -173,7 +173,7 @@ for i in range (7, nhansu_size):
 
     account = 'PROJECT_U_' + str(i+1)
     nhansu.append([manv, random_name, gioitinh, ngay_sinh, phucap, phonenumber, vaitro, madonvi, account])
-    SQL_ns2 += f'{manv}, \'{random_name}\', \'{gioitinh}\', to_date(\'{ngay_sinh}\',\'YYYY-MM-DD\'), {phucap}, \'{phonenumber}\', \'{vaitro}\', \'{madonvi}\', \'{account}\');\n'
+    SQL_ns2 += f'{manv}, N\'{random_name}\', N\'{gioitinh}\', to_date(\'{ngay_sinh}\',\'YYYY-MM-DD\'), {phucap}, \'{phonenumber}\', N\'{vaitro}\', \'{madonvi}\', \'{account}\');\n'
     SQL_NHANSU_INSERT += SQL_ns1 + SQL_ns2
 
 SQL_HOCPHAN_INSERT = ''
@@ -190,7 +190,7 @@ for i in range (MAHOCPHAN.__len__()):
     madv = MADONVI[int(i/6)]
 
     hocphan.append([mahp, tenhp, sotinchi, sotietlythuyet, sotietthuchanh, sosinhvientoida, madv])
-    SQL_hp2 += f'\'{mahp}\', \'{tenhp}\', {sotinchi}, {sotietlythuyet}, {sotietthuchanh}, {sosinhvientoida}, \'{madv}\');\n'
+    SQL_hp2 += f'\'{mahp}\', N\'{tenhp}\', {sotinchi}, {sotietlythuyet}, {sotietthuchanh}, {sosinhvientoida}, \'{madv}\');\n'
     SQL_HOCPHAN_INSERT += SQL_hp1 + SQL_hp2
 
 
@@ -218,7 +218,7 @@ for i in range(hocphan.__len__()):
 
 slgiaovien = 0
 for gv in nhansu:
-    if gv[6] == 'C##P_GIANGVIEN' or gv[6] == 'C##P_TRUONGDONVI' or gv[6] == 'C##P_TRUONGKHOA':
+    if gv[6] == 'P_GIANGVIEN' or gv[6] == 'P_TRUONGDONVI' or gv[6] == 'P_TRUONGKHOA':
         slgiaovien += 1
 print('Số lượng giáo viên: ', slgiaovien)
 soluongmonhocgiangday = int(khmo.__len__() / slgiaovien)
@@ -227,7 +227,7 @@ print('Số lượng môn học giảng dạy trung bình của 1 giáo viên: '
 SQL_PHANCONG_INSERT = ''
 phancong = []
 for i in range(nhansu.__len__()):
-    if nhansu[i][6] == 'C##P_GIANGVIEN' or nhansu[i][6] == 'C##P_TRUONGDONVI' or nhansu[i][6] == 'C##P_TRUONGKHOA':
+    if nhansu[i][6] == 'P_GIANGVIEN' or nhansu[i][6] == 'P_TRUONGDONVI' or nhansu[i][6] == 'P_TRUONGKHOA':
         
         manv = nhansu[i][0]
         for j in range(soluongmonhocgiangday):
@@ -258,7 +258,7 @@ for i in range(sinhvien_size):
     sdt = random_phone_num_generator()
     mact = random.choice(MACHUONGTRINH)
     manganh = random.choice(MADONVI[1:6])
-    SQL_sv2 += f'{mssv}, \'{random_name}\', \'{gioitinh}\', to_date(\'{ngay_sinh}\',\'YYYY-MM-DD\'), \'{diachi}\', \'{sdt}\', \'{mact}\', \'{manganh}\', null, null);\n'
+    SQL_sv2 += f'{mssv}, N\'{random_name}\', N\'{gioitinh}\', to_date(\'{ngay_sinh}\',\'YYYY-MM-DD\'), N\'{diachi}\', \'{sdt}\', \'{mact}\', \'{manganh}\', null, null);\n'
     sinhvien.append([mssv, random_name, gioitinh, ngay_sinh, diachi, sdt, mact, manganh])
     SQL_SINHVIEN_INSERT += SQL_sv1 + SQL_sv2
 
