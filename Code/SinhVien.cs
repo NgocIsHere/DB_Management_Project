@@ -97,8 +97,8 @@ namespace DB_Management
                 " AND TABLE_NAME LIKE '%SINHVIEN'", "TABLE_NAME");
             if (viewselects.Count == 0)
             {
-                viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' " +
-                    "OR TABLE_NAME LIKE '%_NHANSU%') AND PRIVILEGE = 'SELECT'", "TABLE_NAME");
+                viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS " +
+                    "WHERE TABLE_NAME LIKE '%_SINHVIEN%' AND PRIVILEGE = 'SELECT'", "TABLE_NAME");
             }
             string query = "";
             for (int i = 0; i < viewselects.Count; i++)

@@ -46,7 +46,42 @@ namespace DB_Management
 
         private void load_data()
         {
-            string query = $"select * from {admin}.PROJECT_DONVI";
+            //string query = $"select * from {admin}.PROJECT_DONVI";
+            //connection.connect();
+            //try
+            //{
+            //    using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+            //    {
+            //        OracleDataReader dr = cmd.ExecuteReader();
+            //        DataTable data = new DataTable();
+            //        data.Load(dr);
+            //        donvi_dataGridView.DataSource = data;
+
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //MessageBox.Show("xem đơn vị : " + ex.Message);
+            //}
+            DataSource ds = new DataSource();
+            List<string> viewselects = ds.getAllObject("SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE" +
+                " LIKE 'PROJECT_U_%' AND PRIVILEGE = 'SELECT' AND TABLE_NAME NOT LIKE 'PROJECT_U_%'" +
+                " AND TABLE_NAME LIKE '%DONVI'", "TABLE_NAME");
+            if (viewselects.Count == 0)
+            {
+                viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS " +
+                    "WHERE TABLE_NAME LIKE '%_DONVI%' AND PRIVILEGE = 'SELECT'", "TABLE_NAME");
+            }
+            string query = "";
+            for (int i = 0; i < viewselects.Count; i++)
+            {
+                query += $"SELECT* FROM {admin}." + viewselects[i];
+                if (i != viewselects.Count - 1)
+                {
+                    query += " UNION ";
+                }
+            }
+            Debug.WriteLine(query);
             connection.connect();
             try
             {
@@ -56,14 +91,14 @@ namespace DB_Management
                     DataTable data = new DataTable();
                     data.Load(dr);
                     donvi_dataGridView.DataSource = data;
-
                 }
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("xem đơn vị : " + ex.Message);
+                MessageBox.Show("load data nhân sự thất bại: " + ex.Message);
             }
             finally { connection.disconnect(); }
+            //finally { connection.disconnect(); }
 
         }
 
@@ -102,7 +137,7 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            string sql = $"insert into {admin}.PROJECT_DONVI values({madv}, N'{tendv}', {trdv})";
+            string sql = $"insert into {admin}.PROJECT_DONVI values('{madv}', N'{tendv}', '{trdv}')";
             connection.connect();
             try
             {
@@ -116,10 +151,7 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
-                MessageBox.Show("Thêm đơn vị thất bại: "+ ex.Message);
+                MessageBox.Show("Thêm đơn vị thất bại: "+ ex.Message+sql);
             }
             finally
             {
@@ -135,8 +167,24 @@ namespace DB_Management
             string tendv = textBox2.Text;
             string trdv = textBox3.Text;
 
-            string sql = $"update {admin}.PROJECT_DONVI SET TENDV = N'{tendv}', TRGDV = {trdv} WHERE MADV = '{madv}'";
-
+            DataSource ds = new DataSource();
+            List<string> table_names = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
+                " WHERE (TABLE_NAME LIKE '%_DONVI%') " +
+                "AND PRIVILEGE = 'UPDATE'", "TABLE_NAME");
+            List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
+                " WHERE TABLE_NAME LIKE '%_DONVI%' " +
+                "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
+            List<string> column = new List<string>();
+            bool all = columns.Contains("");
+            if (columns.Contains("MADV") || all) column.Add(" MADV = '" + madv + "' ");
+            if (columns.Contains("TENDV") || all) column.Add("TENDV = N'" + tendv + "' ");
+            if (columns.Contains("TRGDV") || all) column.Add("TRGDV = N'" + trdv + "' ");
+            string setclause = "SET ";
+            for (int i = 0; i < column.Count; i++)
+            {
+                setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
+            }
+            string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MADV = '{madv}'";
             connection.connect();
             try
             {
@@ -150,13 +198,11 @@ namespace DB_Management
             }
             catch (Exception ex)
             {
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
                 MessageBox.Show("thay đổi đơn vị thất bại: " + ex.Message);
             }
             finally
             {
+                textBox1.Enabled = textBox2.Enabled = textBox3.Enabled = true;
                 textBox1.Text = "";
                 textBox2.Text = "";
                 textBox3.Text = "";
@@ -207,13 +253,19 @@ namespace DB_Management
                 DataGridViewRow selectedRow = donvi_dataGridView.SelectedRows[0]; 
                 if (selectedRow != null)
                 {
-                    textBox1.Text = selectedRow.Cells["MADV"].Value.ToString();
-                    textBox2.Text = selectedRow.Cells["TENDV"].Value.ToString();
-                    textBox3.Text = selectedRow.Cells["TRGDV"].Value.ToString();
+                    textBox1.Text =donvi_dataGridView.Columns.Contains("MADV")? selectedRow.Cells["MADV"].Value.ToString():"";
+                    textBox2.Text = donvi_dataGridView.Columns.Contains("TENDV") ? selectedRow.Cells["TENDV"].Value.ToString():"";
+                    textBox3.Text = donvi_dataGridView.Columns.Contains("TRGDV") ? selectedRow.Cells["TRGDV"].Value.ToString():"";
 
+                    DataSource ds = new DataSource();
+                    List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
+                       " WHERE  TABLE_NAME LIKE '%_DONVI%' " +
+                       "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
+                    bool all = columns.Contains("");
+                    textBox1.Enabled = columns.Contains("MADV") || all;
+                    textBox2.Enabled = columns.Contains("TENDV") || all;
+                    textBox3.Enabled = columns.Contains("TRGDV") || all;
                 }
-
-
             }
         }
     }
