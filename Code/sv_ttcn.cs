@@ -47,16 +47,16 @@ namespace DB_Management
             try
             {
                 using (OracleCommand cmd = new OracleCommand(query, connection.connection))
-                            {
-                                using (OracleDataReader reader = cmd.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        quantity1 += 1;
-                                    }
-                    
-                                }
-                            }
+                {
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            quantity1 += 1;
+                        }
+
+                    }
+                }
             }
             catch (Exception ex)
             {

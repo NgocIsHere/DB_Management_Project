@@ -64,13 +64,13 @@ namespace DB_Management
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Enabled = false;
-            this.dataGridView1.Location = new System.Drawing.Point(54, 161);
+            this.dataGridView1.Location = new System.Drawing.Point(48, 129);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(900, 367);
+            this.dataGridView1.Size = new System.Drawing.Size(800, 294);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -79,9 +79,10 @@ namespace DB_Management
             this.button2.BackColor = System.Drawing.Color.Aqua;
             this.button2.Font = new System.Drawing.Font("Consolas", 10F);
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(670, 55);
+            this.button2.Location = new System.Drawing.Point(596, 44);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(135, 41);
+            this.button2.Size = new System.Drawing.Size(120, 33);
             this.button2.TabIndex = 6;
             this.button2.Text = "Cập nhật";
             this.button2.UseVisualStyleBackColor = false;
@@ -92,25 +93,27 @@ namespace DB_Management
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Consolas", 10F);
             this.label3.ForeColor = System.Drawing.Color.Aqua;
-            this.label3.Location = new System.Drawing.Point(50, 15);
+            this.label3.Location = new System.Drawing.Point(44, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(197, 23);
+            this.label3.Size = new System.Drawing.Size(162, 20);
             this.label3.TabIndex = 8;
             this.label3.Text = "Thông tin cá nhân";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(438, 40);
+            this.textBox1.Location = new System.Drawing.Point(389, 32);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(193, 26);
+            this.textBox1.Size = new System.Drawing.Size(172, 22);
             this.textBox1.TabIndex = 9;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(438, 99);
+            this.textBox2.Location = new System.Drawing.Point(389, 79);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(193, 26);
+            this.textBox2.Size = new System.Drawing.Size(172, 22);
             this.textBox2.TabIndex = 10;
             // 
             // label1
@@ -118,9 +121,9 @@ namespace DB_Management
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Consolas", 10F);
             this.label1.ForeColor = System.Drawing.Color.Aqua;
-            this.label1.Location = new System.Drawing.Point(333, 41);
+            this.label1.Location = new System.Drawing.Point(296, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 23);
+            this.label1.Size = new System.Drawing.Size(72, 20);
             this.label1.TabIndex = 11;
             this.label1.Text = "Địa chỉ";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -130,15 +133,15 @@ namespace DB_Management
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 10F);
             this.label2.ForeColor = System.Drawing.Color.Aqua;
-            this.label2.Location = new System.Drawing.Point(333, 102);
+            this.label2.Location = new System.Drawing.Point(296, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 23);
+            this.label2.Size = new System.Drawing.Size(36, 20);
             this.label2.TabIndex = 12;
             this.label2.Text = "SĐT";
             // 
             // sv_ttcn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.Controls.Add(this.label2);
@@ -148,9 +151,8 @@ namespace DB_Management
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "sv_ttcn";
-            this.Size = new System.Drawing.Size(1000, 720);
+            this.Size = new System.Drawing.Size(889, 576);
             this.Load += new System.EventHandler(this.userList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
