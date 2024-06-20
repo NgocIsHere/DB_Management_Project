@@ -44,17 +44,25 @@ namespace DB_Management
         {
             int quantity1 = 0;
             string query = $"SELECT * FROM {admin}.project_sinhvien";
-            using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+            try
             {
-                using (OracleDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        quantity1 += 1;
-                    }
+                using (OracleCommand cmd = new OracleCommand(query, connection.connection))
+                            {
+                                using (OracleDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        quantity1 += 1;
+                                    }
                     
-                }
+                                }
+                            }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
             OracleDataAdapter adapter = new OracleDataAdapter(query, connection.connection);
             System.Data.DataTable table = new System.Data.DataTable();
             adapter.Fill(table);

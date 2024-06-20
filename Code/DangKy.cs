@@ -89,7 +89,6 @@ namespace DB_Management
                 viewupdates.AddRange(getObjectv1("SELECT DISTINCT TABLE_NAME FROM ROLE_TAB_PRIVS WHERE PRIVILEGE = 'UPDATE'" +
                     " AND ROLE = '" + role + "' AND TABLE_NAME LIKE '%DANGKY%'", "TABLE_NAME"));
             }
-            MessageBox.Show(viewdeletes.Count.ToString());
         }
         private void getList()
         {

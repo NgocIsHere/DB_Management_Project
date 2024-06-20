@@ -35,8 +35,9 @@ namespace DB_Management
             sv_hocphan hp = new sv_hocphan(); 
             sv_dangky dk = new sv_dangky();
             sv_dangkyhp dkhp = new sv_dangkyhp();
+            ThongBao thongBao = new ThongBao();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {usr,hp, dk,dkhp};
+            {usr,hp, dk,dkhp, thongBao};
 
             navigationControl = new NavigationControl(userControls, content); // create an instance of NavigationControl class
             navigationControl.Display(0);
@@ -91,6 +92,18 @@ namespace DB_Management
         {
             navigationControl.Display(3);
             navigationButtons.Highlight(button4);
+        }
+
+        private void btn_tb_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(4);
+            navigationButtons.Highlight(btn_tb);
+        }
+
+        private void btn_dx_Click(object sender, EventArgs e)
+        {
+            Login.exit = false;
+            this.Close();
         }
     } 
 }

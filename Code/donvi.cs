@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D.Converters;
+using System.Windows.Shapes;
 
 namespace DB_Management
 {
@@ -70,7 +71,7 @@ namespace DB_Management
             if (viewselects.Count == 0)
             {
                 viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS " +
-                    "WHERE TABLE_NAME LIKE '%_DONVI%' AND PRIVILEGE = 'SELECT'", "TABLE_NAME");
+                    "WHERE TABLE_NAME LIKE '%_DONVI%' AND TABLE_NAME NOT LIKE '%TRUONGDONVI%' AND PRIVILEGE = 'SELECT'", "TABLE_NAME");
             }
             string query = "";
             for (int i = 0; i < viewselects.Count; i++)
@@ -259,7 +260,7 @@ namespace DB_Management
 
                     DataSource ds = new DataSource();
                     List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
-                       " WHERE  TABLE_NAME LIKE '%_DONVI%' " +
+                       " WHERE  TABLE_NAME LIKE '%_DONVI%' " + " AND TABLE_NAME NOT LIKE '%TRUONGDONVI%' " +
                        "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
                     bool all = columns.Contains("");
                     textBox1.Enabled = columns.Contains("MADV") || all;
