@@ -137,7 +137,7 @@ namespace DB_Management
                     MAGV = row.Cells["MaGV"].Value.ToString();
                     HK = int.TryParse(row.Cells["HK"].Value?.ToString(), out int hkValue) ? hkValue : 0;
                     Nam = int.TryParse(row.Cells["Năm"].Value?.ToString(), out int namValue) ? namValue : 0;
-                    using (OracleCommand command = new OracleCommand($"{admin}.InsertProjectDangKy", connection.connection))
+                    using (OracleCommand command = new OracleCommand("C##ADMIN.InsertProjectDangKy", connection.connection))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
 

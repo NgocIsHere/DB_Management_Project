@@ -33,15 +33,15 @@ namespace DB_Management
         public sv_dangky()
         {
             InitializeComponent();
-            connection = new Connection(); 
+            connection = new Connection();
             connection.connect();
             DisplayUserData();
         }
-    
+
 
         private void DisplayUserData()
         {
-            
+
             int quantity1 = 0;
             string query = $"SELECT DISTINCT HK FROM  {admin}.project_dangky"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
             OracleCommand command1 = new OracleCommand(query, connection.connection);
@@ -79,12 +79,12 @@ namespace DB_Management
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
             DisplayUserData();
         }
 
-     
-        
+
+
         private void userList_Load(object sender, EventArgs e)
         {
 
