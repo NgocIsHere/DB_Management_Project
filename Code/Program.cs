@@ -19,7 +19,7 @@ namespace DB_Management
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             while (!Login.exit)
             {
                 Login login = new Login();
@@ -31,11 +31,16 @@ namespace DB_Management
 
                 if (Login.role != null)
                 {
+
                     if (Login.role.Equals("DBA"))
                     {
                         Home dba_home = new Home();
                         Application.Run(dba_home);
 
+                    }
+                    else if (Login.role.Equals("SYSDBA"))
+                    {
+                        Application.Run(new HomeSys());
                     }
                     else if (Login.role.Equals("SINHVIEN"))
                     {
@@ -46,14 +51,14 @@ namespace DB_Management
                     {
                         PH2 pH2 = new PH2();
                         Application.Run(pH2);
-                    }                
-                    
+                    }
+
 
                 }
-                
+
 
             }
-            
+
 
         }
     }
