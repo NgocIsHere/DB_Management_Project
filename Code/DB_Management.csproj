@@ -175,11 +175,29 @@
     <Compile Include="FGAAudit.Designer.cs">
       <DependentUpon>FGAAudit.cs</DependentUpon>
     </Compile>
+    <Compile Include="HomeSys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomeSys.designer.cs">
+      <DependentUpon>HomeSys.cs</DependentUpon>
+    </Compile>
     <Compile Include="HomeSV.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HomeSV.designer.cs">
       <DependentUpon>HomeSV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="recovery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="recovery.Designer.cs">
+      <DependentUpon>recovery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="list_backup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="list_backup.Designer.cs">
+      <DependentUpon>list_backup.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -312,11 +330,20 @@
     <EmbeddedResource Include="hocphan.resx">
       <DependentUpon>hocphan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HomeSys.resx">
+      <DependentUpon>HomeSys.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomeSV.resx">
       <DependentUpon>HomeSV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="recovery.resx">
+      <DependentUpon>recovery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="list_backup.resx">
+      <DependentUpon>list_backup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="khmo.resx">
       <DependentUpon>khmo.cs</DependentUpon>
