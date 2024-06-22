@@ -32,6 +32,7 @@ namespace DB_Management
         int chooseall = 3;
         public string stringsql;
         public OracleConnection conn;
+        List<List<string>> temptable;
         public DangKy()
         {
             InitializeComponent();
@@ -60,11 +61,13 @@ namespace DB_Management
             if (dangkyList.Count == 0)
             {
                 getList();
+                
                 getPriView();
-                if (!backgroundWorker1.IsBusy)
-                    backgroundWorker1.RunWorkerAsync();
-            }
+                //MessageBox.Show("ok");
+                //getViewForList();
 
+            }
+            temptable = initTempt(viewdeletes);
         }
         private void getPriView()
         {
@@ -127,9 +130,9 @@ namespace DB_Management
         }
         private void getViewForList()
         {
-            foreach (List<string> row in dangkyList)
+            for(int i = 0;i<50;i++)
             {
-                getViewforItem(row);
+                getViewforItem(dangkyList[i]);
             }
         }
         private void getViewforItem(List<string> row)
@@ -213,38 +216,57 @@ namespace DB_Management
             }
             else
             {
-                ListViewItem item = lv_dk.SelectedItems[0];
-                string wherecluase = "WHERE MASV ='" + item.SubItems[0].Text + "' AND MAGV ='" + item.SubItems[1].Text + "' AND MAHP = '" + item.SubItems[2].Text +
-                    "' AND HK = " + item.SubItems[3].Text + " AND NAM = " + item.SubItems[4].Text +
-                    " AND MACT = '" + item.SubItems[5].Text + "'";
-                string setclause = " SET ";
-                List<string> column = new List<string>();
-                if (tb_masv.Enabled) column.Add(" MASV = '" + tb_masv.Text + "' ");
-                if (tb_magv.Enabled) column.Add("MAGV = '" + tb_magv.Text + "' ");
-                if (tb_mahp.Enabled) column.Add("MAHP = '" + tb_mahp.Text + "' ");
-                if (tb_hk.Enabled) column.Add("HK = " + tb_hk.Text);
-                if (tb_nam.Enabled) column.Add(" NAM = " + tb_nam.Text);
-                if (tb_mact.Enabled) column.Add(" MACT = '" + tb_mact.Text + "' ");
-                if (tb_DT.Enabled) column.Add(" DIEMTH = '" + tb_DT.Text + "' ");
-                if (tb_DQT.Enabled) column.Add(" DIEMQT = '" + tb_DQT.Text + "' ");
-                if (tb_DCK.Enabled) column.Add(" DIEMCK = '" + tb_DCK.Text + "' ");
-                if (tb_DTK.Enabled) column.Add(" DIEMTK = '" + tb_DTK.Text + "' ");
-                if(column.Count == 0)
+                try
                 {
-                    return;
+                    OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                    conn.Open();
+                    command.CommandText = $"BEGIN {admin}.PROJECT_GIANGVIEN_UPDATEDIEM({tb_masv.Text}," +
+                        $"{tb_magv.Text},'{tb_mahp.Text}',{tb_hk.Text},{tb_nam.Text},'{tb_mact.Text}'," +
+                        $"{tb_DT.Text},{tb_DQT.Text},{tb_DCK.Text}); END;";
+                    Debug.WriteLine(command.CommandText);
+                    command.ExecuteNonQuery();
+                    
+                    MessageBox.Show("procedure: 1 row update!");
+                    conn.Close();
                 }
-                for (int i = 0; i < column.Count; i++)
+                catch(Exception ex)
                 {
-                    setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
+                    
+                    conn.Close();
+                    ListViewItem item = lv_dk.SelectedItems[0];
+                    string wherecluase = "WHERE MASV ='" + item.SubItems[0].Text + "' AND MAGV ='" + item.SubItems[1].Text + "' AND MAHP = '" + item.SubItems[2].Text +
+                        "' AND HK = " + item.SubItems[3].Text + " AND NAM = " + item.SubItems[4].Text +
+                        " AND MACT = '" + item.SubItems[5].Text + "'";
+                    string setclause = " SET ";
+                    List<string> column = new List<string>();
+                    if (tb_masv.Enabled) column.Add(" MASV = '" + tb_masv.Text + "' ");
+                    if (tb_magv.Enabled) column.Add("MAGV = '" + tb_magv.Text + "' ");
+                    if (tb_mahp.Enabled) column.Add("MAHP = '" + tb_mahp.Text + "' ");
+                    if (tb_hk.Enabled) column.Add("HK = " + tb_hk.Text);
+                    if (tb_nam.Enabled) column.Add(" NAM = " + tb_nam.Text);
+                    if (tb_mact.Enabled) column.Add(" MACT = '" + tb_mact.Text + "' ");
+                    if (tb_DT.Enabled) column.Add(" DIEMTH = '" + tb_DT.Text + "' ");
+                    if (tb_DQT.Enabled) column.Add(" DIEMQT = '" + tb_DQT.Text + "' ");
+                    if (tb_DCK.Enabled) column.Add(" DIEMCK = '" + tb_DCK.Text + "' ");
+                    if (tb_DTK.Enabled) column.Add(" DIEMTK = '" + tb_DTK.Text + "' ");
+                    if (column.Count == 0)
+                    {
+                        return;
+                    }
+                    for (int i = 0; i < column.Count; i++)
+                    {
+                        setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
+                    }
+                    OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
+                    conn.Open();
+                    //command.ExecuteNonQuery();
+                    string v = viewGlobal.Contains("PROJECT_U_") ? "PROJECT_S_" + viewGlobal.Substring(10) : viewGlobal;
+                    command.CommandText = $"UPDATE {admin}." + v + setclause + wherecluase;
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    MessageBox.Show("1 row update!");
                 }
-                OracleCommand command = new OracleCommand("alter session set \"_oracle_script\" = TRUE", conn);
-                conn.Open();
-                //command.ExecuteNonQuery();
-                string v = viewGlobal.Contains("PROJECT_U_") ? "PROJECT_S_" + viewGlobal.Substring(10) : viewGlobal;
-                command.CommandText = $"UPDATE {admin}." + v + setclause + wherecluase;
-                command.ExecuteNonQuery();
-                conn.Close();
-                MessageBox.Show("1 row update!");
+                
             }
         }
         private void lv_pc_SelectedIndexChanged(object sender, EventArgs e)
@@ -430,9 +452,10 @@ namespace DB_Management
         private void lv_pc_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             ListViewItem item = e.Item;
-            List<List<string>> temptable = initTempt(viewdeletes);
+            
             if (item.Checked)
             {
+
                 if (!checkExist(temptable, item))
                 {
                     item.Checked = false;
@@ -535,19 +558,13 @@ namespace DB_Management
             return false;
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            getViewForList();
-        }
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-
+            int len = lv_dk.Items.Count;
+            for (int i=len;i<len+50 && i < dangkyList.Count; i++)
+            {
+                getViewforItem(dangkyList[i]);
+            }
         }
     }
 }

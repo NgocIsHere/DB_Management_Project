@@ -19,7 +19,7 @@ namespace DB_Management
         public SinhVien()
         {
             InitializeComponent();
-            load_data();
+            
             config();
             loadMaCT();
             loadMaNganh();
@@ -356,6 +356,11 @@ namespace DB_Management
         private void SinhVien_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            load_data();
         }
     }
 }

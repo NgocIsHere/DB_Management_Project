@@ -65,8 +65,6 @@ namespace DB_Management
             {
                 getList();
                 getPriView();
-                if (!backgroundWorker1.IsBusy)
-                    backgroundWorker1.RunWorkerAsync();
                 //getViewForList();
             }
         }
@@ -128,9 +126,9 @@ namespace DB_Management
         }
         private void getViewForList()
         {
-            foreach (List<string> row in phanCongList)
+            for(int i =0;i<50;i++)
             {
-                getViewforItem(row);
+                getViewforItem(phanCongList[i]);
             }
         }
         private void getViewforItem(List<string> row)
@@ -508,19 +506,13 @@ namespace DB_Management
 
         }
 
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            getViewForList();
+            int len = lv_pc.Items.Count;
+            for (int i = len; i < len + 50 && i < phanCongList.Count; i++)
+            {
+                getViewforItem(phanCongList[i]);
+            }
         }
     }
 }
