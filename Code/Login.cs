@@ -62,7 +62,11 @@ namespace DB_Management
                         else if(roles.Contains(roleSV))
                         {
                             role = "SINHVIEN";
-                        }    
+                        }   
+                        else if (username.ToLower().Equals("sys") )
+                        {
+                            role = "SYSDBA";
+                        }
                         else
                         {
                             role = "NHANVIEN";

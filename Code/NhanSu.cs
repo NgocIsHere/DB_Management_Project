@@ -264,7 +264,7 @@ namespace DB_Management
                 if (columns.Contains("PHAI") || all) column.Add("PHAI = N'" + phai + "' ");
                 if (columns.Contains("NGSINH") || all) column.Add($"NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd')");
                 if (columns.Contains("PHUCAP") || all) column.Add(" PHUCAP = " + phuCap + "' ");
-                if (columns.Contains("DT") || all) column.Add(" DT = " + dienThoai);
+                if (columns.Contains("DT") || all) column.Add(" DT = '" + dienThoai + "' ");
                 if (columns.Contains("VAITRO") || all) column.Add(" VAITRO = " + vaitro);
                 if (columns.Contains("MADV") || all) column.Add(" MADV = " + madv);
                 if (columns.Contains("USERNAME")||all) column.Add(" USERNAME = " + username);
@@ -281,6 +281,7 @@ namespace DB_Management
                 {
                     sql = $"UPDATE {admin}.PROJECT_NHANSU SET HOTEN = '{hoten}', PHAI = '{phai}', NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), PHUCAP = {phuCap}, DT = '{dienThoai}', VAITRO = '{vaitro}', MADV = '{madv}', USERNAME = '{username}' WHERE MANV = '{manv}'";
                 }
+                Debug.WriteLine(sql);
                 connection.connect();
                 try
                 {

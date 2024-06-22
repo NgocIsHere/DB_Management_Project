@@ -25,6 +25,9 @@ namespace DB_Management
         public ThongBao()
         {
             InitializeComponent();
+
+
+
             connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={host})(PORT={port})))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME={servicename})));User Id={userId};Password={password};";
             getData();
             lv_tb.Columns.Add("Ngày").Width = 100;
@@ -33,6 +36,8 @@ namespace DB_Management
             {
                 getViewForItem(item);
             }
+
+
         }
         private void getViewForItem(List<string> row)
         {
@@ -96,6 +101,7 @@ namespace DB_Management
 
         private void btn_next_Click(object sender, EventArgs e)
         {
+            
             index++;
             btn_pre.Visible = true;
             if (index == thongbaos.Count - 1)
@@ -108,6 +114,8 @@ namespace DB_Management
 
         private void lv_tb_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+
             if (lv_tb.SelectedItems.Count > 0)
             {
                 index = lv_tb.SelectedItems[0].Index;
@@ -120,12 +128,17 @@ namespace DB_Management
                 btn_next.Visible = true;
                 if (index == 0)
                 {
+                    if (thongbaos.Count == 1)
+                    {
+                        btn_next.Visible = false;
+                    }
                     btn_pre.Visible = false;
                 }
                 else if (index == thongbaos.Count - 1)
                 {
                     btn_next.Visible = false;
                 }
+                
             }
         }
     }

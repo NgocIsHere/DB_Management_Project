@@ -151,11 +151,11 @@
             this.khmo_dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.khmo_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.khmo_dataGridView.GridColor = System.Drawing.Color.Aqua;
-            this.khmo_dataGridView.Location = new System.Drawing.Point(73, 16);
+            this.khmo_dataGridView.Location = new System.Drawing.Point(174, 19);
             this.khmo_dataGridView.Name = "khmo_dataGridView";
             this.khmo_dataGridView.RowHeadersWidth = 51;
             this.khmo_dataGridView.RowTemplate.Height = 24;
-            this.khmo_dataGridView.Size = new System.Drawing.Size(529, 260);
+            this.khmo_dataGridView.Size = new System.Drawing.Size(333, 232);
             this.khmo_dataGridView.TabIndex = 22;
             this.khmo_dataGridView.SelectionChanged += new System.EventHandler(this.khmo_dataGridView_SelectionChanged);
             // 

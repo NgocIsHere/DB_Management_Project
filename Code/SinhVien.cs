@@ -219,30 +219,39 @@ namespace DB_Management
                 {
                     setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
                 }
-                string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MASV = '{masv}'";
-                connection.connect();
+
                 try
                 {
-                    using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+                    string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MASV = '{masv}'";
+                    connection.connect();
+                    try
                     {
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("cập nhật sinh viên thành công");
-                        load_data();
+                        using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+                        {
+                            cmd.ExecuteNonQuery();
+                            MessageBox.Show("cập nhật sinh viên thành công");
+                            load_data();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Cập nhật sinh viên thất bại: " + ex.Message);
+                    }
+                    finally
+                    {
+                        clearForm();
+                        connection.disconnect();
+                        hoten_textBox.Enabled = nam_radioButton.Enabled = ngaysinh_dateTimePicker.Enabled = 
+                        nu_radioButton.Enabled =dt_textBox.Enabled = 
+                        diachi_textBox.Enabled =  mact_comboBox.Enabled = tb_manganh.Enabled = masv_textBox.Enabled =
+                        stctl_textBox.Enabled = dtbtl_textBox.Enabled = true;
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Cập nhật sinh viên thất bại: " + ex.Message);
                 }
-                finally
-                {
-                    clearForm();
-                    connection.disconnect();
-                    hoten_textBox.Enabled = nam_radioButton.Enabled = ngaysinh_dateTimePicker.Enabled = 
-                    nu_radioButton.Enabled =dt_textBox.Enabled = 
-                    diachi_textBox.Enabled =  mact_comboBox.Enabled = tb_manganh.Enabled = masv_textBox.Enabled =
-                    stctl_textBox.Enabled = dtbtl_textBox.Enabled = true;
-                }
+
             }
             else
             {
