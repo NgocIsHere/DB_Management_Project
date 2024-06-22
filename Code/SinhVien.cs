@@ -144,7 +144,7 @@ namespace DB_Management
 
 
             string sql = $"INSERT INTO {admin}.PROJECT_SINHVIEN (MASV, HOTEN, PHAI, NGSINH, DCHI, DT, MACT, MANGANH, SOTCTL, DTBTL) " +
-             "VALUES (:masv, :hoten, :phai, TO_DATE(:ngaysinh, 'yyyy-MM-dd'), :diaChi, :dienThoai, :mact, :manganh, :sotctl, :dtbtl)";
+             $"VALUES ({masv}, N'{hoten}', N'{phai}', TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), N'{diaChi}', '{dienThoai}', '{mact}', '{manganh}', {sotctl}, {dtbtl})";
 
             Debug.WriteLine(sql);
             connection.connect();
@@ -152,16 +152,7 @@ namespace DB_Management
             {
                 using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
                 {
-                    cmd.Parameters.Add("masv", masv);
-                    cmd.Parameters.Add("hoten", hoten);
-                    cmd.Parameters.Add("phai", phai);
-                    cmd.Parameters.Add("ngaysinh", ngaysinh);
-                    cmd.Parameters.Add("diaChi", diaChi);
-                    cmd.Parameters.Add("dienThoai", dienThoai);
-                    cmd.Parameters.Add("mact", mact);
-                    cmd.Parameters.Add("manganh", manganh);
-                    cmd.Parameters.Add("sotctl", sotctl);
-                    cmd.Parameters.Add("dtbtl", dtbtl);
+                    
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Thêm sinh viên thành công");
@@ -208,9 +199,9 @@ namespace DB_Management
                 if (columns.Contains("HOTEN") || all) column.Add("HOTEN = N'" + hoten + "' ");
                 if (columns.Contains("PHAI") || all) column.Add("PHAI = N'" + phai + "' ");
                 if (columns.Contains("NGSINH") || all) column.Add($"NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd')");
-                if (columns.Contains("DT") || all) column.Add(" DT = " + dienThoai);
-                if (columns.Contains("MACT") || all) column.Add(" MADV = " + mact);
-                if (columns.Contains("MANGANH") || all) column.Add(" USERNAME = " + manganh);
+                if (columns.Contains("DT") || all) column.Add(" DT = '" + dienThoai + "' ");
+                if (columns.Contains("MACT") || all) column.Add(" MADV = '" + mact + "' " );
+                if (columns.Contains("MANGANH") || all) column.Add(" USERNAME = '" + manganh + "' ");
                 if (columns.Contains("SOTCTL") || all) column.Add(" SOTCTL = " + sotctl);
                 if (columns.Contains("DTBTL") || all) column.Add(" DTBTL = " + dtbtl);
 
@@ -370,6 +361,11 @@ namespace DB_Management
         private void button2_Click(object sender, EventArgs e)
         {
             load_data();
+        }
+
+        private void phucap_label_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

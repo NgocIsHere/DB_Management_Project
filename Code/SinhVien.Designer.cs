@@ -129,9 +129,9 @@
             // 
             // diachi_textBox
             // 
-            this.diachi_textBox.Location = new System.Drawing.Point(389, 473);
+            this.diachi_textBox.Location = new System.Drawing.Point(404, 473);
             this.diachi_textBox.Name = "diachi_textBox";
-            this.diachi_textBox.Size = new System.Drawing.Size(200, 22);
+            this.diachi_textBox.Size = new System.Drawing.Size(185, 22);
             this.diachi_textBox.TabIndex = 98;
             // 
             // manganh_label
@@ -158,9 +158,9 @@
             // 
             // dtbtl_textBox
             // 
-            this.dtbtl_textBox.Location = new System.Drawing.Point(813, 560);
+            this.dtbtl_textBox.Location = new System.Drawing.Point(845, 560);
             this.dtbtl_textBox.Name = "dtbtl_textBox";
-            this.dtbtl_textBox.Size = new System.Drawing.Size(140, 22);
+            this.dtbtl_textBox.Size = new System.Drawing.Size(108, 22);
             this.dtbtl_textBox.TabIndex = 95;
             // 
             // phucap_label
@@ -168,17 +168,18 @@
             this.phucap_label.AutoSize = true;
             this.phucap_label.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.phucap_label.ForeColor = System.Drawing.SystemColors.Control;
-            this.phucap_label.Location = new System.Drawing.Point(647, 516);
+            this.phucap_label.Location = new System.Drawing.Point(647, 514);
             this.phucap_label.Name = "phucap_label";
             this.phucap_label.Size = new System.Drawing.Size(160, 18);
             this.phucap_label.TabIndex = 94;
             this.phucap_label.Text = "SỐ TÍN CHỈ TÍCH LŨY";
+            this.phucap_label.Click += new System.EventHandler(this.phucap_label_Click);
             // 
             // stctl_textBox
             // 
-            this.stctl_textBox.Location = new System.Drawing.Point(813, 512);
+            this.stctl_textBox.Location = new System.Drawing.Point(845, 512);
             this.stctl_textBox.Name = "stctl_textBox";
-            this.stctl_textBox.Size = new System.Drawing.Size(140, 22);
+            this.stctl_textBox.Size = new System.Drawing.Size(108, 22);
             this.stctl_textBox.TabIndex = 93;
             // 
             // ngaysinh_dateTimePicker
@@ -298,9 +299,9 @@
             // 
             // dt_textBox
             // 
-            this.dt_textBox.Location = new System.Drawing.Point(389, 514);
+            this.dt_textBox.Location = new System.Drawing.Point(404, 514);
             this.dt_textBox.Name = "dt_textBox";
-            this.dt_textBox.Size = new System.Drawing.Size(200, 22);
+            this.dt_textBox.Size = new System.Drawing.Size(185, 22);
             this.dt_textBox.TabIndex = 106;
             // 
             // label2
@@ -316,9 +317,9 @@
             // 
             // tb_manganh
             // 
-            this.tb_manganh.Location = new System.Drawing.Point(813, 469);
+            this.tb_manganh.Location = new System.Drawing.Point(845, 469);
             this.tb_manganh.Name = "tb_manganh";
-            this.tb_manganh.Size = new System.Drawing.Size(140, 22);
+            this.tb_manganh.Size = new System.Drawing.Size(108, 22);
             this.tb_manganh.TabIndex = 109;
             // 
             // button2

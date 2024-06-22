@@ -202,7 +202,7 @@ namespace DB_Management
             string madv = tb_madv.Text;
             string username = username_textBox.Text;
 
-            string sql = $"INSERT INTO {admin}.PROJECT_NHANSU (MANV, HOTEN, PHAI, NGSINH, PHUCAP, DT, VAITRO, MADV, USERNAME) VALUES('{manv}', '{hoten}', '{phai}', TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), {phuCap}, '{dienThoai}', '{vaitro}', '{madv}', '{username}')";
+            string sql = $"INSERT INTO {admin}.PROJECT_NHANSU (MANV, HOTEN, PHAI, NGSINH, PHUCAP, DT, VAITRO, MADV, USERNAME) VALUES('{manv}', N'{hoten}', '{phai}', TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), {phuCap}, '{dienThoai}', '{vaitro}', '{madv}', '{username}')";
             Debug.WriteLine(sql);
 
             connection.connect();
@@ -294,7 +294,7 @@ namespace DB_Management
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(sql);
+                    MessageBox.Show("cập nhật nhân sự thất bại: " + ex.Message.ToString());
                 }
                 finally
                 {

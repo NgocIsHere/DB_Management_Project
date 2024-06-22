@@ -185,7 +185,10 @@ namespace DB_Management
             {
                 setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
             }
+
             string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MADV = '{madv}'";
+            Debug.WriteLine(sql);
+
             connection.connect();
             try
             {
