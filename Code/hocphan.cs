@@ -181,36 +181,45 @@ namespace DB_Management
             {
                 setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
             }
-            string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MAHP = '{mahp}'";
-            connection.connect();
-            //string sql = $"UPDATE {admin}.PROJECT_HOCPHAN SET TENHP = N'{tenhp}', SOTC = {sotc}, SSLT = {sotietlt}, STTH = {sotietth}, SOSVTD = {sosvtd}, MADV = '{madv}' WHERE MAHP = '{mahp}' ";
-            Debug.WriteLine(sql);
 
-            connection.connect();
             try
             {
-                using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+                string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MAHP = '{mahp}'";
+                connection.connect();
+                //string sql = $"UPDATE {admin}.PROJECT_HOCPHAN SET TENHP = N'{tenhp}', SOTC = {sotc}, SSLT = {sotietlt}, STTH = {sotietth}, SOSVTD = {sosvtd}, MADV = '{madv}' WHERE MAHP = '{mahp}' ";
+                Debug.WriteLine(sql);
+
+                connection.connect();
+                try
                 {
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Cập nhật học phần thành công");
-                    load_data();
+                    using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Cập nhật học phần thành công");
+                        load_data();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Cập nhật học phần thất bại: " + ex.Message);
+                }
+                finally
+                {
+                    textBox.Text = "";
+                    textBox2.Text = "";
+                    textBox3.Text = "";
+                    textBox4.Text = "";
+                    textBox5.Text = "";
+                    textBox6.Text = "";
+                    textBox7.Text = "";
+                    connection.disconnect();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Cập nhật học phần thất bại: " + ex.Message);
+                MessageBox.Show("Cập nhật học phần thất bại: " + "insufficient privilege");
             }
-            finally
-            {
-                textBox.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
-                textBox4.Text = "";
-                textBox5.Text = "";
-                textBox6.Text = "";
-                textBox7.Text = "";
-                connection.disconnect();
-            }
+
         }
 
         private void hocphan_dataGridView_SelectionChanged(object sender, EventArgs e)

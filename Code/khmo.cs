@@ -150,10 +150,10 @@ namespace DB_Management
 
             DataSource ds = new DataSource();
             List<string> table_names = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
-                " WHERE (TABLE_NAME LIKE '%_DONVI%') " +
+                " WHERE (TABLE_NAME LIKE '%_KHMO%') " +
                 "AND PRIVILEGE = 'UPDATE'", "TABLE_NAME");
             List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
-                " WHERE TABLE_NAME LIKE '%_DONVI%' " +
+                " WHERE TABLE_NAME LIKE '%_KHMO%' " +
                 "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
             List<string> column = new List<string>();
             bool all = columns.Contains("");

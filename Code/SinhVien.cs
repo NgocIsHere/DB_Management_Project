@@ -33,11 +33,14 @@ namespace DB_Management
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView1.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
+            //dataGridView1.DefaultCellStyle.Font = new Font("Consolas", 14, FontStyle.Regular);
             dataGridView1.DefaultCellStyle.ForeColor = Color.Aqua;
             dataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 0, 64);
             dataGridView1.BackgroundColor = Color.FromArgb(0, 0, 64);
+
+            
+
         }
 
         private void loadMaCT()
@@ -152,8 +155,7 @@ namespace DB_Management
             {
                 using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
                 {
-                    
-
+                  
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Thêm sinh viên thành công");
                     load_data();
@@ -191,7 +193,7 @@ namespace DB_Management
                     " WHERE (TABLE_NAME LIKE '%_SINHVIEN%') " +
                     "AND PRIVILEGE = 'UPDATE'", "TABLE_NAME");
                 List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
-                    " WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' OR TABLE_NAME LIKE '%_NHANSU%') " +
+                    " WHERE (TABLE_NAME LIKE '%_SINHVIEN%') " +
                     "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
                 List<string> column = new List<string>();
                 bool all = columns.Contains("");
@@ -200,10 +202,15 @@ namespace DB_Management
                 if (columns.Contains("PHAI") || all) column.Add("PHAI = N'" + phai + "' ");
                 if (columns.Contains("NGSINH") || all) column.Add($"NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd')");
                 if (columns.Contains("DT") || all) column.Add(" DT = '" + dienThoai + "' ");
-                if (columns.Contains("MACT") || all) column.Add(" MADV = '" + mact + "' " );
-                if (columns.Contains("MANGANH") || all) column.Add(" USERNAME = '" + manganh + "' ");
+                if (columns.Contains("MACT") || all) column.Add(" MACT = '" + mact + "' " );
+                if (columns.Contains("MANGANH") || all) column.Add(" MANGANH = '" + manganh + "' ");
                 if (columns.Contains("SOTCTL") || all) column.Add(" SOTCTL = " + sotctl);
                 if (columns.Contains("DTBTL") || all) column.Add(" DTBTL = " + dtbtl);
+
+                Debug.WriteLine(table_names.ToString());
+                Debug.WriteLine(columns.ToString());
+
+
 
                 string setclause = "SET ";
                 for (int i = 0; i < column.Count; i++)
@@ -214,6 +221,7 @@ namespace DB_Management
                 try
                 {
                     string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MASV = '{masv}'";
+                    Debug.WriteLine(sql);
                     connection.connect();
                     try
                     {
@@ -320,7 +328,7 @@ namespace DB_Management
                 dtbtl_textBox.Text = dataGridView1.Columns.Contains("DTBTL") ? selectedRow.Cells["DTBTL"].Value.ToString() : "";
                 DataSource ds = new DataSource();
                 List<string> columns = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS" +
-                   " WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' OR TABLE_NAME LIKE '%_NHANSU%') " +
+                   " WHERE (TABLE_NAME LIKE '%_SINHVIEN%') " +
                    "AND PRIVILEGE = 'UPDATE'", "COLUMN_NAME");
                 bool all = columns.Contains("");
                 masv_textBox.Enabled = columns.Contains("MASV") || all;

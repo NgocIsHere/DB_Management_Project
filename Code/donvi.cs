@@ -186,32 +186,40 @@ namespace DB_Management
                 setclause += i == column.Count - 1 ? column[i] : column[i] + ", ";
             }
 
-            string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MADV = '{madv}'";
-            Debug.WriteLine(sql);
-
-            connection.connect();
             try
             {
-                using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
-                {
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Thay đổi đơn vị thành công");
-                    load_data();
-                }
+                string sql = $"UPDATE {admin}.{table_names[0]} " + setclause + $" WHERE MADV = '{madv}'";
+                Debug.WriteLine(sql);
 
+                connection.connect();
+                try
+                {
+                    using (OracleCommand cmd = new OracleCommand(sql, connection.connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Thay đổi đơn vị thành công");
+                        load_data();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("thay đổi đơn vị thất bại: " + ex.Message);
+                }
+                finally
+                {
+                    textBox1.Enabled = textBox2.Enabled = textBox3.Enabled = true;
+                    textBox1.Text = "";
+                    textBox2.Text = "";
+                    textBox3.Text = "";
+                    connection.disconnect();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("thay đổi đơn vị thất bại: " + ex.Message);
+                MessageBox.Show("thay đổi đơn vị thất bại: " + "insufficient privilege");
             }
-            finally
-            {
-                textBox1.Enabled = textBox2.Enabled = textBox3.Enabled = true;
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
-                connection.disconnect();
-            }
+
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
