@@ -64,41 +64,68 @@ AUDIT EXECUTE ON ADMIN_OLS.SV_INSERT_DELETE_DANGKY_FUNCTION BY ACCESS WHENEVER N
 -- Yêu cầu 3: Thực hiện Fine-grained Audit
 
 -- Hành vi Cập nhật quan hệ ĐANGKY tại các trường liên quan đến điểm số nhưng người đó không thuộc vai trò Giảng viên:
---BEGIN
---  DBMS_FGA.DROP_POLICY(
---    object_schema => 'ADMIN_OLS',
---    object_name => 'PROJECT_DANGKY',
---    policy_name => 'DIEM_UPDATE_POLICY'
---  );
---END;
---/
---BEGIN
---  DBMS_FGA.DROP_POLICY(
---    object_schema => 'ADMIN_OLS',
---    object_name => 'PROJECT_NHANSU',
---    policy_name => 'PHUCAP_ACCESS_POLICY'
---  );
---END;
---/
+BEGIN
+  DBMS_FGA.DROP_POLICY(
+    object_schema => 'ADMIN_OLS',
+    object_name => 'PROJECT_DANGKY',
+    policy_name => 'DIEM_UPDATE_POLICY'
+  );
+END;
+/
+BEGIN
+  DBMS_FGA.DROP_POLICY(
+    object_schema => 'ADMIN_OLS',
+    object_name => 'PROJECT_NHANSU',
+    policy_name => 'PHUCAP_ACCESS_POLICY'
+  );
+END;
+/
 
 --GRANT SELECT ON DUAL TO PROJECT_U_1000;
 --GRANT EXECUTE ON ADMIN_OLS.is_role_set TO PROJECT_U_1000;
 --
 --SELECT ADMIN_OLS.is_role_set('P_GIANGVIEN') FROM DUAL;
 
+
+  
+
 CREATE OR REPLACE FUNCTION is_role_set(p_role IN VARCHAR2) RETURN INTEGER AS
+  v_role_count INTEGER;
 BEGIN
-  IF DBMS_SESSION.IS_ROLE_ENABLED(p_role) THEN
-    RETURN 1;
+  SELECT COUNT(*)
+  INTO v_role_count
+  FROM DBA_ROLE_PRIVS
+  WHERE GRANTEE = SYS_CONTEXT('USERENV', 'SESSION_USER')
+  AND GRANTED_ROLE = p_role;
+
+  IF v_role_count > 0 THEN
+    RETURN 1; -- Role is granted to the user
   ELSE
-    RETURN 0;
+    RETURN 0; -- Role is not granted to the user
   END IF;
 END;
-/ 
+/
 
-GRANT SELECT ON DUAL TO SV1
-GRANT EXECUTE ON is_role_set TO SV1
-SELECT ADMIN_OLS.is_role_set('P_GIANGVIEN') FROM DUAL;
+--SELECT* FROM ADMIN_OLS.PROJECT_GIANGVIEN_XEMDANGKYDCPC
+
+--SELECT DBMS_SESSION.IS_ROLE_ENABLED('P_GIANGVIEN') AS ROLE_ENABLED FROM DUAL;
+--
+--SELECT * FROM DBA_ROLE_PRIVS WHERE GRANTED_ROLE = 'P_GIANGVIEN'
+--SELECT GRANTEE FROM DBA_ROLE_PRIVS WHERE GRANTED_ROLE = 'P_GIANGVIEN' OR GRANTED_ROLE = 'P_TRUONGKHOA' OR GRANTED_ROLE = 'P_TRUONGDONVI' 
+--
+--SELECT * 
+--        FROM DBA_TAB_PRIVS 
+--        WHERE GRANTEE IN (
+--          SELECT GRANTED_ROLE 
+--          FROM DBA_ROLE_PRIVS 
+--          CONNECT BY PRIOR GRANTED_ROLE = GRANTEE
+--          START WITH GRANTED_ROLE = 'P_GIANGVIEN'
+--        );
+--
+--
+--GRANT SELECT ON DUAL TO project_u_20
+--GRANT EXECUTE ON is_role_set TO project_u_20
+--SELECT ADMIN_OLS.is_role_set('P_GIANGVIEN') FROM DUAL;
 
 BEGIN
   DBMS_FGA.ADD_POLICY(
@@ -111,6 +138,8 @@ BEGIN
   );
 END;
 /
+
+
 
 -- Hành vi của người dùng này có thể đọc trên trường PHUCAP của người khác ở quan hệ NHANSU:
 BEGIN
@@ -149,18 +178,20 @@ END;
 SELECT * FROM DBA_FGA_AUDIT_TRAIL ORDER BY TIMESTAMP DESC ;
 
 
- delete from aud$ where TIMESTAMP <= sysdate-30;
+--delete from aud$ where TIMESTAMP <= sysdate-30;
 
-BEGIN
-DBMS_SCHEDULER.create_job (
-job_name => 'JOB_PURGE_AUDIT_RECORDS',
-job_type => 'PLSQL_BLOCK',
-job_action => 'BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(DBMS_AUDIT_MGMT.AUDIT_TRAIL_AUD_STD, TRUNC(SYSTIMESTAMP)-30); END;',
-start_date => SYSTIMESTAMP,
-repeat_interval => 'freq=daily; byhour=0; byminute=0; bysecond=0;',
-end_date => NULL,
-enabled => TRUE,
-comments => 'Update last_archive_timestamp');
-END;
-/
+--BEGIN
+--DBMS_SCHEDULER.create_job (
+--job_name => 'JOB_PURGE_AUDIT_RECORDS',
+--job_type => 'PLSQL_BLOCK',
+--job_action => 'BEGIN DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(DBMS_AUDIT_MGMT.AUDIT_TRAIL_AUD_STD, TRUNC(SYSTIMESTAMP)-30); END;',
+--start_date => SYSTIMESTAMP,
+--repeat_interval => 'freq=daily; byhour=0; byminute=0; bysecond=0;',
+--end_date => NULL,
+--enabled => TRUE,
+--comments => 'Update last_archive_timestamp');
+--END;
+--/
+SELECT* FROM ADMIN_OLS.PROJECT_GIANGVIEN_XEMDANGKYDCPC;
 
+UPDATE ADMIN_OLS.PROJECT_GIANGVIEN_XEMDANGKYDCPC SET DIEMTH = 1 , DIEMQT = 1 , DIEMCK = 1 , DIEMTK = 0.6*1 + 0.1*1 + 0.3*1 WHERE MASV = 25 AND MAGV = 28 AND MAHP = 'HTTTDN' AND HK = 1 AND MACT = 'VP' 
