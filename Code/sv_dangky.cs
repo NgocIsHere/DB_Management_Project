@@ -35,13 +35,21 @@ namespace DB_Management
             InitializeComponent();
             connection = new Connection(); 
             connection.connect();
-            DisplayUserData();
+            /*
+                        DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
+                        checkBoxColumn.Name = "Check";
+                        checkBoxColumn.HeaderText = "Chọn";
+                        dataGridView1.Columns.Add(checkBoxColumn);
+                        dataGridView1.DataSource = table1;
+                        dataGridView1.Columns["Check"].ReadOnly = false;*/
+
+            //DisplayUserData();
+            init();
+
         }
     
-
-        private void DisplayUserData()
+        private void init()
         {
-            
             int quantity1 = 0;
             string query = $"SELECT DISTINCT HK FROM  {admin}.project_dangky"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
             OracleCommand command1 = new OracleCommand(query, connection.connection);
@@ -70,6 +78,35 @@ namespace DB_Management
             dataGridView1.Columns.Add(checkBoxColumn);
             dataGridView1.DataSource = table1;
             dataGridView1.Columns["Check"].ReadOnly = false;
+        }
+
+        private void DisplayUserData()
+        {
+            
+            int quantity1 = 0;
+            string query = $"SELECT DISTINCT HK FROM  {admin}.project_dangky"; // Thay your_table và column_name bằng tên bảng và tên cột thực tế
+            OracleCommand command1 = new OracleCommand(query, connection.connection);
+
+            // Sử dụng SqlDataReader để đọc dữ liệu từ truy vấn
+            OracleDataReader reader1 = command1.ExecuteReader();
+
+            // Xóa dữ liệu cũ khỏi ComboBox trước khi điền dữ liệu mới
+            comboBox1.Items.Clear();
+
+            // Điền dữ liệu từ cột vào ComboBox
+            while (reader1.Read())
+            {
+                comboBox1.Items.Add(reader1["HK"].ToString()); // Thay column_name bằng tên cột bạn muốn điền vào ComboBox
+            }
+            comboBox1.Items.Add("Tất cả");
+
+            string query1 = $"SELECT * FROM {admin}.project_dangky";
+
+            OracleDataAdapter adapter1 = new OracleDataAdapter(query1, connection.connection);
+            System.Data.DataTable table1 = new System.Data.DataTable();
+            adapter1.Fill(table1);
+            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
+            dataGridView1.DataSource = table1;
 
         }
 
@@ -144,19 +181,27 @@ namespace DB_Management
                     MAGV = row.Cells["MAGV"].Value.ToString();
                     HK = int.TryParse(row.Cells["HK"].Value?.ToString(), out int hkValue) ? hkValue : 0;
                     Nam = int.TryParse(row.Cells["NAM"].Value?.ToString(), out int namValue) ? namValue : 0;
-                    using (OracleCommand command = new OracleCommand(deleteQuery, connection.connection))
+                    try
                     {
-                        command.Parameters.Add("p_magv", OracleDbType.Varchar2).Value = MAGV;
-                        command.Parameters.Add("p_mahp", OracleDbType.Varchar2).Value = MAHP;
-                        command.Parameters.Add("p_hk", OracleDbType.Int32).Value = HK;
-                        command.Parameters.Add("p_nam", OracleDbType.Int32).Value = Nam;
+                        using (OracleCommand command = new OracleCommand(deleteQuery, connection.connection))
+                        {
+                            command.Parameters.Add("p_magv", OracleDbType.Varchar2).Value = MAGV;
+                            command.Parameters.Add("p_mahp", OracleDbType.Varchar2).Value = MAHP;
+                            command.Parameters.Add("p_hk", OracleDbType.Int32).Value = HK;
+                            command.Parameters.Add("p_nam", OracleDbType.Int32).Value = Nam;
 
-                        Debug.WriteLine(command.CommandText);
+                            Debug.WriteLine(command.CommandText);
 
-                        // Execute the command
-                        command.ExecuteNonQuery();
+                            // Execute the command
+                            command.ExecuteNonQuery();
 
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
 
                 }
                 DisplayUserData();

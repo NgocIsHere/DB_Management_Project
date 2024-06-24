@@ -490,6 +490,16 @@ BEGIN
     -- Set the end of the valid registration period   
     SELECT EXTRACT(YEAR FROM SYSDATE) into v_year FROM DUAL;
     SELECT MAX(HK) into v_hk FROM ADMIN_OLS.PROJECT_KHMO WHERE NAM = v_year ;
+    
+    IF  EXTRACT(MONTH FROM CURRENT_DATE) >= 9 THEN 
+        v_hk := 3;
+    ELSIF EXTRACT(MONTH FROM CURRENT_DATE) >= 5 THEN  
+        v_hk := 2;
+    ELSIF EXTRACT(MONTH FROM CURRENT_DATE) >= 1 THEN  
+        v_hk := 1;
+    END IF;
+    
+
     IF v_hk = 1 THEN
         v_month := '01';
     ELSIF v_hk = 2 THEN
