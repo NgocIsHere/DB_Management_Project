@@ -143,7 +143,7 @@ namespace DB_Management
             DataSource ds = new DataSource();
             List<string> viewselects = ds.getAllObject("SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE" +
                 " LIKE 'PROJECT_U_%' AND PRIVILEGE = 'SELECT' AND TABLE_NAME NOT LIKE 'PROJECT_U_%'" +
-                " AND TABLE_NAME LIKE '%NHANVIEN'", "TABLE_NAME");
+                " AND TABLE_NAME LIKE '%NHANSU'", "TABLE_NAME");
             if (viewselects.Count == 0)
             {
                 viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' " +
