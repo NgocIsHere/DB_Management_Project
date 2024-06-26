@@ -55,7 +55,7 @@ namespace DB_Management
                         /*                    MessageBox.Show("Bạn đã đăng nhập với vai trò: " +role);
                         */
                         
-                        if (roles.Contains(roleDBA))
+                        if (roles.Equals(roleDBA))
                         {
                             role = roleDBA;
                         }

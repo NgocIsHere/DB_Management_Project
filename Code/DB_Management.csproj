@@ -202,6 +202,12 @@
     <Compile Include="HomeSys.designer.cs">
       <DependentUpon>HomeSys.cs</DependentUpon>
     </Compile>
+    <Compile Include="history_recover.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="history_recover.designer.cs">
+      <DependentUpon>history_recover.cs</DependentUpon>
+    </Compile>
     <Compile Include="list_backup.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -356,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="khmo.resx">
       <DependentUpon>khmo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="history_recover.resx">
+      <DependentUpon>history_recover.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="list_backup.resx">
       <DependentUpon>list_backup.cs</DependentUpon>

@@ -36,12 +36,14 @@ namespace DB_Management
             this.btn_dx = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.content = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.btn_dx);
             this.panel1.Controls.Add(this.button1);
@@ -75,7 +77,7 @@ namespace DB_Management
             this.btn_dx.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
             this.btn_dx.ForeColor = System.Drawing.Color.Black;
             this.btn_dx.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_dx.Location = new System.Drawing.Point(3, 174);
+            this.btn_dx.Location = new System.Drawing.Point(2, 260);
             this.btn_dx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_dx.Name = "btn_dx";
             this.btn_dx.Size = new System.Drawing.Size(271, 89);
@@ -113,6 +115,22 @@ namespace DB_Management
             this.content.TabIndex = 1;
             this.content.Paint += new System.Windows.Forms.PaintEventHandler(this.content_Paint);
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.Aqua;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold);
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(3, 174);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(270, 82);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "History Recover";
+            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // HomeSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -136,5 +154,6 @@ namespace DB_Management
         private Button button1;
         private Button btn_dx;
         private Button button2;
+        private Button button3;
     }
 }

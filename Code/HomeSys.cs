@@ -45,11 +45,12 @@ namespace DB_Management
         private void InitializeNavigationButtons()
         {
             List<Button> buttons = new List<Button>()
-            { button1, button2};
+            { button1, button2, button3};
             list_backup list = new list_backup();
             recovery rcv = new recovery();
+            history_recover his = new history_recover();
             List<UserControl> userControls = new List<UserControl>() // Your UserControl list
-            {list, rcv};
+            {list, rcv, his};
             navigationControl = new NavigationControl(userControls, content);
             // create a NavigationButtons instance
             navigationButtons = new NavigationButtons(buttons, btnDefaultColor, btnSelectedtColor);
@@ -91,7 +92,10 @@ namespace DB_Management
             navigationButtons.Highlight(button2);
         }
 
-        
-        
+        private void button3_Click(object sender, EventArgs e)
+        {
+            navigationControl.Display(2);
+            navigationButtons.Highlight(button3);
+        }
     } 
 }

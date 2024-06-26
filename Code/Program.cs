@@ -28,7 +28,6 @@ namespace DB_Management
 
 
                 Application.Run(login);
-
                 if (Login.role != null)
                 {
 
@@ -38,10 +37,10 @@ namespace DB_Management
                         Application.Run(dba_home);
 
                     }
-                    //else if (Login.role.Equals("SYSDBA"))
-                    //{
-                    //    Application.Run(new HomeSys());
-                    //}
+                    else if (Login.role.Equals("SYSDBA"))
+                    {
+                        Application.Run(new HomeSys());
+                    }
                     else if (Login.role.Equals("SINHVIEN"))
                     {
                         HomeSV sv_home = new HomeSV();

@@ -28,7 +28,13 @@ namespace DB_Management
 
         public DataSource()
         {
+            
             stringsql = $"Data Source=localhost:1521/PROJECT_DBMANAGEMENT;User Id={Config.username};Password={Config.password};";
+            if(Config.username == "SYS")
+            {
+                stringsql = $"Data Source=localhost:1521/PROJECT_DBMANAGEMENT;User Id={Config.username};Password={Config.password};DBA Privilege=SYSDBA;";
+
+            }
             conn = new OracleConnection(stringsql);
         }
         public List<string> getAllObject(string query, string column)
