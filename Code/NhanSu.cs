@@ -143,7 +143,7 @@ namespace DB_Management
             DataSource ds = new DataSource();
             List<string> viewselects = ds.getAllObject("SELECT * FROM USER_TAB_PRIVS WHERE GRANTEE" +
                 " LIKE 'PROJECT_U_%' AND PRIVILEGE = 'SELECT' AND TABLE_NAME NOT LIKE 'PROJECT_U_%'" +
-                " AND TABLE_NAME LIKE '%NHANVIEN'", "TABLE_NAME");
+                " AND TABLE_NAME LIKE '%NHANSU'", "TABLE_NAME");
             if (viewselects.Count == 0)
             {
                 viewselects = ds.getAllObject("SELECT * FROM ROLE_TAB_PRIVS WHERE (TABLE_NAME LIKE '%_NVCOBAN_%' " +
@@ -263,7 +263,7 @@ namespace DB_Management
                 if (columns.Contains("HOTEN") || all) column.Add("HOTEN = N'" + hoten + "' ");
                 if (columns.Contains("PHAI") || all) column.Add("PHAI = N'" + phai + "' ");
                 if (columns.Contains("NGSINH") || all) column.Add($"NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd')");
-                if (columns.Contains("PHUCAP") || all) column.Add(" PHUCAP = " + phuCap + "' ");
+                if (columns.Contains("PHUCAP") || all) column.Add(" PHUCAP = " + phuCap + " ");
                 if (columns.Contains("DT") || all) column.Add(" DT = '" + dienThoai + "' ");
                 if (columns.Contains("VAITRO") || all) column.Add(" VAITRO = " + vaitro);
                 if (columns.Contains("MADV") || all) column.Add(" MADV = " + madv);
@@ -281,7 +281,7 @@ namespace DB_Management
                 {
                     sql = $"UPDATE {admin}.PROJECT_NHANSU SET HOTEN = '{hoten}', PHAI = '{phai}', NGSINH = TO_DATE('{ngaysinh:yyyy-MM-dd}', 'yyyy-mm-dd'), PHUCAP = {phuCap}, DT = '{dienThoai}', VAITRO = '{vaitro}', MADV = '{madv}', USERNAME = '{username}' WHERE MANV = '{manv}'";
                 }
-                Debug.WriteLine(sql);
+                Debug.WriteLine("sql: " + sql);
                 connection.connect();
                 try
                 {

@@ -166,6 +166,8 @@ END;
   WHERE USERNAME != 'ADMIN_OLS' 
   ORDER BY TIMESTAMP DESC;
 
+
+
 -- DBA_COMMON_AUDIT_TRAIL: Chế độ xem này kết hợp các bản ghi kiểm toán tiêu chuẩn và chi tiết. 
 -- Nó cung cấp chế độ xem hợp nhất của tất cả các hoạt động kiểm toán, giúp dễ dàng phân tích và báo cáo.
 --SELECT * FROM DBA_COMMON_AUDIT_TRAIL;
@@ -173,13 +175,14 @@ END;
 -- DBA_FGA_AUDIT_TRAIL: Chế độ xem này đặc biệt hiển thị các bản ghi kiểm toán chi tiết (FGA) được tạo bởi Oracle. 
 -- Nó chứa thông tin về các sự kiện FGA, chẳng hạn như truy vấn các cột cụ thể hoặc truy cập dữ liệu dựa trên các điều kiện nhất định.
 
- SELECT TIMESTAMP, DB_USER, OBJECT_NAME, POLICY_NAME, SQL_TEXT FROM DBA_FGA_AUDIT_TRAIL ORDER BY TIMESTAMP DESC ;
+SELECT TIMESTAMP, DB_USER, OBJECT_NAME, POLICY_NAME, SQL_TEXT FROM DBA_FGA_AUDIT_TRAIL ORDER BY TIMESTAMP DESC ;
 --
 SELECT * FROM DBA_FGA_AUDIT_TRAIL ORDER BY TIMESTAMP DESC ;
 
 
---delete from aud$ where TIMESTAMP <= sysdate-30;
-
+-- This SQL statement deletes records from the aud$ table where the TIMESTAMP is older than 30 days from the current date.
+DELETE FROM admin_ols.aud$ WHERE TIMESTAMP <= SYSDATE - 30;
+select * from aud$;
 --BEGIN
 --DBMS_SCHEDULER.create_job (
 --job_name => 'JOB_PURGE_AUDIT_RECORDS',
