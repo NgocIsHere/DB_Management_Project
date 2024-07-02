@@ -236,7 +236,6 @@ CREATE TABLE PROJECT_OLS_THONGBAO
     PRIMARY KEY(ID)
 );
 
-
 INSERT INTO PROJECT_OLS_THONGBAO VALUES(1,to_date('2023-2-22','YYYY-MM-DD'), 'THONG BAO NAY DANH CHO TDV',N'Các trưởng bộ môn nhắc nhở nhân viên của mình hòan tất điểm thi cho sinh viên trước 0h ngày 5/3/2023');
 INSERT INTO PROJECT_OLS_THONGBAO VALUES(2,to_date('2023-3-24','YYYY-MM-DD'), 'THONG BAO NAY DANH CHO SINH VIEN NGANH HTTT CS1',N'Các bạn sinh viên chú ý hoàn tất khảo sát đánh giá môn học cũng như tiền học phí');
 INSERT INTO PROJECT_OLS_THONGBAO VALUES(3,to_date('2023-4-24','YYYY-MM-DD'), 'THONG BAO NAY DANH CHO TRUONG BO MON KHMT CUA CO SO 1',N'Trưởng bộ môn khoa học máy tính trực thuộc cơ sở 1 chú ý nộp đề tài dự án nghiên cứu mới cho giám đốc tại phòng giám đốc trước 0 h ngày 25/4/2023');
@@ -554,8 +553,6 @@ EXEC PROJECT_CREATE_NHANVIEN;
 EXEC PROJECT_CREATE_SINHVIEN;
 
 SELECT * FROM ROLE_TAB_PRIVS WHERE  TABLE_NAME LIKE '%_DONVI%' AND PRIVILEGE = 'SELECT'
-
-
 
 SELECT * FROM ROLE_TAB_PRIVS WHERE TABLE_NAME LIKE '%_KHMO%' AND TABLE_NAME NOT LIKE '%TRUONGDONVI%'  AND PRIVILEGE = 'SELECT'
 
